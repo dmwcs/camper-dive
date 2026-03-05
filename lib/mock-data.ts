@@ -5,6 +5,11 @@ export interface ProductOption {
   values: string[];
 }
 
+export interface MediaItem {
+  type: "image" | "video";
+  src: string;
+}
+
 export interface Product {
   name: string;
   price: number;
@@ -12,7 +17,7 @@ export interface Product {
   slug: string;
   shortDesc: string;
   image: string;
-  gallery?: string[];
+  media?: MediaItem[];
   description?: string;
   specs?: { label: string; value: string }[];
   features?: string[];
@@ -47,6 +52,12 @@ export const featuredProducts: Product[] = [
       { name: "Band Type", values: ["Latex (Standard)", "Hybrid (Power+)"] },
       { name: "Tip", values: ["Single Barb", "Tri-Tip", "Paralyzer"] },
     ],
+    media: [
+      { type: "image", src: "/images/product-speargun.jpg" },
+      { type: "image", src: "/images/spearfishing-action.jpg" },
+      { type: "image", src: "/images/spearfishing-catch.jpg" },
+      { type: "video", src: "/videos/reef-hunter-75-demo.mp4" },
+    ],
   },
   {
     name: "Reef Hunter 90",
@@ -74,6 +85,12 @@ export const featuredProducts: Product[] = [
     options: [
       { name: "Band Type", values: ["Latex (Standard)", "Hybrid (Power+)"] },
       { name: "Tip", values: ["Single Barb", "Tri-Tip", "Paralyzer"] },
+    ],
+    media: [
+      { type: "image", src: "/images/spearfishing-reef.jpg" },
+      { type: "image", src: "/images/coral-reef.jpg" },
+      { type: "image", src: "/images/spearfishing-action.jpg" },
+      { type: "video", src: "/videos/reef-hunter-90-demo.mp4" },
     ],
   },
   {
@@ -103,6 +120,12 @@ export const featuredProducts: Product[] = [
       { name: "Band Type", values: ["Latex (Standard)", "Hybrid (Power+)"] },
       { name: "Tip", values: ["Single Barb", "Tri-Tip", "Paralyzer"] },
     ],
+    media: [
+      { type: "image", src: "/images/spearfishing-deep.jpg" },
+      { type: "image", src: "/images/hero-ocean.jpg" },
+      { type: "image", src: "/images/lifestyle-campfire.jpg" },
+      { type: "video", src: "/videos/reef-hunter-110-demo.mp4" },
+    ],
   },
   {
     name: "Speargun Tip Set — 3 Pack",
@@ -124,6 +147,11 @@ export const featuredProducts: Product[] = [
       "Hardened stainless steel construction",
       "Universal M6 thread fits all Reef Hunter spearguns",
       "Comes in a neoprene roll-up pouch",
+    ],
+    media: [
+      { type: "image", src: "/images/product-mask.jpg" },
+      { type: "image", src: "/images/product-speargun.jpg" },
+      { type: "image", src: "/images/spearfishing-catch.jpg" },
     ],
   },
   {
@@ -150,6 +178,11 @@ export const featuredProducts: Product[] = [
     options: [
       { name: "Size", values: ["Standard (15L)", "Large (20L)"] },
     ],
+    media: [
+      { type: "image", src: "/images/product-wetsuit.jpg" },
+      { type: "image", src: "/images/lifestyle-cooking.jpg" },
+      { type: "image", src: "/images/lifestyle-grilling.jpg" },
+    ],
   },
   {
     name: "Dive Knife — Reef Series",
@@ -174,6 +207,11 @@ export const featuredProducts: Product[] = [
     ],
     options: [
       { name: "Blade Style", values: ["Straight Edge", "Combo (Straight + Serrated)"] },
+    ],
+    media: [
+      { type: "image", src: "/images/product-knife.jpg" },
+      { type: "image", src: "/images/product-fins.jpg" },
+      { type: "image", src: "/images/course-freediving.jpg" },
     ],
   },
 ];

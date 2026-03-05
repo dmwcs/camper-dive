@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { featuredProducts } from "@/lib/mock-data";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductActions } from "@/components/products/ProductActions";
+import { ProductGallery } from "@/components/products/ProductGallery";
 
 export function generateStaticParams() {
   return featuredProducts.map((p) => ({ slug: p.slug }));
@@ -36,7 +36,7 @@ export default async function ProductDetailPage({
     <div className="bg-surface">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── Header ── */}
-        <header className="pt-12 pb-8">
+        <header className="pt-8 pb-6 sm:pt-12 sm:pb-8">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-[13px] text-slate-light">
             <Link
@@ -50,36 +50,29 @@ export default async function ProductDetailPage({
           </nav>
 
           {/* Category */}
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-4 flex flex-wrap items-center gap-3 sm:mt-6">
             <span className="rounded-full bg-ocean/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ocean">
               {product.category}
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="mt-5 font-heading text-[2.25rem] font-bold leading-[1.15] tracking-tight text-charcoal lg:text-[2.75rem]">
+          <h1 className="mt-3 font-heading text-[1.75rem] font-bold leading-[1.15] tracking-tight text-charcoal sm:mt-5 sm:text-[2.25rem] lg:text-[2.75rem]">
             {product.name}
           </h1>
 
-          {/* Description */}
-          <p className="mt-4 text-lg leading-relaxed text-slate">
+          {/* Description — hidden on mobile, shown below gallery instead */}
+          <p className="mt-3 text-base leading-relaxed text-slate sm:mt-4 sm:text-lg">
             {product.description || product.shortDesc}
           </p>
         </header>
 
         {/* ── Product Layout ── */}
-        <div className="grid gap-10 pb-12 lg:grid-cols-2">
-          {/* Image */}
-          <div className="relative aspect-square overflow-hidden rounded-2xl">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
-          </div>
+        <div className="grid gap-6 pb-8 sm:gap-10 sm:pb-12 md:grid-cols-2">
+          {/* Gallery */}
+          <ProductGallery
+            media={product.media ?? [{ type: "image", src: product.image }]}
+          />
 
           {/* Details */}
           <div className="flex flex-col justify-center">
@@ -99,15 +92,15 @@ export default async function ProductDetailPage({
 
             {/* Specs */}
             {product.specs && (
-              <div className="mt-8 border-t border-border pt-6">
+              <div className="mt-6 border-t border-border pt-5 sm:mt-8 sm:pt-6">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-charcoal">
                   Specifications
                 </h3>
-                <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
+                <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:mt-4 sm:gap-x-6 sm:gap-y-3">
                   {product.specs.map((spec) => (
                     <div key={spec.label}>
-                      <dt className="text-xs text-slate">{spec.label}</dt>
-                      <dd className="mt-0.5 text-sm font-medium text-charcoal">
+                      <dt className="text-[11px] text-slate sm:text-xs">{spec.label}</dt>
+                      <dd className="mt-0.5 text-[13px] font-medium text-charcoal sm:text-sm">
                         {spec.value}
                       </dd>
                     </div>
@@ -152,7 +145,7 @@ export default async function ProductDetailPage({
       </div>
 
       {/* ── Related ── */}
-      <section className="border-t border-border bg-background py-14">
+      <section className="border-t border-border bg-background py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-light">
             Keep browsing
@@ -160,7 +153,7 @@ export default async function ProductDetailPage({
           <h2 className="mt-1 font-heading text-xl font-bold text-charcoal">
             You might also like
           </h2>
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          <div className="mt-5 grid gap-4 grid-cols-2 sm:mt-6 sm:grid-cols-3 sm:gap-5">
             {related.map((p) => (
               <ProductCard key={p.slug} product={p} size="sm" />
             ))}

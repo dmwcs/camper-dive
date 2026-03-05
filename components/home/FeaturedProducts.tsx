@@ -77,12 +77,12 @@ export function FeaturedProducts() {
         </Link>
 
         {/* Rest — compact grid */}
-        <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-5">
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
           {rest.map((product, i) => (
             <Link
               key={product.slug}
               href={`/products/${product.slug}`}
-              className="group rounded-xl border border-border bg-surface p-2.5 transition-all duration-300 hover:border-ocean/20 hover:shadow-lg"
+              className="group rounded-xl border border-border bg-surface p-2.5 transition-all duration-300 hover:border-ocean/20 hover:shadow-lg sm:p-3"
               data-sr={String((i + 1) * 50)}
             >
               <div className="relative aspect-square overflow-hidden rounded-lg bg-background">
@@ -90,22 +90,22 @@ export function FeaturedProducts() {
                   src={product.image}
                   alt={product.name}
                   fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
               <div className="mt-2.5 px-0.5">
-                <span className="text-[10px] font-medium uppercase tracking-wider text-sand-dark">
+                <span className="text-[10px] font-medium uppercase tracking-wider text-sand-dark sm:text-[11px]">
                   {product.category}
                 </span>
-                <h3 className="mt-0.5 text-[13px] font-bold leading-snug text-charcoal group-hover:text-ocean transition-colors">
+                <h3 className="mt-0.5 text-[13px] font-bold leading-snug text-charcoal transition-colors group-hover:text-ocean sm:text-sm">
                   {product.name}
                 </h3>
                 <div className="mt-1.5 flex items-center justify-between">
                   <span className="text-sm font-bold text-charcoal">
                     ${product.price}
                   </span>
-                  <span className="text-[10px] font-semibold text-ocean md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
+                  <span className="text-[10px] font-semibold text-ocean sm:text-xs lg:opacity-0 lg:transition-opacity lg:group-hover:opacity-100">
                     View &rarr;
                   </span>
                 </div>
