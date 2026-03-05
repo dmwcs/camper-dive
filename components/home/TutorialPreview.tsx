@@ -45,7 +45,7 @@ export function TutorialPreview() {
         </div>
 
         {/* Tutorial Grid */}
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-4 md:grid-cols-3">
           {tutorials.map((tutorial) => (
             <TutorialCard key={tutorial.slug} tutorial={tutorial} size="sm" />
           ))}

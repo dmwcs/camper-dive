@@ -17,7 +17,7 @@ export function ProductCard({ product, size = "md" }: ProductCardProps) {
     >
       <div
         className={`relative overflow-hidden bg-background ${
-          isMd ? "aspect-[4/3] sm:aspect-[3/2]" : "aspect-[4/3]"
+          isMd ? "aspect-[5/4]" : "aspect-[4/3]"
         }`}
       >
         <Image
@@ -26,35 +26,35 @@ export function ProductCard({ product, size = "md" }: ProductCardProps) {
           fill
           sizes={
             isMd
-              ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              : "(max-width: 640px) 100vw, 33vw"
+              ? "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              : "(max-width: 640px) 50vw, 33vw"
           }
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
-      <div className={isMd ? "p-4 sm:p-5" : "p-4"}>
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-sand-dark sm:text-xs">
+      <div className={isMd ? "p-3 sm:p-4" : "p-3"}>
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-sand-dark sm:text-[11px]">
           {product.category}
         </p>
         <h3
-          className={`mt-1 font-heading font-bold text-charcoal transition-colors group-hover:text-ocean ${
-            isMd ? "text-base sm:text-lg" : "text-sm sm:text-base"
+          className={`mt-0.5 font-heading font-bold text-charcoal transition-colors group-hover:text-ocean ${
+            isMd ? "text-sm sm:text-base" : "text-[13px] sm:text-sm"
           }`}
         >
           {product.name}
         </h3>
         {isMd && (
-          <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-slate">
+          <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-slate sm:text-sm">
             {product.shortDesc}
           </p>
         )}
-        <div className={`flex items-center justify-between ${isMd ? "mt-3 sm:mt-4" : "mt-3"}`}>
+        <div className={`flex items-center justify-between ${isMd ? "mt-2 sm:mt-3" : "mt-2"}`}>
           <span
-            className={`font-bold text-charcoal ${isMd ? "text-base sm:text-lg" : "text-sm sm:text-base"}`}
+            className={`font-bold text-charcoal ${isMd ? "text-sm sm:text-base" : "text-sm"}`}
           >
             ${product.price}
           </span>
-          <span className="text-xs font-medium text-ocean sm:text-sm">
+          <span className="text-[11px] font-medium text-ocean sm:text-xs">
             View Details
           </span>
         </div>

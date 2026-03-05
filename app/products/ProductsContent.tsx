@@ -47,7 +47,7 @@ export function ProductsContent() {
               <> in <span className="font-medium text-charcoal">{activeCategory}</span></>
             )}
           </p>
-          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((product) => (
               <ProductCard key={product.slug} product={product} size="md" />
             ))}

@@ -46,7 +46,7 @@ export function FeaturedProducts() {
           className="group mt-8 grid overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:border-ocean/20 hover:shadow-lg md:grid-cols-2"
           data-sr
         >
-          <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[320px]">
+          <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[240px]">
             <Image
               src={hero.image}
               alt={hero.name}
@@ -55,18 +55,18 @@ export function FeaturedProducts() {
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
-          <div className="flex flex-col justify-center p-6 md:p-10">
+          <div className="flex flex-col justify-center p-5 md:p-8">
             <span className="text-[11px] font-semibold uppercase tracking-wider text-sand-dark">
               {hero.category}
             </span>
-            <h3 className="mt-2 font-heading text-2xl font-bold text-charcoal group-hover:text-ocean transition-colors">
+            <h3 className="mt-1.5 font-heading text-xl font-bold text-charcoal transition-colors group-hover:text-ocean md:text-2xl">
               {hero.name}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-slate">
+            <p className="mt-2 text-sm leading-relaxed text-slate">
               {hero.shortDesc}
             </p>
-            <div className="mt-6 flex items-center gap-4">
-              <span className="text-2xl font-bold text-charcoal">
+            <div className="mt-4 flex items-center gap-4">
+              <span className="text-xl font-bold text-charcoal md:text-2xl">
                 ${hero.price}
               </span>
               <span className="rounded-lg bg-ocean/10 px-3 py-1.5 text-xs font-semibold text-ocean transition-colors group-hover:bg-ocean group-hover:text-white">
