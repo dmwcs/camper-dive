@@ -17,6 +17,7 @@ export default function ProductsPage() {
         tagline="Our Gear"
         title="Products"
         description="Handheld spearguns and accessories designed for Australian reef conditions. Compact, powerful, and built to travel."
+        backgroundImage="/images/spearfishing-reef.jpg"
       />
 
       {/* Category Filter */}

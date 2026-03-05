@@ -31,6 +31,7 @@ export default function ContactPage() {
         tagline="Get in touch"
         title="Contact Us"
         description="Got a question about our spearguns, need help choosing the right size, or just want to chat? We'd love to hear from you."
+        backgroundImage="/images/coral-reef.jpg"
       />
 
       <section className="py-12">
