@@ -39,12 +39,6 @@ export const tutorialType = defineType({
       initialValue: 'article',
     }),
     defineField({
-      name: 'readTime',
-      title: 'Read Time',
-      type: 'string',
-      description: 'e.g. "5 min read"',
-    }),
-    defineField({
       name: 'description',
       title: 'Short Description',
       type: 'text',

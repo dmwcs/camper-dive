@@ -34,7 +34,6 @@ export interface Tutorial {
   category: string;
   format: "Article" | "Video" | "Article + Video";
   slug: string;
-  readTime: string;
   lastEdited: string;
   description: string;
   image: string;
