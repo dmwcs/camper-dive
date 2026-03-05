@@ -68,7 +68,7 @@ The primary conversion page. Must immediately communicate:
 1. **Hero Section** — Full-width hero image/video of spearfishing in Australian waters. Headline + CTA button
 2. **"What is a Hand Speargun?" Education Section** — Since most Australians don't know about hand spearguns, this section visually explains what it is, why it's different from a regular speargun, and why it's worth trying. Use comparison visually (compact vs bulky), key benefits, and a "Learn More" CTA. This is a critical conversion section for newcomers.
 3. **Hero Product Showcase** — The flagship handheld speargun with key specs, beauty shots, and "Shop Now" CTA
-4. **Value Propositions** — 3–4 icons/cards (e.g., "Built for Aussie Waters", "Free Shipping AU-wide", "Expert Tested by a Freediving Instructor", "Tutorial Support")
+4. **Value Propositions** — 3–4 icons/cards (e.g., "Built for Australian Waters", "Free Shipping AU-wide", "Expert Tested by a Freediving Instructor", "Tutorial Support")
 5. **Featured Products** — Grid of 3–6 top products
 6. **Tutorial Preview** — 2–3 featured tutorial cards from different categories, linking to /tutorials
 7. **Testimonials / Social Proof** — Customer reviews or Instagram feed
@@ -207,7 +207,7 @@ The site owner (freediving instructor) needs a simple admin panel to independent
 |---------|-----------|
 | **Mood** | Rugged, adventurous, oceanic, authentic Australian |
 | **Feel** | Personal and trustworthy, not corporate. A freediving instructor who shares real experience. |
-| **Tone of Voice** | Casual, knowledgeable, mate-like ("G'day, ready to dive?") |
+| **Tone of Voice** | Friendly, knowledgeable, approachable — personal but professional. Not corporate, not slangy. |
 
 ### 3.1.1 Design Differentiation (Key Requirement)
 
@@ -494,7 +494,7 @@ public/
 >
 > **Admin dashboard**: The site owner (freediving instructor) needs a simple, clean backend to manage products (CRUD, image upload, inventory, custom option groups/variants), publish tutorials (rich text editor, category, video embed), and view contact form submissions. Single admin user with login.
 >
-> **Tone**: Casual Australian, personal, trustworthy. Not corporate. Like buying from a freediving instructor mate who knows his gear.
+> **Tone**: Friendly, personal, trustworthy. Not corporate, but not heavy on slang either. Like buying from a knowledgeable freediving instructor who genuinely cares about the gear.
 >
 > **Tech**: Next.js 16, Tailwind CSS 4, TypeScript, Prisma (database). Desktop-first responsive design. Performance-optimized (Lighthouse 90+).
 >
