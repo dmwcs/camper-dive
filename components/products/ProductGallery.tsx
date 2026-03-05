@@ -35,7 +35,13 @@ const playOverlay = (
   </div>
 );
 
-export function ProductGallery({ media }: { media: MediaItem[] }) {
+export function ProductGallery({
+  media,
+  productName,
+}: {
+  media: MediaItem[];
+  productName?: string;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -67,15 +73,17 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
           {active.type === "image" ? (
             <Image
               src={active.src}
-              alt=""
+              alt={productName || ""}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
               priority={activeIndex === 0}
+              fetchPriority={activeIndex === 0 ? "high" : undefined}
             />
           ) : (
             <button
               onClick={() => openVideo(active.src)}
+              aria-label="Play video"
               className="group relative h-full w-full cursor-pointer"
             >
               <video
@@ -98,6 +106,7 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
               <button
                 key={`${item.src}-${i}`}
                 onClick={() => setActiveIndex(i)}
+                aria-label={`View ${item.type === "image" ? "photo" : "video"} ${i + 1}`}
                 className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-md border-2 transition-colors sm:h-16 sm:w-16 sm:rounded-lg ${
                   i === activeIndex
                     ? "border-ocean"

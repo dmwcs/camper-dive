@@ -98,6 +98,7 @@ export default async function ProductDetailPage({
           {/* Gallery */}
           <ProductGallery
             media={product.media ?? [{ type: "image", src: product.image }]}
+            productName={product.name}
           />
 
           {/* Details */}
