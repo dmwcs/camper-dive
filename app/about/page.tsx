@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 export const metadata = {
   title: "About — CamperDive",
@@ -38,34 +39,12 @@ const milestones = [
 export default function AboutPage() {
   return (
     <div className="bg-background">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-ocean">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero-ocean.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover opacity-30"
-            priority
-          />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-widest text-sand">
-              Our Story
-            </p>
-            <h1 className="mt-3 font-heading text-4xl font-bold tracking-tight text-white lg:text-5xl">
-              Born from a love of the ocean and the hunt
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-white/70">
-              CamperDive started with a simple idea: what if you could pack a
-              speargun in your backpack, camp by the coast, and dive for dinner
-              wherever you roam?
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        tagline="Our Story"
+        title="Born from a love of the ocean and the hunt"
+        description="CamperDive started with a simple idea: what if you could pack a speargun in your backpack, camp by the coast, and dive for dinner wherever you roam?"
+        backgroundImage="/images/hero-ocean.jpg"
+      />
 
       {/* Founder Story */}
       <section className="py-16">

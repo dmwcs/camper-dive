@@ -44,7 +44,7 @@ export default async function TutorialDetailPage({
 
   return (
     <div className="bg-surface">
-      <article className="mx-auto max-w-3xl px-6 lg:px-8">
+      <article className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── Header ── */}
         <header className="pt-12 pb-8">
           {/* Breadcrumb */}
@@ -199,7 +199,7 @@ export default async function TutorialDetailPage({
 
       {/* ── Related ── */}
       <section className="border-t border-border bg-background py-14">
-        <div className="mx-auto max-w-3xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-light">
             Keep reading
           </p>

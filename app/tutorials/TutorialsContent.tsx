@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { tutorialPreviews, tutorialCategories } from "@/lib/mock-data";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 export function TutorialsContent() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -18,21 +19,11 @@ export function TutorialsContent() {
 
   return (
     <div className="bg-background">
-      {/* Page Header */}
-      <section className="bg-ocean">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
-          <p className="text-sm font-semibold uppercase tracking-widest text-sand">
-            Learn
-          </p>
-          <h1 className="mt-2 font-heading text-4xl font-bold tracking-tight text-white lg:text-5xl">
-            Tutorials & Guides
-          </h1>
-          <p className="mt-4 max-w-xl text-base text-white/60">
-            From speargun basics to abalone hunting — free tutorials by a
-            certified freediving instructor. Watch, read, and get in the water.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        tagline="Learn"
+        title="Tutorials & Guides"
+        description="From speargun basics to abalone hunting — free tutorials by a certified freediving instructor. Watch, read, and get in the water."
+      />
 
       {/* Main content */}
       <section className="py-12">

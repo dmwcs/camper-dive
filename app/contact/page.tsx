@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 const faqs = [
   {
@@ -26,21 +27,11 @@ export default function ContactPage() {
 
   return (
     <div className="bg-background">
-      {/* Page Header */}
-      <section className="bg-ocean">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
-          <p className="text-sm font-semibold uppercase tracking-widest text-sand">
-            Get in touch
-          </p>
-          <h1 className="mt-2 font-heading text-4xl font-bold tracking-tight text-white lg:text-5xl">
-            Contact Us
-          </h1>
-          <p className="mt-4 max-w-xl text-base text-white/60">
-            Got a question about our spearguns, need help choosing the right
-            size, or just want to say g'day? We'd love to hear from you.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        tagline="Get in touch"
+        title="Contact Us"
+        description="Got a question about our spearguns, need help choosing the right size, or just want to chat? We'd love to hear from you."
+      />
 
       <section className="py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

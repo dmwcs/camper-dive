@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { featuredProducts } from "@/lib/mock-data";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 const categories = ["All", "Spearguns", "Accessories", "Diving Gear"];
 
@@ -13,21 +14,11 @@ export const metadata = {
 export default function ProductsPage() {
   return (
     <div className="bg-background">
-      {/* Page Header */}
-      <section className="bg-ocean">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
-          <p className="text-sm font-semibold uppercase tracking-widest text-sand">
-            Our Gear
-          </p>
-          <h1 className="mt-2 font-heading text-4xl font-bold tracking-tight text-white lg:text-5xl">
-            Products
-          </h1>
-          <p className="mt-4 max-w-xl text-base text-white/60">
-            Handheld spearguns and accessories designed for Australian reef
-            conditions. Compact, powerful, and built to travel.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        tagline="Our Gear"
+        title="Products"
+        description="Handheld spearguns and accessories designed for Australian reef conditions. Compact, powerful, and built to travel."
+      />
 
       {/* Category Filter */}
       <section className="border-b border-border bg-surface">
