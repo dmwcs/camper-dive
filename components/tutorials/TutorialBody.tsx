@@ -82,13 +82,13 @@ const components: PortableTextComponents = {
       if (!value?.asset) return null;
       const src = urlFor(value).width(1200).url();
       return (
-        <figure className="my-6 sm:my-8">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
+        <figure className="mx-auto my-6 max-w-[85%] sm:my-8">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
             <Image
               src={src}
               alt={value.alt || ""}
               fill
-              sizes="(max-width: 768px) 100vw, 768px"
+              sizes="(max-width: 768px) 85vw, 640px"
               className="object-cover"
             />
           </div>
@@ -108,8 +108,8 @@ const components: PortableTextComponents = {
         );
         if (ytMatch) {
           return (
-            <figure className="my-6 sm:my-8">
-              <div className="relative aspect-video overflow-hidden rounded-xl">
+            <figure className="mx-auto my-6 max-w-[85%] sm:my-8">
+              <div className="relative aspect-video overflow-hidden rounded-lg">
                 <iframe
                   src={`https://www.youtube.com/embed/${ytMatch[1]}`}
                   title={value.caption || "Video"}
@@ -133,11 +133,11 @@ const components: PortableTextComponents = {
       const [, id, ext] = ref.split("-");
       const fileUrl = `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}.${ext}`;
       return (
-        <figure className="my-6 sm:my-8">
+        <figure className="mx-auto my-6 max-w-[85%] sm:my-8">
           <video
             controls
             preload="metadata"
-            className="w-full rounded-xl"
+            className="w-full rounded-lg"
           >
             <source src={fileUrl} />
           </video>

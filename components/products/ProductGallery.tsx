@@ -41,14 +41,13 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const active = media[activeIndex];
 
-  // Build lightbox slides from video items only
   const videoSlides = media
-    .map((item, i) => ({ item, originalIndex: i }))
-    .filter(({ item }) => item.type === "video")
-    .map(({ item }) => ({
+    .filter((item) => item.type === "video")
+    .map((item) => ({
       type: "video" as const,
       width: 1280,
       height: 720,
+      poster: item.poster,
       sources: [{ src: item.src, type: "video/mp4" }],
     }));
 
@@ -114,7 +113,7 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="relative flex h-full w-full items-center justify-center">
+                  <div className="relative h-full w-full">
                     <video
                       src={`${item.src}#t=0.1`}
                       muted
@@ -133,7 +132,7 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
         )}
       </div>
 
-      {/* Video Lightbox */}
+      {/* Video Lightbox — video only loads when opened */}
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
