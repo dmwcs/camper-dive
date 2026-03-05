@@ -9,8 +9,9 @@ export function generateStaticParams() {
   return featuredProducts.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const product = featuredProducts.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = featuredProducts.find((p) => p.slug === slug);
   if (!product) return { title: "Product Not Found — CamperDive" };
   return {
     title: `${product.name} — CamperDive`,
@@ -88,7 +89,13 @@ export default async function ProductDetailPage({
             </div>
 
             {/* Options, Quantity & Add to Cart */}
-            <ProductActions product={product} />
+            <ProductActions
+              slug={product.slug}
+              name={product.name}
+              price={product.price}
+              image={product.image}
+              options={product.options}
+            />
 
             {/* Specs */}
             {product.specs && (

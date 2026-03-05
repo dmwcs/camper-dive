@@ -1,35 +1,45 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
-import type { Product } from "@/lib/mock-data";
+import type { ProductOption } from "@/lib/mock-data";
 
-export function ProductActions({ product }: { product: Product }) {
+interface ProductActionsProps {
+  slug: string;
+  name: string;
+  price: number;
+  image: string;
+  options?: ProductOption[];
+}
+
+export function ProductActions({
+  slug,
+  name,
+  price,
+  image,
+  options,
+}: ProductActionsProps) {
   const { addItem, openCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
-  >({});
+  >(() => {
+    if (!options) return {};
+    const defaults: Record<string, string> = {};
+    options.forEach((opt) => {
+      defaults[opt.name] = opt.values[0];
+    });
+    return defaults;
+  });
   const [added, setAdded] = useState(false);
-
-  // Initialize defaults from product options
-  useEffect(() => {
-    if (product.options) {
-      const defaults: Record<string, string> = {};
-      product.options.forEach((opt) => {
-        defaults[opt.name] = opt.values[0];
-      });
-      setSelectedOptions(defaults);
-    }
-  }, [product.options]);
 
   function handleAdd() {
     addItem(
       {
-        slug: product.slug,
-        name: product.name,
-        price: product.price,
-        image: product.image,
+        slug,
+        name,
+        price,
+        image,
         selectedOptions,
       },
       quantity,
@@ -44,7 +54,7 @@ export function ProductActions({ product }: { product: Product }) {
   return (
     <div className="mt-6 space-y-5">
       {/* Option Selectors */}
-      {product.options?.map((option) => (
+      {options?.map((option) => (
         <div key={option.name}>
           <label className="text-sm font-semibold text-charcoal">
             {option.name}
