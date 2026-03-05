@@ -27,7 +27,7 @@ export function TutorialsContent() {
       />
 
       {/* Main content */}
-      <section className="py-12">
+      <section className="min-h-[60vh] py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-4 lg:gap-10">
             {/* Sidebar — categories */}
