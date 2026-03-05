@@ -156,10 +156,7 @@ export function TutorialsContent() {
                     <p className="mt-2 text-sm leading-relaxed text-slate">
                       {filtered[0].description}
                     </p>
-                    <div className="mt-4 flex items-center gap-3">
-                      <span className="text-xs text-slate-light">
-                        {filtered[0].readTime}
-                      </span>
+                    <div className="mt-4">
                       <span className="text-sm font-medium text-ocean">
                         Read more &rarr;
                       </span>
@@ -206,12 +203,9 @@ export function TutorialsContent() {
                       </div>
                     </div>
                     <div className="p-4">
-                      <div className="flex items-center gap-2">
+                      <div>
                         <span className="text-[11px] font-semibold uppercase tracking-wider text-sand-dark">
                           {tutorial.category}
-                        </span>
-                        <span className="text-[11px] text-slate-light">
-                          {tutorial.readTime}
                         </span>
                       </div>
                       <h3 className="mt-1.5 text-sm font-bold leading-snug text-charcoal group-hover:text-ocean">

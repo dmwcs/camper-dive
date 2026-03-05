@@ -64,10 +64,6 @@ export default async function TutorialDetailPage({
             <span className="text-[13px] text-slate-light">
               {tutorial.lastEdited}
             </span>
-            <span className="text-border">·</span>
-            <span className="text-[13px] text-slate-light">
-              {tutorial.readTime}
-            </span>
           </div>
 
           {/* Title */}

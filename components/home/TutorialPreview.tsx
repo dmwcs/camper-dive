@@ -91,9 +91,6 @@ export function TutorialPreview() {
                 <h3 className="mt-1 text-sm font-bold leading-snug text-charcoal group-hover:text-ocean transition-colors">
                   {tutorial.title}
                 </h3>
-                <p className="mt-2 text-xs text-slate-light">
-                  {tutorial.readTime}
-                </p>
               </div>
             </Link>
           ))}
