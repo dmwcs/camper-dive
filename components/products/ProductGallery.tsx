@@ -49,7 +49,6 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
       type: "video" as const,
       width: 1280,
       height: 720,
-      poster: item.poster,
       sources: [{ src: item.src, type: "video/mp4" }],
     }));
 
@@ -80,24 +79,14 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
               onClick={() => openVideo(active.src)}
               className="group relative h-full w-full cursor-pointer"
             >
-              {active.poster ? (
-                <Image
-                  src={active.poster}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              ) : (
-                <video
-                  key={active.src}
-                  src={active.src}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="h-full w-full object-cover"
-                />
-              )}
+              <video
+                key={active.src}
+                src={`${active.src}#t=0.1`}
+                muted
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover"
+              />
               {playOverlay}
             </button>
           )}
@@ -109,13 +98,7 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
             {media.map((item, i) => (
               <button
                 key={`${item.src}-${i}`}
-                onClick={() => {
-                  if (item.type === "video") {
-                    openVideo(item.src);
-                  } else {
-                    setActiveIndex(i);
-                  }
-                }}
+                onClick={() => setActiveIndex(i)}
                 className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-md border-2 transition-colors sm:h-16 sm:w-16 sm:rounded-lg ${
                   i === activeIndex
                     ? "border-ocean"
@@ -131,17 +114,17 @@ export function ProductGallery({ media }: { media: MediaItem[] }) {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="relative flex h-full w-full items-center justify-center bg-charcoal/80">
-                    {item.poster && (
-                      <Image
-                        src={item.poster}
-                        alt=""
-                        fill
-                        sizes="64px"
-                        className="object-cover brightness-75"
-                      />
-                    )}
-                    <div className="relative z-10">{playIcon}</div>
+                  <div className="relative flex h-full w-full items-center justify-center">
+                    <video
+                      src={`${item.src}#t=0.1`}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="h-full w-full object-cover brightness-75"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      {playIcon}
+                    </div>
                   </div>
                 )}
               </button>
