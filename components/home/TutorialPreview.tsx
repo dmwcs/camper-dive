@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { tutorialPreviews } from "@/lib/mock-data";
+import { TutorialCard } from "@/components/tutorials/TutorialCard";
 
 export function TutorialPreview() {
   const tutorials = tutorialPreviews.slice(0, 3);
@@ -46,53 +46,8 @@ export function TutorialPreview() {
 
         {/* Tutorial Grid */}
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {tutorials.map((tutorial, i) => (
-            <Link
-              key={tutorial.slug}
-              href={`/tutorials/${tutorial.slug}`}
-              className="group overflow-hidden rounded-xl border border-border bg-background transition-all duration-300 hover:border-ocean/20 hover:shadow-lg"
-              data-sr={String(i * 70)}
-            >
-              {/* Thumbnail */}
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src={tutorial.image}
-                  alt={tutorial.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                {tutorial.format.includes("Video") && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-ocean/90 text-white shadow-lg transition-transform duration-300 group-hover:scale-110">
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 18 18"
-                        fill="currentColor"
-                      >
-                        <path d="M6.5 3.5v11l8-5.5-8-5.5z" />
-                      </svg>
-                    </div>
-                  </div>
-                )}
-                <div className="absolute left-3 top-3">
-                  <span className="rounded-md bg-surface/90 px-2 py-0.5 text-[10px] font-semibold text-charcoal backdrop-blur-sm">
-                    {tutorial.format === "Article" ? "Article" : tutorial.format === "Video" ? "Video" : "Article + Video"}
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-4">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-sand-dark">
-                  {tutorial.category}
-                </span>
-                <h3 className="mt-1 text-sm font-bold leading-snug text-charcoal group-hover:text-ocean transition-colors">
-                  {tutorial.title}
-                </h3>
-              </div>
-            </Link>
+          {tutorials.map((tutorial) => (
+            <TutorialCard key={tutorial.slug} tutorial={tutorial} size="sm" />
           ))}
         </div>
 

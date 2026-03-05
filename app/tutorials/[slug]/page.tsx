@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { tutorialPreviews } from "@/lib/mock-data";
+import { TutorialCard } from "@/components/tutorials/TutorialCard";
 
 export function generateStaticParams() {
   return tutorialPreviews.map((t) => ({ slug: t.slug }));
@@ -204,29 +205,7 @@ export default async function TutorialDetailPage({
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {moreRelated.map((t) => (
-              <Link
-                key={t.slug}
-                href={`/tutorials/${t.slug}`}
-                className="group overflow-hidden rounded-xl border border-border bg-surface transition-all hover:shadow-lg"
-              >
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={t.image}
-                    alt={t.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-4">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-sand-dark">
-                    {t.category}
-                  </span>
-                  <h3 className="mt-1.5 text-sm font-bold leading-snug text-charcoal group-hover:text-ocean">
-                    {t.title}
-                  </h3>
-                </div>
-              </Link>
+              <TutorialCard key={t.slug} tutorial={t} size="sm" />
             ))}
           </div>
         </div>

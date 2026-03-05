@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { featuredProducts } from "@/lib/mock-data";
+import { ProductCard } from "@/components/products/ProductCard";
 
 export function generateStaticParams() {
   return featuredProducts.map((p) => ({ slug: p.slug }));
@@ -160,32 +161,7 @@ export default async function ProductDetailPage({
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-3">
             {related.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/products/${p.slug}`}
-                className="group overflow-hidden rounded-xl border border-border bg-surface transition-all hover:shadow-lg"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={p.image}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-4">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-sand-dark">
-                    {p.category}
-                  </span>
-                  <h3 className="mt-1.5 text-sm font-bold leading-snug text-charcoal group-hover:text-ocean">
-                    {p.name}
-                  </h3>
-                  <p className="mt-1.5 text-sm font-semibold text-ocean">
-                    ${p.price}
-                  </p>
-                </div>
-              </Link>
+              <ProductCard key={p.slug} product={p} size="sm" />
             ))}
           </div>
         </div>

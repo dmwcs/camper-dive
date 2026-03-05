@@ -1,7 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
 import { featuredProducts } from "@/lib/mock-data";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { ProductCard } from "@/components/products/ProductCard";
 
 const categories = ["All", "Spearguns", "Accessories", "Diving Gear"];
 
@@ -45,40 +44,7 @@ export default function ProductsPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProducts.map((product) => (
-              <Link
-                key={product.slug}
-                href={`/products/${product.slug}`}
-                className="group overflow-hidden rounded-2xl border border-border bg-surface transition-shadow hover:shadow-lg"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-background">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-sand-dark">
-                    {product.category}
-                  </p>
-                  <h3 className="mt-1 font-heading text-lg font-bold text-charcoal">
-                    {product.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-slate">
-                    {product.shortDesc}
-                  </p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-lg font-bold text-charcoal">
-                      ${product.price}
-                    </span>
-                    <span className="text-sm font-medium text-ocean group-hover:underline">
-                      View Details
-                    </span>
-                  </div>
-                </div>
-              </Link>
+              <ProductCard key={product.slug} product={product} size="md" />
             ))}
           </div>
         </div>
