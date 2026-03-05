@@ -5,7 +5,8 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { ProductActions } from "@/components/products/ProductActions";
 import { ProductGallery } from "@/components/products/ProductGallery";
 
-export const revalidate = 10;
+// TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   const products = await getProducts();

@@ -1,7 +1,8 @@
 import { TutorialsContent } from "./TutorialsContent";
 import { getTutorials, getTutorialCategories } from "@/lib/queries";
 
-export const revalidate = 10;
+// TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
+export const revalidate = 0;
 
 export const metadata = {
   title: "Tutorials & Guides",

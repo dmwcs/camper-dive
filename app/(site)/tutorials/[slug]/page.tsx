@@ -5,7 +5,8 @@ import { getTutorials, getTutorialBySlug } from "@/lib/queries";
 import { TutorialCard } from "@/components/tutorials/TutorialCard";
 import { TutorialBody } from "@/components/tutorials/TutorialBody";
 
-export const revalidate = 10;
+// TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   const tutorials = await getTutorials();

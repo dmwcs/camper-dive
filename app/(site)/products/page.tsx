@@ -2,7 +2,8 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ProductsContent } from "./ProductsContent";
 import { getProducts } from "@/lib/queries";
 
-export const revalidate = 10;
+// TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
+export const revalidate = 0;
 
 export const metadata = {
   title: "Products",
