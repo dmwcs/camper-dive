@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ocean: #0A3D62;
+  --color-ocean-light: #0E4D7A;
+  --color-ocean-dark: #072D49;
+  --color-sand: #D4A84B;
+  --color-sand-light: #E4C06B;
+  --color-sand-dark: #B8903A;
+  --color-coral: #E55039;
+  --color-surface: #FFFFFF;
+  --color-background: #F7F7F2;
+  --color-charcoal: #1A1A2E;
+  --color-slate: #6B7280;
+  --color-slate-light: #9CA3AF;
+  --color-border: #E5E5E0;
+  --font-heading: var(--font-dm-sans);
+  --font-body: var(--font-dm-sans);
+  --font-logo: var(--font-bebas-neue);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+body {
+  background: var(--color-background);
+  color: var(--color-charcoal);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-ocean) 20%, transparent);
+}
+
+/* Hero entrance animation */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.hero-fade {
+  opacity: 0;
+  animation: hero-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-fade-d1 { animation-delay: 0.1s; }
+.hero-fade-d2 { animation-delay: 0.2s; }
+.hero-fade-d3 { animation-delay: 0.35s; }
+.hero-fade-d4 { animation-delay: 0.5s; }
+
+/* Scroll reveal — only active after JS loads (prevents FOUC) */
+.sr-ready [data-sr] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sr-ready [data-sr].sr-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade {
+    opacity: 1;
+    animation: none;
+  }
+  .sr-ready [data-sr] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
