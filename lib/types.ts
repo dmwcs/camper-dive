@@ -8,6 +8,7 @@ export interface ProductOption {
 export interface MediaItem {
   type: "image" | "video";
   src: string;
+  poster?: string;
 }
 
 export interface Product {

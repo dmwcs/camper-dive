@@ -61,9 +61,16 @@ export const blockContentType = defineType({
       icon: PlayIcon,
       fields: [
         {
+          name: 'url',
+          title: 'YouTube URL',
+          type: 'url',
+          description: 'Paste a YouTube video URL (e.g. https://www.youtube.com/watch?v=...)',
+        },
+        {
           name: 'file',
-          title: 'Video File',
+          title: 'Video File (optional)',
           type: 'file',
+          description: 'Or upload a video file directly',
           options: {accept: 'video/*'},
         },
         {

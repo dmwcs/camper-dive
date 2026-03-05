@@ -1,4 +1,26 @@
-import { testimonials } from "@/lib/mock-data";
+const testimonials = [
+  {
+    name: "Jake M.",
+    location: "Gold Coast, QLD",
+    quote:
+      "First time using a hand speargun and I'm hooked. Took it out on the reef last weekend and landed three flathead. Way more fun than a rubber band gun.",
+    rating: 5,
+  },
+  {
+    name: "Sarah L.",
+    location: "Perth, WA",
+    quote:
+      "The Reef Hunter 90 is exactly what I needed. Compact enough to travel with, powerful enough for reef fish. The tutorials helped me get started fast.",
+    rating: 5,
+  },
+  {
+    name: "Tom R.",
+    location: "Sydney, NSW",
+    quote:
+      "Great quality gear and the video tutorials are brilliant. Learned proper speargun technique in a weekend. Highly recommend for anyone getting into spearfishing.",
+    rating: 5,
+  },
+];
 
 function Stars({ count }: { count: number }) {
   return (

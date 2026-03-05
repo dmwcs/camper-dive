@@ -49,52 +49,57 @@ export default async function TutorialDetailPage({
 
   return (
     <div className="bg-surface">
-      <article className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* ── Header ── */}
-        <header className="pt-8 pb-6 sm:pt-12 sm:pb-8">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-[13px] text-slate-light">
-            <Link href="/tutorials" className="transition-colors hover:text-ocean">
-              Tutorials
-            </Link>
-            <span className="text-border">/</span>
-            <span className="text-slate">{tutorial.category}</span>
-          </nav>
-
-          {/* Category + meta row */}
-          <div className="mt-4 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3">
-            <span className="rounded-full bg-ocean/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ocean">
-              {tutorial.category}
-            </span>
-            <span className="text-[12px] text-slate-light sm:text-[13px]">
-              {tutorial.lastEdited}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h1 className="mt-3 font-heading text-[1.5rem] font-bold leading-[1.15] tracking-tight text-charcoal sm:mt-5 sm:text-[2.25rem] lg:text-[2.75rem]">
-            {tutorial.title}
-          </h1>
-
-          {/* Description */}
-          <p className="mt-2.5 text-sm leading-relaxed text-slate sm:mt-4 sm:text-lg">
-            {tutorial.description}
-          </p>
-        </header>
-
-        {/* ── Featured Image ── */}
-        <div className="relative aspect-[16/9] overflow-hidden rounded-xl sm:aspect-[2/1] sm:rounded-2xl">
+      {/* ── Hero with cover image background ── */}
+      <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 sm:pt-8 lg:px-8">
+        <div className="relative isolate overflow-hidden rounded-2xl sm:rounded-3xl">
+          {/* Background image */}
           <Image
             src={tutorial.image}
             alt={tutorial.title}
             fill
-            sizes="(max-width: 768px) 100vw, 768px"
+            sizes="(max-width: 1280px) 100vw, 1280px"
             className="object-cover"
             priority
           />
-        </div>
+          {/* Gradient overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/60 to-charcoal/30" />
 
-        {/* ── Divider ── */}
+          {/* Content */}
+          <div className="relative px-5 pb-8 pt-6 sm:px-8 sm:pb-12 sm:pt-10 lg:px-12 lg:pb-14 lg:pt-12">
+            {/* Breadcrumb */}
+            <nav className="flex items-center gap-1.5 text-[13px] text-white/50">
+              <Link href="/tutorials" className="transition-colors hover:text-white/80">
+                Tutorials
+              </Link>
+              <span className="text-white/30">/</span>
+              <span className="text-white/60">{tutorial.category}</span>
+            </nav>
+
+            {/* Category + meta row */}
+            <div className="mt-4 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3">
+              <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                {tutorial.category}
+              </span>
+              <span className="text-[12px] text-white/50 sm:text-[13px]">
+                {tutorial.lastEdited}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="mt-3 max-w-3xl font-heading text-[1.5rem] font-bold leading-[1.15] tracking-tight text-white sm:mt-5 sm:text-[2.25rem] lg:text-[2.75rem]">
+              {tutorial.title}
+            </h1>
+
+            {/* Description */}
+            <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-white/70 sm:mt-4 sm:text-lg">
+              {tutorial.description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <article className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* ── Spacer ── */}
         <div className="my-6 h-px bg-border sm:my-10" />
 
         {/* ── Content ── */}

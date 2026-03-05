@@ -89,11 +89,16 @@ export async function getProductBySlug(
 
   if (!raw) return null;
 
+  const mainImage = resolveImage(raw.image);
   const media = Array.isArray(raw.media)
-    ? raw.media.map((m: Record<string, unknown>) => ({
-        type: m._type === "file" ? ("video" as const) : ("image" as const),
-        src: (m.asset as string) || resolveImage(m),
-      }))
+    ? raw.media.map((m: Record<string, unknown>) => {
+        const isVideo = m._type === "file";
+        return {
+          type: isVideo ? ("video" as const) : ("image" as const),
+          src: (m.asset as string) || resolveImage(m),
+          ...(isVideo ? { poster: mainImage } : {}),
+        };
+      })
     : undefined;
 
   return {

@@ -101,10 +101,37 @@ const components: PortableTextComponents = {
       );
     },
     video: ({ value }) => {
+      // YouTube embed
+      if (value?.url) {
+        const ytMatch = value.url.match(
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
+        );
+        if (ytMatch) {
+          return (
+            <figure className="my-6 sm:my-8">
+              <div className="relative aspect-video overflow-hidden rounded-xl">
+                <iframe
+                  src={`https://www.youtube.com/embed/${ytMatch[1]}`}
+                  title={value.caption || "Video"}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full"
+                />
+              </div>
+              {value.caption && (
+                <figcaption className="mt-2 text-center text-xs text-slate-light">
+                  {value.caption}
+                </figcaption>
+              )}
+            </figure>
+          );
+        }
+      }
+      // Sanity file upload fallback
       if (!value?.file?.asset?._ref) return null;
       const ref = value.file.asset._ref;
       const [, id, ext] = ref.split("-");
-      const url = `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}.${ext}`;
+      const fileUrl = `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}.${ext}`;
       return (
         <figure className="my-6 sm:my-8">
           <video
@@ -112,7 +139,7 @@ const components: PortableTextComponents = {
             preload="metadata"
             className="w-full rounded-xl"
           >
-            <source src={url} />
+            <source src={fileUrl} />
           </video>
           {value.caption && (
             <figcaption className="mt-2 text-center text-xs text-slate-light">
