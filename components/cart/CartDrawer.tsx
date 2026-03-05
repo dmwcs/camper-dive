@@ -90,7 +90,7 @@ export function CartDrawer() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 strokeWidth={1}
-                className="text-border"
+                className="text-slate-light"
               >
                 <path
                   strokeLinecap="round"

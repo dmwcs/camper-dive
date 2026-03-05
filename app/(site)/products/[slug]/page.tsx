@@ -71,7 +71,7 @@ export default async function ProductDetailPage({
             >
               Products
             </Link>
-            <span className="text-border">/</span>
+            <span className="text-slate-light">/</span>
             <span className="text-slate">{product.category}</span>
           </nav>
 
@@ -120,9 +120,9 @@ export default async function ProductDetailPage({
             {/* Specs */}
             {product.specs && (
               <div className="mt-6 border-t border-border pt-5 sm:mt-8 sm:pt-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-charcoal">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-charcoal">
                   Specifications
-                </h3>
+                </h2>
                 <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:mt-4 sm:gap-x-6 sm:gap-y-3">
                   {product.specs.map((spec) => (
                     <div key={spec.label}>
@@ -139,9 +139,9 @@ export default async function ProductDetailPage({
             {/* Features */}
             {product.features && (
               <div className="mt-6 border-t border-border pt-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-charcoal">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-charcoal">
                   Key Features
-                </h3>
+                </h2>
                 <ul className="mt-3 space-y-2">
                   {product.features.map((f) => (
                     <li

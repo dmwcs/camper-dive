@@ -50,7 +50,7 @@ const components: PortableTextComponents = {
   },
   listItem: {
     bullet: ({ children }) => (
-      <li className="list-disc text-sm leading-[1.7] text-slate marker:text-border sm:text-[16.5px]">
+      <li className="list-disc text-sm leading-[1.7] text-slate marker:text-slate-light sm:text-[16.5px]">
         {children}
       </li>
     ),
@@ -111,7 +111,7 @@ const components: PortableTextComponents = {
             <figure className="mx-auto my-6 max-w-[85%] sm:my-8">
               <div className="relative aspect-video overflow-hidden rounded-lg">
                 <iframe
-                  src={`https://www.youtube.com/embed/${ytMatch[1]}`}
+                  src={`https://www.youtube-nocookie.com/embed/${ytMatch[1]}`}
                   title={value.caption || "Video"}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen

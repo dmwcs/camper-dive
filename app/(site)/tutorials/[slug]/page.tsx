@@ -110,9 +110,9 @@ export default async function TutorialDetailPage({
 
           {/* CTA */}
           <div className="mt-10 rounded-xl bg-ocean px-5 py-6 text-center sm:mt-14 sm:rounded-2xl sm:px-8 sm:py-8">
-            <h3 className="font-heading text-base font-bold text-white sm:text-lg">
+            <h2 className="font-heading text-base font-bold text-white sm:text-lg">
               Ready to get started?
-            </h3>
+            </h2>
             <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-white/60 sm:mt-2 sm:text-sm">
               Check out the Reef Hunter range — compact spearguns built for
               Australian waters.
