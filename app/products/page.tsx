@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ProductsContent } from "./ProductsContent";
 
 export const metadata = {
-  title: "Products — CamperDive",
+  title: "Products",
   description:
     "Handheld spearguns and spearfishing gear built for Australian waters. Shop the Reef Hunter range.",
 };

@@ -18,10 +18,36 @@ const bebasNeue = Bebas_Neue({
   weight: "400",
 });
 
+const siteUrl = "https://camperdive.com.au";
+
 export const metadata: Metadata = {
-  title: "CamperDive — Handheld Spearguns for Australian Waters",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "CamperDive — Handheld Spearguns for Australian Waters",
+    template: "%s — CamperDive",
+  },
   description:
     "Premium handheld spearguns and spearfishing gear. Built for Aussie reefs. Expert tutorials on spearfishing, abalone hunting, and lobster catching.",
+  openGraph: {
+    type: "website",
+    locale: "en_AU",
+    siteName: "CamperDive",
+    title: "CamperDive — Handheld Spearguns for Australian Waters",
+    description:
+      "Premium handheld spearguns and spearfishing gear built for Australian waters.",
+    url: siteUrl,
+    images: [{ url: "/images/hero-ocean.jpg", width: 1200, height: 630, alt: "CamperDive — Spearfishing Gear" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CamperDive — Handheld Spearguns for Australian Waters",
+    description:
+      "Premium handheld spearguns and spearfishing gear built for Australian waters.",
+    images: ["/images/hero-ocean.jpg"],
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
 };
 
 export default function RootLayout({

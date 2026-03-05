@@ -12,10 +12,15 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = featuredProducts.find((p) => p.slug === slug);
-  if (!product) return { title: "Product Not Found — CamperDive" };
+  if (!product) return { title: "Product Not Found" };
   return {
-    title: `${product.name} — CamperDive`,
+    title: product.name,
     description: product.shortDesc,
+    openGraph: {
+      title: product.name,
+      description: product.shortDesc,
+      images: [{ url: product.image, alt: product.name }],
+    },
   };
 }
 
@@ -32,8 +37,27 @@ export default async function ProductDetailPage({
     .filter((p) => p.slug !== slug)
     .slice(0, 3);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description || product.shortDesc,
+    image: `https://camperdive.com.au${product.image}`,
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "AUD",
+      availability: "https://schema.org/InStock",
+      url: `https://camperdive.com.au/products/${product.slug}`,
+    },
+  };
+
   return (
     <div className="bg-surface">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── Header ── */}
         <header className="pt-8 pb-6 sm:pt-12 sm:pb-8">

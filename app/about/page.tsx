@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 
 export const metadata = {
-  title: "About — CamperDive",
+  title: "About",
   description:
     "CamperDive started with a simple passion: exploring the coastline and providing for the table through ethical spearfishing and freediving.",
 };
