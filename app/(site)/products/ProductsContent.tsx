@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { featuredProducts } from "@/lib/mock-data";
+import type { Product } from "@/lib/types";
 import { ProductCard } from "@/components/products/ProductCard";
 
 const categories = ["All", "Spearguns", "Accessories", "Diving Gear"];
 
-export function ProductsContent() {
+export function ProductsContent({ products }: { products: Product[] }) {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered =
     activeCategory === "All"
-      ? featuredProducts
-      : featuredProducts.filter((p) => p.category === activeCategory);
+      ? products
+      : products.filter((p) => p.category === activeCategory);
 
   return (
     <>

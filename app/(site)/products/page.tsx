@@ -1,5 +1,6 @@
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ProductsContent } from "./ProductsContent";
+import { getProducts } from "@/lib/queries";
 
 export const metadata = {
   title: "Products",
@@ -7,7 +8,9 @@ export const metadata = {
     "Handheld spearguns and spearfishing gear built for Australian waters. Shop the Reef Hunter range.",
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const products = await getProducts();
+
   return (
     <div className="bg-background">
       <PageHeader
@@ -16,7 +19,7 @@ export default function ProductsPage() {
         description="Handheld spearguns and accessories designed for Australian reef conditions. Compact, powerful, and built to travel."
         backgroundImage="/images/spearfishing-reef.jpg"
       />
-      <ProductsContent />
+      <ProductsContent products={products} />
     </div>
   );
 }

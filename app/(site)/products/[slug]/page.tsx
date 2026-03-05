@@ -1,17 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { featuredProducts } from "@/lib/mock-data";
+import { getProducts, getProductBySlug } from "@/lib/queries";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductActions } from "@/components/products/ProductActions";
 import { ProductGallery } from "@/components/products/ProductGallery";
 
-export function generateStaticParams() {
-  return featuredProducts.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = featuredProducts.find((p) => p.slug === slug);
+  const product = await getProductBySlug(slug);
   if (!product) return { title: "Product Not Found" };
   return {
     title: product.name,
@@ -30,10 +31,11 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = featuredProducts.find((p) => p.slug === slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const related = featuredProducts
+  const allProducts = await getProducts();
+  const related = allProducts
     .filter((p) => p.slug !== slug)
     .slice(0, 3);
 

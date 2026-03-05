@@ -1,9 +1,14 @@
 import type { MetadataRoute } from "next";
-import { featuredProducts, tutorialPreviews } from "@/lib/mock-data";
+import { getProducts, getTutorials } from "@/lib/queries";
 
 const BASE_URL = "https://camperdive.com.au";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [products, tutorials] = await Promise.all([
+    getProducts(),
+    getTutorials(),
+  ]);
+
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE_URL}/products`, changeFrequency: "weekly", priority: 0.9 },
@@ -12,13 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.5 },
   ];
 
-  const productPages: MetadataRoute.Sitemap = featuredProducts.map((p) => ({
+  const productPages: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${BASE_URL}/products/${p.slug}`,
     changeFrequency: "weekly",
     priority: 0.8,
   }));
 
-  const tutorialPages: MetadataRoute.Sitemap = tutorialPreviews.map((t) => ({
+  const tutorialPages: MetadataRoute.Sitemap = tutorials.map((t) => ({
     url: `${BASE_URL}/tutorials/${t.slug}`,
     changeFrequency: "monthly",
     priority: 0.7,

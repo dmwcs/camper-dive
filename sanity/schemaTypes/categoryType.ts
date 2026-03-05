@@ -10,12 +10,25 @@ export const categoryType = defineType({
     defineField({
       name: 'title',
       type: 'string',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
       type: 'slug',
       options: {
         source: 'title',
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'type',
+      title: 'Category Type',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Product', value: 'product'},
+          {title: 'Tutorial', value: 'tutorial'},
+        ],
       },
     }),
     defineField({

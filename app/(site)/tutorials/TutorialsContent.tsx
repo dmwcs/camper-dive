@@ -1,21 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { tutorialPreviews, tutorialCategories } from "@/lib/mock-data";
+import type { Tutorial, TutorialCategory } from "@/lib/types";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { TutorialCard } from "@/components/tutorials/TutorialCard";
 
+interface TutorialsContentProps {
+  tutorials: Tutorial[];
+  categories: TutorialCategory[];
+}
 
-export function TutorialsContent() {
+export function TutorialsContent({ tutorials, categories }: TutorialsContentProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
   const filtered =
     activeCategory === "all"
-      ? tutorialPreviews
-      : tutorialPreviews.filter((t) => t.category === activeCategory);
+      ? tutorials
+      : tutorials.filter((t) => t.category === activeCategory);
 
   const categoryCount = (cat: string) =>
-    tutorialPreviews.filter((t) => t.category === cat).length;
+    tutorials.filter((t) => t.category === cat).length;
 
   return (
     <div className="bg-background">
@@ -40,7 +44,7 @@ export function TutorialsContent() {
             >
               All
             </button>
-            {tutorialCategories.map((cat) => (
+            {categories.map((cat) => (
               <button
                 key={cat.slug}
                 onClick={() => setActiveCategory(cat.label)}
@@ -85,11 +89,11 @@ export function TutorialsContent() {
                             : "text-slate-light"
                         }`}
                       >
-                        {tutorialPreviews.length}
+                        {tutorials.length}
                       </span>
                     </button>
                   </li>
-                  {tutorialCategories.map((cat) => (
+                  {categories.map((cat) => (
                     <li key={cat.slug}>
                       <button
                         onClick={() => setActiveCategory(cat.label)}

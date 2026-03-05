@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { tutorialPreviews } from "@/lib/mock-data";
+import { getTutorials } from "@/lib/queries";
 import { TutorialCard } from "@/components/tutorials/TutorialCard";
 
-export function TutorialPreview() {
-  const tutorials = tutorialPreviews.slice(0, 3);
+export async function TutorialPreview() {
+  const allTutorials = await getTutorials();
+  const tutorials = allTutorials.slice(0, 3);
 
   return (
     <section className="bg-background py-16">

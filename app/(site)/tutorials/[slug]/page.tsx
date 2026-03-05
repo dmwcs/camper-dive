@@ -1,16 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { tutorialPreviews } from "@/lib/mock-data";
+import { getTutorials, getTutorialBySlug } from "@/lib/queries";
 import { TutorialCard } from "@/components/tutorials/TutorialCard";
+import { TutorialBody } from "@/components/tutorials/TutorialBody";
 
-export function generateStaticParams() {
-  return tutorialPreviews.map((t) => ({ slug: t.slug }));
+export async function generateStaticParams() {
+  const tutorials = await getTutorials();
+  return tutorials.map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tutorial = tutorialPreviews.find((t) => t.slug === slug);
+  const tutorial = await getTutorialBySlug(slug);
   if (!tutorial) return { title: "Tutorial Not Found — CamperDive" };
   return {
     title: `${tutorial.title} — CamperDive`,
@@ -24,10 +26,11 @@ export default async function TutorialDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tutorial = tutorialPreviews.find((t) => t.slug === slug);
+  const tutorial = await getTutorialBySlug(slug);
   if (!tutorial) notFound();
 
-  const related = tutorialPreviews
+  const allTutorials = await getTutorials();
+  const related = allTutorials
     .filter((t) => t.slug !== slug && t.category === tutorial.category)
     .slice(0, 2);
 
@@ -35,7 +38,7 @@ export default async function TutorialDetailPage({
     related.length < 2
       ? [
           ...related,
-          ...tutorialPreviews
+          ...allTutorials
             .filter(
               (t) =>
                 t.slug !== slug && !related.find((r) => r.slug === t.slug)
@@ -96,84 +99,8 @@ export default async function TutorialDetailPage({
 
         {/* ── Content ── */}
         <div className="pb-8 sm:pb-12">
-          {tutorial.content && (
-            <div>
-              {tutorial.content.split("\n\n").map((block, i) => {
-                if (block.startsWith("**") && block.endsWith("**")) {
-                  return (
-                    <h2
-                      key={i}
-                      className="mt-8 mb-3 font-heading text-lg font-bold leading-snug text-charcoal first:mt-0 sm:mt-10 sm:mb-4 sm:text-[1.35rem]"
-                    >
-                      {block.replace(/\*\*/g, "")}
-                    </h2>
-                  );
-                }
-                if (block.startsWith("- ")) {
-                  return (
-                    <ul key={i} className="my-3 space-y-1.5 pl-4 sm:my-4 sm:space-y-2 sm:pl-5">
-                      {block.split("\n").map((line, j) => {
-                        const text = line.replace(/^- /, "");
-                        const parts = text.split(/(\*\*.*?\*\*)/g);
-                        return (
-                          <li
-                            key={j}
-                            className="list-disc text-sm leading-[1.7] text-slate marker:text-border sm:text-[16.5px]"
-                          >
-                            {parts.map((part, k) =>
-                              part.startsWith("**") && part.endsWith("**") ? (
-                                <strong
-                                  key={k}
-                                  className="font-semibold text-charcoal"
-                                >
-                                  {part.replace(/\*\*/g, "")}
-                                </strong>
-                              ) : (
-                                <span key={k}>{part}</span>
-                              )
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  );
-                }
-                if (block.match(/^\d\. /)) {
-                  return (
-                    <ol key={i} className="my-3 space-y-1.5 pl-4 sm:my-4 sm:space-y-2 sm:pl-5">
-                      {block.split("\n").map((line, j) => (
-                        <li
-                          key={j}
-                          className="list-decimal text-sm leading-[1.7] text-slate marker:text-slate-light sm:text-[16.5px]"
-                        >
-                          {line.replace(/^\d+\. /, "")}
-                        </li>
-                      ))}
-                    </ol>
-                  );
-                }
-                const parts = block.split(/(\*\*.*?\*\*)/g);
-                return (
-                  <p
-                    key={i}
-                    className="mt-3 text-sm leading-[1.7] text-slate sm:mt-4 sm:text-[16.5px]"
-                  >
-                    {parts.map((part, j) =>
-                      part.startsWith("**") && part.endsWith("**") ? (
-                        <strong
-                          key={j}
-                          className="font-semibold text-charcoal"
-                        >
-                          {part.replace(/\*\*/g, "")}
-                        </strong>
-                      ) : (
-                        <span key={j}>{part}</span>
-                      )
-                    )}
-                  </p>
-                );
-              })}
-            </div>
+          {tutorial.content && tutorial.content.length > 0 && (
+            <TutorialBody content={tutorial.content} />
           )}
 
           {/* CTA */}

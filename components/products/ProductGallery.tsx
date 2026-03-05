@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { MediaItem } from "@/lib/mock-data";
+import type { MediaItem } from "@/lib/types";
 
 const playIcon = (
   <svg

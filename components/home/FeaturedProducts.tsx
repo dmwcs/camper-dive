@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { featuredProducts } from "@/lib/mock-data";
+import { getProducts } from "@/lib/queries";
 
-export function FeaturedProducts() {
-  const [hero, ...rest] = featuredProducts;
+export async function FeaturedProducts() {
+  const products = await getProducts();
+  const [hero, ...rest] = products;
 
   return (
     <section className="bg-background py-16">

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Tutorial } from "@/lib/mock-data";
+import type { Tutorial } from "@/lib/types";
 
 function FormatBadge({ format }: { format: Tutorial["format"] }) {
   const color =

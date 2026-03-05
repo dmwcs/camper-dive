@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
-import type { ProductOption } from "@/lib/mock-data";
+import type { ProductOption } from "@/lib/types";
 
 interface ProductActionsProps {
   slug: string;

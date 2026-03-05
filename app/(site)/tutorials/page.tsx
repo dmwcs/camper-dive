@@ -1,4 +1,5 @@
 import { TutorialsContent } from "./TutorialsContent";
+import { getTutorials, getTutorialCategories } from "@/lib/queries";
 
 export const metadata = {
   title: "Tutorials & Guides",
@@ -6,6 +7,11 @@ export const metadata = {
     "Free spearfishing tutorials, abalone hunting guides, and lobster catching techniques by a certified freediving instructor.",
 };
 
-export default function TutorialsPage() {
-  return <TutorialsContent />;
+export default async function TutorialsPage() {
+  const [tutorials, categories] = await Promise.all([
+    getTutorials(),
+    getTutorialCategories(),
+  ]);
+
+  return <TutorialsContent tutorials={tutorials} categories={categories} />;
 }
