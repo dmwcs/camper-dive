@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import { DM_Sans, Bebas_Neue } from "next/font/google";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { CartProvider } from "@/lib/cart-context";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -58,12 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${dmSans.variable} ${bebasNeue.variable} antialiased`}>
-        <CartProvider>
-          <ScrollReveal />
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </CartProvider>
+        {children}
       </body>
     </html>
   );
