@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { featuredProducts } from "@/lib/mock-data";
 import { ProductCard } from "@/components/products/ProductCard";
+import { ProductActions } from "@/components/products/ProductActions";
 
 export function generateStaticParams() {
   return featuredProducts.map((p) => ({ slug: p.slug }));
@@ -86,15 +87,8 @@ export default async function ProductDetailPage({
               ${product.price}
             </div>
 
-            {/* CTA */}
-            <div className="mt-6 flex gap-3">
-              <button className="rounded-lg bg-ocean px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-ocean-light">
-                Add to Cart
-              </button>
-              <button className="rounded-lg border border-border px-6 py-3 text-sm font-semibold text-charcoal transition-colors hover:bg-background">
-                Save for Later
-              </button>
-            </div>
+            {/* Options, Quantity & Add to Cart */}
+            <ProductActions product={product} />
 
             {/* Specs */}
             {product.specs && (

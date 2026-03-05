@@ -1,5 +1,10 @@
 /* ───────────────────────────── Products ───────────────────────────── */
 
+export interface ProductOption {
+  name: string;
+  values: string[];
+}
+
 export interface Product {
   name: string;
   price: number;
@@ -11,6 +16,7 @@ export interface Product {
   description?: string;
   specs?: { label: string; value: string }[];
   features?: string[];
+  options?: ProductOption[];
 }
 
 export const featuredProducts: Product[] = [
@@ -37,6 +43,10 @@ export const featuredProducts: Product[] = [
       "Corrosion-resistant for salt water",
       "Beginner-friendly with easy band loading",
     ],
+    options: [
+      { name: "Band Type", values: ["Latex (Standard)", "Hybrid (Power+)"] },
+      { name: "Tip", values: ["Single Barb", "Tri-Tip", "Paralyzer"] },
+    ],
   },
   {
     name: "Reef Hunter 90",
@@ -61,6 +71,10 @@ export const featuredProducts: Product[] = [
       "Strong enough for larger reef fish",
       "Our most popular model",
     ],
+    options: [
+      { name: "Band Type", values: ["Latex (Standard)", "Hybrid (Power+)"] },
+      { name: "Tip", values: ["Single Barb", "Tri-Tip", "Paralyzer"] },
+    ],
   },
   {
     name: "Reef Hunter 110",
@@ -84,6 +98,10 @@ export const featuredProducts: Product[] = [
       "Dual band for extra power",
       "Built for experienced spearos",
       "Ideal for larger species — kingfish, trevally",
+    ],
+    options: [
+      { name: "Band Type", values: ["Latex (Standard)", "Hybrid (Power+)"] },
+      { name: "Tip", values: ["Single Barb", "Tri-Tip", "Paralyzer"] },
     ],
   },
   {
@@ -129,6 +147,9 @@ export const featuredProducts: Product[] = [
       "Holds enough for a full session",
       "Won't attract sharks like mesh bags",
     ],
+    options: [
+      { name: "Size", values: ["Standard (15L)", "Large (20L)"] },
+    ],
   },
   {
     name: "Dive Knife — Reef Series",
@@ -150,6 +171,9 @@ export const featuredProducts: Product[] = [
       "Serrated edge for cutting line and kelp",
       "Quick-release leg strap sheath",
       "Line cutter notch on the spine",
+    ],
+    options: [
+      { name: "Blade Style", values: ["Straight Edge", "Combo (Straight + Serrated)"] },
     ],
   },
 ];
