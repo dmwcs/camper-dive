@@ -98,9 +98,9 @@ export function OurStory() {
                 },
               ].map((v) => (
                 <div key={v.title}>
-                  <h4 className="text-sm font-bold text-charcoal">
+                  <h3 className="text-sm font-bold text-charcoal">
                     {v.title}
-                  </h4>
+                  </h3>
                   <p className="mt-1 text-sm text-slate-light">{v.desc}</p>
                 </div>
               ))}

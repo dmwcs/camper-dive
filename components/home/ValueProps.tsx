@@ -41,6 +41,7 @@ export function ValueProps() {
   return (
     <section className="bg-ocean py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <h2 className="sr-only">Why choose CamperDive</h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {values.map((v, i) => (
             <div

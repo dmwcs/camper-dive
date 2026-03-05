@@ -67,7 +67,7 @@ export function Education() {
                 <p className="text-xs font-medium uppercase tracking-wider text-slate-light">
                   Product Image
                 </p>
-                <p className="mt-1 text-xs text-slate-light/60">
+                <p className="mt-1 text-xs text-slate-light">
                   Compact hand speargun — 75cm
                 </p>
               </div>
@@ -108,7 +108,7 @@ export function Education() {
                 <p className="text-xs font-medium uppercase tracking-wider text-slate-light">
                   Comparison Image
                 </p>
-                <p className="mt-1 text-xs text-slate-light/60">
+                <p className="mt-1 text-xs text-slate-light">
                   Full-size speargun — 120cm+
                 </p>
               </div>

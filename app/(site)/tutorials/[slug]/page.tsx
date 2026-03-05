@@ -67,12 +67,12 @@ export default async function TutorialDetailPage({
           {/* Content */}
           <div className="relative px-5 pb-8 pt-6 sm:px-8 sm:pb-12 sm:pt-10 lg:px-12 lg:pb-14 lg:pt-12">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-1.5 text-[13px] text-white/50">
-              <Link href="/tutorials" className="transition-colors hover:text-white/80">
+            <nav className="flex items-center gap-1.5 text-[13px] text-white/70">
+              <Link href="/tutorials" className="transition-colors hover:text-white/90">
                 Tutorials
               </Link>
-              <span className="text-white/30">/</span>
-              <span className="text-white/60">{tutorial.category}</span>
+              <span className="text-white/50">/</span>
+              <span className="text-white/80">{tutorial.category}</span>
             </nav>
 
             {/* Category + meta row */}
@@ -80,7 +80,7 @@ export default async function TutorialDetailPage({
               <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
                 {tutorial.category}
               </span>
-              <span className="text-[12px] text-white/50 sm:text-[13px]">
+              <span className="text-[12px] text-white/70 sm:text-[13px]">
                 {tutorial.lastEdited}
               </span>
             </div>

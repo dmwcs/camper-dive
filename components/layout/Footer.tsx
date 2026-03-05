@@ -100,7 +100,7 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Your email"
-                className="min-w-0 flex-1 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-[13px] text-white placeholder:text-white/40 focus:border-sand focus:outline-none sm:px-4 sm:py-2.5 sm:text-sm"
+                className="min-w-0 flex-1 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-[13px] text-white placeholder:text-white/60 focus:border-sand focus:outline-none sm:px-4 sm:py-2.5 sm:text-sm"
               />
               <button
                 type="submit"
@@ -113,14 +113,14 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[11px] text-white/40 sm:mt-10 sm:gap-4 sm:pt-8 sm:text-xs md:flex-row lg:mt-12">
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[11px] text-white/60 sm:mt-10 sm:gap-4 sm:pt-8 sm:text-xs md:flex-row lg:mt-12">
           <p>&copy; {new Date().getFullYear()} CamperDive. All rights reserved.</p>
           <div className="flex gap-5 sm:gap-6">
             {footerLinks.company.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-white/60"
+                className="transition-colors hover:text-white"
               >
                 {link.label}
               </Link>
