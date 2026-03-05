@@ -1,6 +1,8 @@
 import { TutorialsContent } from "./TutorialsContent";
 import { getTutorials, getTutorialCategories } from "@/lib/queries";
 
+export const revalidate = 10;
+
 export const metadata = {
   title: "Tutorials & Guides",
   description:

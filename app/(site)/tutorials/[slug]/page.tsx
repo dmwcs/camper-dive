@@ -5,6 +5,8 @@ import { getTutorials, getTutorialBySlug } from "@/lib/queries";
 import { TutorialCard } from "@/components/tutorials/TutorialCard";
 import { TutorialBody } from "@/components/tutorials/TutorialBody";
 
+export const revalidate = 10;
+
 export async function generateStaticParams() {
   const tutorials = await getTutorials();
   return tutorials.map((t) => ({ slug: t.slug }));

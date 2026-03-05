@@ -2,6 +2,8 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ProductsContent } from "./ProductsContent";
 import { getProducts } from "@/lib/queries";
 
+export const revalidate = 10;
+
 export const metadata = {
   title: "Products",
   description:

@@ -5,6 +5,8 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { ProductActions } from "@/components/products/ProductActions";
 import { ProductGallery } from "@/components/products/ProductGallery";
 
+export const revalidate = 10;
+
 export async function generateStaticParams() {
   const products = await getProducts();
   return products.map((p) => ({ slug: p.slug }));
