@@ -5,6 +5,8 @@ import { ValueProps } from "@/components/home/ValueProps";
 import { TutorialPreview } from "@/components/home/TutorialPreview";
 import { OurStory } from "@/components/home/OurStory";
 
+export const revalidate = 10;
+
 export default function Home() {
   return (
     <>
