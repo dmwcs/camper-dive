@@ -14,7 +14,7 @@ const bebasNeue = Bebas_Neue({
   weight: "400",
 });
 
-const siteUrl = "https://camperdive.com.au";
+const siteUrl = "https://camperdive.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

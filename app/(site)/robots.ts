@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://camperdive.com.au/sitemap.xml",
+    sitemap: "https://camperdive.com/sitemap.xml",
   };
 }

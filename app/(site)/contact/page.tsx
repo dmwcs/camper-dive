@@ -150,7 +150,7 @@ export default function ContactPage() {
                       Email
                     </p>
                     <p className="mt-1 text-sm text-charcoal">
-                      hello@camperdive.com.au
+                      hello@camperdive.com
                     </p>
                   </div>
                   <div>

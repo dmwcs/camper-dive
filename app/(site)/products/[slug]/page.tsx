@@ -47,13 +47,13 @@ export default async function ProductDetailPage({
     "@type": "Product",
     name: product.name,
     description: product.description || product.shortDesc,
-    image: `https://camperdive.com.au${product.image}`,
+    image: `https://camperdive.com${product.image}`,
     offers: {
       "@type": "Offer",
       price: product.price,
       priceCurrency: "AUD",
       availability: "https://schema.org/InStock",
-      url: `https://camperdive.com.au/products/${product.slug}`,
+      url: `https://camperdive.com/products/${product.slug}`,
     },
   };
 
