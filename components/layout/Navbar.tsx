@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
@@ -52,9 +53,14 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="font-logo text-3xl tracking-wider text-ocean">
-            CAMPERDIVE
-          </span>
+          <Image
+            src="/images/logo.svg"
+            alt="CamperDive"
+            width={3063}
+            height={2639}
+            className="h-9 w-auto sm:h-10"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
