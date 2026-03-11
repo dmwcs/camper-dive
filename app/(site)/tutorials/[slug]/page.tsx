@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTutorials, getTutorialBySlug } from "@/lib/queries";
-import { TutorialCard } from "@/components/tutorials/TutorialCard";
-import { TutorialBody } from "@/components/tutorials/TutorialBody";
+import { TutorialCard } from "@/components/TutorialCard";
+import { TutorialBody } from "@/app/(site)/tutorials/_components/TutorialBody";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
 export const revalidate = 0;

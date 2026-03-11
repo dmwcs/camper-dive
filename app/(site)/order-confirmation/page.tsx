@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { stripe } from "@/lib/stripe";
-import { ClearCart } from "./ClearCart";
+import { ClearCart } from "./_components/ClearCart";
 
 export const metadata = {
   title: "Order Confirmed",

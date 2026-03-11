@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Product } from "@/lib/types";
-import { ProductCard } from "@/components/products/ProductCard";
+import { ProductCard } from "@/app/(site)/products/_components/ProductCard";
 
 const categories = ["All", "Spearguns", "Accessories", "Diving Gear"];
 

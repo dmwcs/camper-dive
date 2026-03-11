@@ -13,7 +13,7 @@ import {
 import dynamic from "next/dynamic";
 
 const CartDrawer = dynamic(
-  () => import("@/components/cart/CartDrawer").then((m) => m.CartDrawer),
+  () => import("@/components/CartDrawer").then((m) => m.CartDrawer),
   { ssr: false },
 );
 
@@ -210,7 +210,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [],
   );
 
-  const clearCart = useCallback(() => dispatch({ type: "CLEAR" }), []);
+  const clearCart = useCallback(() => {
+    dispatch({ type: "CLEAR" });
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+  }, []);
   const openCart = useCallback(() => setIsCartOpen(true), []);
   const closeCart = useCallback(() => setIsCartOpen(false), []);
 

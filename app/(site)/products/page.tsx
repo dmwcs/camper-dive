@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { ProductsContent } from "@/components/products/ProductsContent";
-import { ProductsListSkeleton } from "@/components/products/ProductsListSkeleton";
+import { ProductsContent } from "@/app/(site)/products/_components/ProductsContent";
+import { ProductsListSkeleton } from "@/app/(site)/products/_components/ProductsListSkeleton";
 import { getProducts } from "@/lib/queries";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新

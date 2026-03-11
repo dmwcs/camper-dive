@@ -2,8 +2,8 @@
 
 import { useState, useCallback } from "react";
 import type { Tutorial, TutorialCategory } from "@/lib/types";
-import { TutorialCard } from "@/components/tutorials/TutorialCard";
-import { CategoryAccordion } from "@/components/tutorials/CategoryAccordion";
+import { TutorialCard } from "@/components/TutorialCard";
+import { CategoryAccordion } from "@/app/(site)/tutorials/_components/CategoryAccordion";
 
 interface TutorialsContentProps {
   tutorials: Tutorial[];

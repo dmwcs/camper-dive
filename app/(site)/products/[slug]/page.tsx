@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProducts, getProductBySlug } from "@/lib/queries";
-import { ProductCard } from "@/components/products/ProductCard";
-import { ProductActions } from "@/components/products/ProductActions";
-import { ProductGallery } from "@/components/products/ProductGallery";
+import { ProductCard } from "@/app/(site)/products/_components/ProductCard";
+import { ProductActions } from "@/app/(site)/products/_components/ProductActions";
+import { ProductGallery } from "@/app/(site)/products/_components/ProductGallery";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
 export const revalidate = 0;

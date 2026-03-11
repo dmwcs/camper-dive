@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTutorials } from "@/lib/queries";
-import { TutorialCard } from "@/components/tutorials/TutorialCard";
+import { TutorialCard } from "@/components/TutorialCard";
 
 export async function TutorialPreview() {
   const allTutorials = await getTutorials();

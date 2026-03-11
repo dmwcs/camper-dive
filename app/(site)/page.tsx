@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import { Hero } from "@/components/home/Hero";
-import { FeaturedProducts } from "@/components/home/FeaturedProducts";
-import { Lifestyle } from "@/components/home/Lifestyle";
-import { ValueProps } from "@/components/home/ValueProps";
-import { TutorialPreview } from "@/components/home/TutorialPreview";
-import { OurStory } from "@/components/home/OurStory";
-import { FeaturedProductsSkeleton } from "@/components/home/FeaturedProductsSkeleton";
-import { TutorialPreviewSkeleton } from "@/components/home/TutorialPreviewSkeleton";
+import { Hero } from "@/app/(site)/_components/Hero";
+import { FeaturedProducts } from "@/app/(site)/_components/FeaturedProducts";
+import { Lifestyle } from "@/app/(site)/_components/Lifestyle";
+import { ValueProps } from "@/app/(site)/_components/ValueProps";
+import { TutorialPreview } from "@/app/(site)/_components/TutorialPreview";
+import { OurStory } from "@/app/(site)/_components/OurStory";
+import { FeaturedProductsSkeleton } from "@/app/(site)/_components/FeaturedProductsSkeleton";
+import { TutorialPreviewSkeleton } from "@/app/(site)/_components/TutorialPreviewSkeleton";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
 export const revalidate = 0;
