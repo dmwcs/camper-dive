@@ -52,19 +52,22 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur-sm">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2.5">
           <Image
             src="/images/logo.svg"
-            alt="CamperDive"
+            alt=""
             width={3063}
             height={2639}
-            className="h-9 w-auto sm:h-10"
+            className="h-8 w-auto sm:h-9"
             priority
           />
+          <span className="font-logo text-2xl tracking-wider text-ocean sm:text-3xl">
+            CAMPERDIVE
+          </span>
         </Link>
 
         {/* Desktop Nav */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -78,7 +81,7 @@ export function Navbar() {
         </ul>
 
         {/* Desktop: Cart + CTA */}
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <CartButton />
           <Link
             href="/products"
@@ -89,7 +92,7 @@ export function Navbar() {
         </div>
 
         {/* Mobile: Cart + Toggle */}
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <CartButton />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -111,7 +114,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="border-t border-border bg-surface px-6 py-4 md:hidden">
+        <div className="border-t border-border bg-surface px-6 py-4 lg:hidden">
           <ul className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <li key={link.href}>
