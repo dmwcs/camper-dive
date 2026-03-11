@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { stripe } from "@/lib/stripe";
+import { ClearCart } from "./ClearCart";
 
 export const metadata = {
   title: "Order Confirmed",
@@ -26,6 +27,7 @@ export default async function SuccessPage({
 
   return (
     <div className="bg-background">
+      <ClearCart />
       <section className="py-24">
         <div className="mx-auto max-w-xl px-6 text-center">
           {/* Checkmark Icon */}
