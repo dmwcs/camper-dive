@@ -29,6 +29,7 @@ export interface Product {
   description?: string;
   specs?: { label: string; value: string }[];
   features?: string[];
+  stripeProductId?: string;
   options?: ProductOption[];
   variants?: ProductVariant[];
 }
@@ -53,4 +54,35 @@ export interface TutorialCategory {
   slug: string;
   label: string;
   count: number;
+}
+
+/* ───────────────────── Stripe Sync (DB-agnostic) ──────────────────── */
+
+export interface SyncableProduct {
+  id: string;
+  name: string;
+  stripeProductId?: string;
+  variants: SyncableVariant[];
+}
+
+export interface SyncableVariant {
+  key: string;
+  priceInCents: number;
+  stripePriceId?: string;
+}
+
+export interface SyncResult {
+  productId: string;
+  stripeProductId: string;
+  variants: {
+    key: string;
+    stripePriceId: string;
+    created: boolean;
+    archivedOldPriceId?: string;
+  }[];
+}
+
+export interface ProductRepository {
+  getProductForSync(documentId: string): Promise<SyncableProduct>;
+  writeBackStripeIds(result: SyncResult): Promise<void>;
 }

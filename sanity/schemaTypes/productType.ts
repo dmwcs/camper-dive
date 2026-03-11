@@ -36,6 +36,14 @@ export const productType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'stripeProductId',
+      title: 'Stripe Product ID',
+      type: 'string',
+      description: 'Auto-populated by sync. Do not edit manually.',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'category',
       type: 'reference',
       to: {type: 'category'},
@@ -151,6 +159,56 @@ export const productType = defineType({
       title: 'Product Variants',
       description: 'Price lookup table. Label must match option combo key (e.g. "Latex / Single Barb"). Products with no options should have one "Default" variant.',
       type: 'array',
+      validation: (rule) =>
+        rule.custom((variants, context) => {
+          if (!variants || variants.length === 0) return true
+
+          const doc = context.document as {
+            options?: Array<{name: string; values: string[]}>
+          }
+          const options = doc?.options
+
+          const labels = (variants as Array<{label?: string}>).map((v) => v.label || '')
+
+          // Check duplicates
+          const dupes = labels.filter((l: string, i: number) => labels.indexOf(l) !== i)
+          if (dupes.length > 0) {
+            return `Duplicate variant label(s): "${[...new Set(dupes)].join('", "')}"`
+          }
+
+          // No options → must be exactly one "Default" variant
+          if (!options || options.length === 0) {
+            if (labels.length !== 1 || labels[0] !== 'Default') {
+              return 'Products without options must have exactly one variant labelled "Default"'
+            }
+            return true
+          }
+
+          // Build expected labels from cartesian product of option values
+          function cartesian(arrays: string[][]): string[][] {
+            return arrays.reduce<string[][]>(
+              (acc, values) => acc.flatMap((combo) => values.map((v) => [...combo, v])),
+              [[]],
+            )
+          }
+
+          const valueSets = options.map((opt) => opt.values || [])
+          const expectedLabels = valueSets.length > 0
+            ? cartesian(valueSets).map((combo) => combo.join(' / '))
+            : []
+
+          const invalid = labels.filter((l: string) => !expectedLabels.includes(l))
+          if (invalid.length > 0) {
+            return `Invalid variant label(s): "${invalid.join('", "')}". Expected: ${expectedLabels.join(', ')}`
+          }
+
+          const missing = expectedLabels.filter((l) => !labels.includes(l))
+          if (missing.length > 0) {
+            return `Missing variant(s) for: ${missing.join(', ')}`
+          }
+
+          return true
+        }),
       of: [
         defineArrayMember({
           type: 'object',
@@ -172,8 +230,7 @@ export const productType = defineType({
               name: 'stripePriceId',
               type: 'string',
               title: 'Stripe Price ID',
-              description: 'The Price ID from Stripe for this variant',
-              validation: (rule) => rule.required(),
+              description: 'Auto-populated by sync. Leave blank for new variants.',
             }),
           ],
           preview: {
