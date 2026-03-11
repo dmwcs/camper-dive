@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/styles.css";
@@ -43,9 +43,19 @@ export function ProductGallery({
   productName?: string;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const active = media[activeIndex];
+
+  const switchMedia = useCallback(
+    (index: number) => {
+      if (index === activeIndex) return;
+      setLoading(true);
+      setActiveIndex(index);
+    },
+    [activeIndex],
+  );
 
   const videoSlides = media
     .filter((item) => item.type === "video")
@@ -70,15 +80,22 @@ export function ProductGallery({
       <div className="space-y-2.5 sm:space-y-3">
         {/* Main View */}
         <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-background sm:aspect-square sm:rounded-2xl">
+          {/* Skeleton shimmer while loading */}
+          {loading && (
+            <div className="absolute inset-0 z-10 animate-pulse bg-gradient-to-r from-background via-surface to-background bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]" />
+          )}
+
           {active.type === "image" ? (
             <Image
+              key={active.src}
               src={active.src}
               alt={productName || ""}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
+              className={`object-cover transition-opacity duration-300 ${loading ? "opacity-0" : "opacity-100"}`}
               priority={activeIndex === 0}
               fetchPriority={activeIndex === 0 ? "high" : undefined}
+              onLoad={() => setLoading(false)}
             />
           ) : (
             <button
@@ -92,9 +109,10 @@ export function ProductGallery({
                 muted
                 playsInline
                 preload="metadata"
-                className="h-full w-full object-cover"
+                className={`h-full w-full object-cover transition-opacity duration-300 ${loading ? "opacity-0" : "opacity-100"}`}
+                onLoadedData={() => setLoading(false)}
               />
-              {playOverlay}
+              {!loading && playOverlay}
             </button>
           )}
         </div>
@@ -105,7 +123,7 @@ export function ProductGallery({
             {media.map((item, i) => (
               <button
                 key={`${item.src}-${i}`}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => switchMedia(i)}
                 aria-label={`View ${item.type === "image" ? "photo" : "video"} ${i + 1}`}
                 className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-md border-2 transition-colors sm:h-16 sm:w-16 sm:rounded-lg ${
                   i === activeIndex
