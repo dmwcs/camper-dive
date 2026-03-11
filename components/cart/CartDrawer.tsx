@@ -231,9 +231,14 @@ export function CartDrawer() {
             <p className="mt-1 text-xs text-slate-light">
               Shipping calculated at checkout
             </p>
-            <button className="mt-4 w-full rounded-lg bg-ocean py-3 text-sm font-semibold text-white transition-colors hover:bg-ocean-light">
-              Checkout
-            </button>
+            <form action="/api/checkout" method="POST">
+              <button
+                type="submit"
+                className="mt-4 w-full rounded-lg bg-ocean py-3 text-sm font-semibold text-white transition-colors hover:bg-ocean-light"
+              >
+                Checkout
+              </button>
+            </form>
           </div>
         )}
       </aside>

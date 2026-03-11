@@ -14,7 +14,7 @@ const securityHeaders = [
       "frame-src https://www.youtube-nocookie.com",
       "object-src 'none'",
       "base-uri 'self'",
-      "form-action 'self'",
+      "form-action 'self' https://checkout.stripe.com",
       "frame-ancestors 'none'",
     ].join("; "),
   },
