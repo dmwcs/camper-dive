@@ -144,7 +144,7 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
             {/* Tutorial grid */}
             <div className="lg:col-span-3">
               {/* Active filter + count */}
-              <p className="mb-4 text-sm text-slate sm:mb-6">
+              <p className="mb-4 text-sm text-slate sm:mb-6" data-sr>
                 {filtered.length} {filtered.length === 1 ? "tutorial" : "tutorials"}
                 {activeCategory !== "all" && (
                   <> in <span className="font-medium text-charcoal">{activeCategory}</span></>
@@ -153,13 +153,13 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
 
               {/* Featured (first item when showing all) */}
               {activeCategory === "all" && (
-                <div className="mb-4 sm:mb-6">
+                <div className="mb-4 sm:mb-6" data-sr="50">
                   <TutorialCard tutorial={filtered[0]} size="lg" />
                 </div>
               )}
 
               {/* Grid */}
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4" data-sr="100">
                 {(activeCategory === "all"
                   ? filtered.slice(1)
                   : filtered

@@ -65,7 +65,7 @@ export default async function ProductDetailPage({
       />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── Header ── */}
-        <header className="pt-8 pb-6 sm:pt-12 sm:pb-8">
+        <header className="pt-8 pb-6 sm:pt-12 sm:pb-8" data-sr>
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-[13px] text-slate-light">
             <Link
@@ -97,7 +97,7 @@ export default async function ProductDetailPage({
         </header>
 
         {/* ── Product Layout ── */}
-        <div className="grid gap-6 pb-8 sm:gap-10 sm:pb-12 md:grid-cols-2">
+        <div className="grid gap-6 pb-8 sm:gap-10 sm:pb-12 md:grid-cols-2" data-sr="50">
           {/* Gallery */}
           <ProductGallery
             media={product.media ?? [{ type: "image", src: product.image }]}
@@ -177,13 +177,13 @@ export default async function ProductDetailPage({
       {/* ── Related ── */}
       <section className="border-t border-border bg-background py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-light">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-light" data-sr>
             Keep browsing
           </p>
           <h2 className="mt-1 font-heading text-xl font-bold text-charcoal">
             You might also like
           </h2>
-          <div className="mt-5 grid gap-4 grid-cols-2 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+          <div className="mt-5 grid gap-4 grid-cols-2 sm:mt-6 sm:grid-cols-3 sm:gap-5" data-sr="100">
             {related.map((p) => (
               <ProductCard key={p.slug} product={p} size="sm" />
             ))}

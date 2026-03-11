@@ -38,7 +38,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-5">
             {/* Contact Form */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3" data-sr>
               <div className="rounded-2xl border border-border bg-surface p-6 lg:p-8">
                 <h2 className="font-heading text-2xl font-bold text-charcoal">
                   Send us a message
@@ -138,7 +138,7 @@ export default function ContactPage() {
             </div>
 
             {/* Sidebar */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" data-sr="50">
               {/* Contact Info */}
               <div className="rounded-2xl border border-border bg-surface p-6">
                 <h3 className="font-heading text-lg font-bold text-charcoal">
@@ -173,7 +173,7 @@ export default function ContactPage() {
               </div>
 
               {/* FAQ */}
-              <div className="mt-6 rounded-2xl border border-border bg-surface p-6">
+              <div className="mt-6 rounded-2xl border border-border bg-surface p-6" data-sr="100">
                 <h3 className="font-heading text-lg font-bold text-charcoal">
                   Common questions
                 </h3>

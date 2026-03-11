@@ -49,7 +49,7 @@ export default function AboutPage() {
       {/* Founder Story */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="grid items-center gap-12 lg:grid-cols-2" data-sr>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/images/course-freediving.jpg"
@@ -92,10 +92,10 @@ export default function AboutPage() {
       {/* Values */}
       <section className="bg-surface py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-charcoal">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-charcoal" data-sr>
             What we stand for
           </h2>
-          <div className="mt-8 grid gap-8 sm:grid-cols-2">
+          <div className="mt-8 grid gap-8 sm:grid-cols-2" data-sr="50">
             {values.map((v) => (
               <div key={v.title} className="rounded-xl border border-border p-6">
                 <h3 className="font-heading text-lg font-bold text-charcoal">
@@ -113,10 +113,10 @@ export default function AboutPage() {
       {/* Timeline */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-charcoal">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-charcoal" data-sr>
             Our journey
           </h2>
-          <div className="mt-8 space-y-0">
+          <div className="mt-8 space-y-0" data-sr="50">
             {milestones.map((m, i) => (
               <div key={m.year} className="flex gap-6 py-4">
                 <div className="flex flex-col items-center">
@@ -139,7 +139,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="bg-ocean py-16">
-        <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 text-center lg:px-8" data-sr>
           <h2 className="font-heading text-3xl font-bold text-white">
             Ready to dive in?
           </h2>

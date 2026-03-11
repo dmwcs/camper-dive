@@ -41,13 +41,13 @@ export function ProductsContent({ products }: { products: Product[] }) {
       <section className="min-h-[60vh] py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {/* Result count */}
-          <p className="mb-5 text-sm text-slate sm:mb-6">
+          <p className="mb-5 text-sm text-slate sm:mb-6" data-sr>
             {filtered.length} {filtered.length === 1 ? "product" : "products"}
             {activeCategory !== "All" && (
               <> in <span className="font-medium text-charcoal">{activeCategory}</span></>
             )}
           </p>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4" data-sr="50">
             {filtered.map((product) => (
               <ProductCard key={product.slug} product={product} size="md" />
             ))}

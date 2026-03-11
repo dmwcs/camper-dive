@@ -68,7 +68,7 @@ export default async function TutorialDetailPage({
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/60 to-charcoal/30" />
 
           {/* Content */}
-          <div className="relative px-5 pb-8 pt-6 sm:px-8 sm:pb-12 sm:pt-10 lg:px-12 lg:pb-14 lg:pt-12">
+          <div className="relative px-5 pb-8 pt-6 sm:px-8 sm:pb-12 sm:pt-10 lg:px-12 lg:pb-14 lg:pt-12" data-sr>
             {/* Breadcrumb */}
             <nav className="flex items-center gap-1.5 text-[13px] text-white/70">
               <Link href="/tutorials" className="transition-colors hover:text-white/90">
@@ -106,13 +106,13 @@ export default async function TutorialDetailPage({
         <div className="my-6 h-px bg-border sm:my-10" />
 
         {/* ── Content ── */}
-        <div className="pb-8 sm:pb-12">
+        <div className="pb-8 sm:pb-12" data-sr="50">
           {tutorial.content && tutorial.content.length > 0 && (
             <TutorialBody content={tutorial.content} />
           )}
 
           {/* CTA */}
-          <div className="mt-10 rounded-xl bg-ocean px-5 py-6 text-center sm:mt-14 sm:rounded-2xl sm:px-8 sm:py-8">
+          <div className="mt-10 rounded-xl bg-ocean px-5 py-6 text-center sm:mt-14 sm:rounded-2xl sm:px-8 sm:py-8" data-sr>
             <h2 className="font-heading text-base font-bold text-white sm:text-lg">
               Ready to get started?
             </h2>
@@ -133,13 +133,13 @@ export default async function TutorialDetailPage({
       {/* ── Related ── */}
       <section className="border-t border-border bg-background py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-light">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-light" data-sr>
             Keep reading
           </p>
           <h2 className="mt-1 font-heading text-xl font-bold text-charcoal">
             More tutorials
           </h2>
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4" data-sr="100">
             {moreRelated.map((t) => (
               <TutorialCard key={t.slug} tutorial={t} size="sm" />
             ))}
