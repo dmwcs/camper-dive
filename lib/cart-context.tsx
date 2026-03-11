@@ -23,6 +23,7 @@ export interface CartItem {
   slug: string;
   name: string;
   price: number;
+  stripePriceId: string;
   image: string;
   quantity: number;
   selectedOptions: Record<string, string>;

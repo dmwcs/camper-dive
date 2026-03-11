@@ -5,6 +5,12 @@ export interface ProductOption {
   values: string[];
 }
 
+export interface ProductVariant {
+  label: string;
+  price: number;
+  stripePriceId: string;
+}
+
 export interface MediaItem {
   type: "image" | "video";
   src: string;
@@ -14,6 +20,7 @@ export interface MediaItem {
 export interface Product {
   name: string;
   price: number;
+  stripePriceId: string;
   category: string;
   slug: string;
   shortDesc: string;
@@ -23,6 +30,7 @@ export interface Product {
   specs?: { label: string; value: string }[];
   features?: string[];
   options?: ProductOption[];
+  variants?: ProductVariant[];
 }
 
 /* ───────────────────────────── Tutorials ───────────────────────────── */

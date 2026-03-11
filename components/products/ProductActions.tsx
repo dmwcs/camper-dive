@@ -2,45 +2,78 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
-import type { ProductOption } from "@/lib/types";
+import type { ProductOption, ProductVariant } from "@/lib/types";
 
 interface ProductActionsProps {
   slug: string;
   name: string;
   price: number;
+  stripePriceId: string;
   image: string;
   options?: ProductOption[];
+  variants?: ProductVariant[];
 }
 
 export function ProductActions({
   slug,
   name,
   price,
+  stripePriceId,
   image,
   options,
+  variants,
 }: ProductActionsProps) {
   const { addItem, openCart } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, string>
-  >(() => {
-    if (!options) return {};
-    const defaults: Record<string, string> = {};
-    options.forEach((opt) => {
-      defaults[opt.name] = opt.values[0];
-    });
-    return defaults;
-  });
   const [added, setAdded] = useState(false);
+
+  const hasOptions = options && options.length > 0;
+  const hasVariants = variants && variants.length > 0;
+
+  // Initialise each option dimension to its first value
+  const [selections, setSelections] = useState<Record<string, string>>(() => {
+    if (!hasOptions) return {};
+    const init: Record<string, string> = {};
+    for (const opt of options) {
+      init[opt.name] = opt.values[0];
+    }
+    return init;
+  });
+
+  // Build combo key from current selections (join in options order with " / ")
+  function getComboKey(): string {
+    if (!hasOptions) return "Default";
+    return options.map((opt) => selections[opt.name]).join(" / ");
+  }
+
+  // Look up the matching variant
+  const comboKey = getComboKey();
+  const activeVariant = hasVariants
+    ? variants.find((v) => v.label === comboKey) ?? variants[0]
+    : null;
+  const activePrice = activeVariant ? activeVariant.price : price;
+  const activeStripePriceId = activeVariant
+    ? activeVariant.stripePriceId
+    : stripePriceId;
+
+  // Build selectedOptions for cart context (e.g. { "Band Type": "Latex", "Tip": "Single Barb" })
+  const cartOptions: Record<string, string> = hasOptions
+    ? { ...selections }
+    : {};
+
+  function handleSelect(optionName: string, value: string) {
+    setSelections((prev) => ({ ...prev, [optionName]: value }));
+  }
 
   function handleAdd() {
     addItem(
       {
         slug,
         name,
-        price,
+        price: activePrice,
+        stripePriceId: activeStripePriceId,
         image,
-        selectedOptions,
+        selectedOptions: cartOptions,
       },
       quantity,
     );
@@ -53,23 +86,51 @@ export function ProductActions({
 
   return (
     <div className="mt-6 space-y-5">
-      {/* Option Selectors */}
-      {options?.map((option) => (
-        <div key={option.name}>
+      {/* Price */}
+      <div className="text-3xl font-bold text-charcoal">${activePrice}</div>
+
+      {/* Option Selectors — one row per dimension */}
+      {hasOptions &&
+        options.map((opt) => (
+          <div key={opt.name}>
+            <label className="text-sm font-semibold text-charcoal">
+              {opt.name}
+            </label>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {opt.values.map((val) => {
+                const isSelected = selections[opt.name] === val;
+                return (
+                  <button
+                    key={val}
+                    onClick={() => handleSelect(opt.name, val)}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                      isSelected
+                        ? "bg-ocean text-white"
+                        : "border border-border text-charcoal/60 hover:border-ocean/30 hover:text-charcoal"
+                    }`}
+                  >
+                    {val}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+
+      {/* Single-dimension variants without options field (fallback) */}
+      {!hasOptions && hasVariants && variants.length > 1 && (
+        <div>
           <label className="text-sm font-semibold text-charcoal">
-            {option.name}
+            Select Option
           </label>
           <div className="mt-2 flex flex-wrap gap-2">
-            {option.values.map((value) => {
-              const isSelected = selectedOptions[option.name] === value;
+            {variants.map((variant) => {
+              const isSelected = activeVariant?.label === variant.label;
               return (
                 <button
-                  key={value}
+                  key={variant.label}
                   onClick={() =>
-                    setSelectedOptions((prev) => ({
-                      ...prev,
-                      [option.name]: value,
-                    }))
+                    setSelections({ Default: variant.label })
                   }
                   className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                     isSelected
@@ -77,13 +138,13 @@ export function ProductActions({
                       : "border border-border text-charcoal/60 hover:border-ocean/30 hover:text-charcoal"
                   }`}
                 >
-                  {value}
+                  {variant.label}
                 </button>
               );
             })}
           </div>
         </div>
-      ))}
+      )}
 
       {/* Quantity Selector */}
       <div className="flex items-center gap-4">

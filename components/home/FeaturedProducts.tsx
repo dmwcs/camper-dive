@@ -68,7 +68,7 @@ export async function FeaturedProducts() {
             </p>
             <div className="mt-4 flex items-center gap-4">
               <span className="text-xl font-bold text-charcoal md:text-2xl">
-                ${hero.price}
+                {hero.variants && hero.variants.length > 0 ? "From " : ""}${hero.price}
               </span>
               <span className="rounded-lg bg-ocean/10 px-3 py-1.5 text-xs font-semibold text-ocean transition-colors group-hover:bg-ocean group-hover:text-white">
                 View Product
@@ -104,7 +104,7 @@ export async function FeaturedProducts() {
                 </h3>
                 <div className="mt-1.5 flex items-center justify-between">
                   <span className="text-sm font-bold text-charcoal">
-                    ${product.price}
+                    {product.variants && product.variants.length > 0 ? "From " : ""}${product.price}
                   </span>
                   <span className="text-[10px] font-semibold text-ocean sm:text-xs lg:opacity-0 lg:transition-opacity lg:group-hover:opacity-100">
                     View &rarr;

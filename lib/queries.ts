@@ -39,12 +39,14 @@ export async function getProducts(): Promise<Product[]> {
       name,
       "slug": slug.current,
       price,
+      stripePriceId,
       "category": category->title,
       shortDesc,
       image,
       specs[]{ "label": label, "value": value },
       features,
       options[]{ "name": name, "values": values },
+      variants[]{ "label": label, "price": price, "stripePriceId": stripePriceId },
       description
     }`
   );
@@ -53,12 +55,14 @@ export async function getProducts(): Promise<Product[]> {
     name: p.name as string,
     slug: p.slug as string,
     price: p.price as number,
+    stripePriceId: (p.stripePriceId as string) || "",
     category: (p.category as string) || "",
     shortDesc: (p.shortDesc as string) || "",
     image: resolveImage(p.image),
     specs: (p.specs as Product["specs"]) || [],
     features: (p.features as string[]) || [],
     options: (p.options as Product["options"]) || [],
+    variants: (p.variants as Product["variants"]) || [],
     description: (p.description as string) || "",
   }));
 }
@@ -71,6 +75,7 @@ export async function getProductBySlug(
       name,
       "slug": slug.current,
       price,
+      stripePriceId,
       "category": category->title,
       shortDesc,
       image,
@@ -82,6 +87,7 @@ export async function getProductBySlug(
       specs[]{ "label": label, "value": value },
       features,
       options[]{ "name": name, "values": values },
+      variants[]{ "label": label, "price": price, "stripePriceId": stripePriceId },
       description
     }`,
     { slug }
@@ -105,6 +111,7 @@ export async function getProductBySlug(
     name: raw.name,
     slug: raw.slug,
     price: raw.price,
+    stripePriceId: raw.stripePriceId || "",
     category: raw.category || "",
     shortDesc: raw.shortDesc || "",
     image: resolveImage(raw.image),
@@ -112,6 +119,7 @@ export async function getProductBySlug(
     specs: raw.specs || [],
     features: raw.features || [],
     options: raw.options || [],
+    variants: raw.variants || [],
     description: raw.description || "",
   };
 }

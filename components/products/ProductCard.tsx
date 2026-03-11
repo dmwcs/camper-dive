@@ -52,7 +52,7 @@ export function ProductCard({ product, size = "md" }: ProductCardProps) {
           <span
             className={`font-bold text-charcoal ${isMd ? "text-sm sm:text-base" : "text-sm"}`}
           >
-            ${product.price}
+            {product.variants && product.variants.length > 0 ? "From " : ""}${product.price}
           </span>
           <span className="text-[11px] font-medium text-ocean sm:text-xs">
             View Details

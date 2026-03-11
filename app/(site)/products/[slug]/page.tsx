@@ -48,13 +48,24 @@ export default async function ProductDetailPage({
     name: product.name,
     description: product.description || product.shortDesc,
     image: `https://camperdive.com${product.image}`,
-    offers: {
-      "@type": "Offer",
-      price: product.price,
-      priceCurrency: "AUD",
-      availability: "https://schema.org/InStock",
-      url: `https://camperdive.com/products/${product.slug}`,
-    },
+    offers:
+      product.variants && product.variants.length > 0
+        ? {
+            "@type": "AggregateOffer",
+            lowPrice: Math.min(...product.variants.map((v) => v.price)),
+            highPrice: Math.max(...product.variants.map((v) => v.price)),
+            priceCurrency: "AUD",
+            availability: "https://schema.org/InStock",
+            offerCount: product.variants.length,
+            url: `https://camperdive.com/products/${product.slug}`,
+          }
+        : {
+            "@type": "Offer",
+            price: product.price,
+            priceCurrency: "AUD",
+            availability: "https://schema.org/InStock",
+            url: `https://camperdive.com/products/${product.slug}`,
+          },
   };
 
   return (
@@ -106,18 +117,15 @@ export default async function ProductDetailPage({
 
           {/* Details */}
           <div className="flex flex-col justify-center">
-            {/* Price */}
-            <div className="text-3xl font-bold text-charcoal">
-              ${product.price}
-            </div>
-
-            {/* Options, Quantity & Add to Cart */}
+            {/* Price + Options + Quantity + Add to Cart */}
             <ProductActions
               slug={product.slug}
               name={product.name}
               price={product.price}
+              stripePriceId={product.stripePriceId}
               image={product.image}
               options={product.options}
+              variants={product.variants}
             />
 
             {/* Specs */}

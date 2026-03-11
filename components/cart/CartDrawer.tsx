@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useCart } from "@/lib/cart-context";
+import { useEffect, useState } from "react";
+import { useCart, type CartItem } from "@/lib/cart-context";
 
 export function CartDrawer() {
   const {
@@ -231,17 +231,47 @@ export function CartDrawer() {
             <p className="mt-1 text-xs text-slate-light">
               Shipping calculated at checkout
             </p>
-            <form action="/api/checkout" method="POST">
-              <button
-                type="submit"
-                className="mt-4 w-full rounded-lg bg-ocean py-3 text-sm font-semibold text-white transition-colors hover:bg-ocean-light"
-              >
-                Checkout
-              </button>
-            </form>
+            <CheckoutButton items={items} />
           </div>
         )}
       </aside>
     </>
+  );
+}
+
+function CheckoutButton({ items }: { items: CartItem[] }) {
+  const [loading, setLoading] = useState(false);
+
+  async function handleCheckout() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((item) => ({
+            stripePriceId: item.stripePriceId,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <button
+      onClick={handleCheckout}
+      disabled={loading}
+      className="mt-4 w-full rounded-lg bg-ocean py-3 text-sm font-semibold text-white transition-colors hover:bg-ocean-light disabled:opacity-50"
+    >
+      {loading ? "Redirecting..." : "Checkout"}
+    </button>
   );
 }
