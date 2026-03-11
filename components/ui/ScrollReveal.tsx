@@ -9,33 +9,51 @@ export function ScrollReveal() {
   useEffect(() => {
     document.documentElement.classList.add("sr-ready");
 
-    // Small delay to let the new page DOM render
-    const timer = setTimeout(() => {
-      const elements = document.querySelectorAll("[data-sr]:not(.sr-visible)");
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const el = entry.target as HTMLElement;
-              const delay = parseInt(el.dataset.sr || "0", 10);
-              if (delay > 0) {
-                setTimeout(() => el.classList.add("sr-visible"), delay);
-              } else {
-                el.classList.add("sr-visible");
-              }
-              observer.unobserve(el);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const delay = parseInt(el.dataset.sr || "0", 10);
+            if (delay > 0) {
+              setTimeout(() => el.classList.add("sr-visible"), delay);
+            } else {
+              el.classList.add("sr-visible");
             }
-          });
-        },
-        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    // Observe all existing [data-sr] elements
+    function observeNew(root: ParentNode = document) {
+      root.querySelectorAll<HTMLElement>("[data-sr]:not(.sr-visible)").forEach(
+        (el) => observer.observe(el)
       );
+    }
 
-      elements.forEach((el) => observer.observe(el));
+    observeNew();
 
-      return () => observer.disconnect();
-    }, 50);
+    // Watch for new [data-sr] elements added by Suspense streaming
+    const mutation = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (node instanceof HTMLElement) {
+            if (node.hasAttribute("data-sr")) observer.observe(node);
+            observeNew(node);
+          }
+        }
+      }
+    });
 
-    return () => clearTimeout(timer);
+    mutation.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutation.disconnect();
+    };
   }, [pathname]);
 
   return null;

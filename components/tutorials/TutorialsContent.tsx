@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from "react";
 import type { Tutorial, TutorialCategory } from "@/lib/types";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { TutorialCard } from "@/components/tutorials/TutorialCard";
 import { CategoryAccordion } from "@/components/tutorials/CategoryAccordion";
 
@@ -37,14 +36,7 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
   };
 
   return (
-    <div className="bg-background">
-      <PageHeader
-        tagline="Learn"
-        title="Tutorials & Guides"
-        description="From speargun basics to abalone hunting — free tutorials by a certified freediving instructor. Watch, read, and get in the water."
-        backgroundImage="/images/spearfishing-action.jpg"
-      />
-
+    <>
       {/* Mobile category pills */}
       <section className="sticky top-0 z-10 border-b border-border bg-surface/95 backdrop-blur-sm lg:hidden">
         <div className="mx-auto max-w-7xl px-6">
@@ -191,7 +183,7 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
 
