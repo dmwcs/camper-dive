@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import type { Tutorial, TutorialCategory } from "@/lib/types";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { TutorialCard } from "@/components/tutorials/TutorialCard";
+import { CategoryAccordion } from "@/components/tutorials/CategoryAccordion";
 
 interface TutorialsContentProps {
   tutorials: Tutorial[];
@@ -12,6 +13,7 @@ interface TutorialsContentProps {
 
 export function TutorialsContent({ tutorials, categories }: TutorialsContentProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [expandedCat, setExpandedCat] = useState<string | null>(null);
 
   const filtered =
     activeCategory === "all"
@@ -20,6 +22,19 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
 
   const categoryCount = (cat: string) =>
     tutorials.filter((t) => t.category === cat).length;
+
+  const tutorialsForCategory = useCallback(
+    (cat: string) =>
+      tutorials
+        .filter((t) => t.category === cat)
+        .map((t) => ({ title: t.title, slug: t.slug, format: t.format })),
+    [tutorials]
+  );
+
+  const handleCategoryClick = (catLabel: string) => {
+    setActiveCategory(catLabel);
+    setExpandedCat((prev) => (prev === catLabel ? null : catLabel));
+  };
 
   return (
     <div className="bg-background">
@@ -35,7 +50,10 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex gap-1.5 overflow-x-auto py-3">
             <button
-              onClick={() => setActiveCategory("all")}
+              onClick={() => {
+                setActiveCategory("all");
+                setExpandedCat(null);
+              }}
               className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${
                 activeCategory === "all"
                   ? "bg-ocean text-white shadow-sm"
@@ -47,7 +65,10 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
             {categories.map((cat) => (
               <button
                 key={cat.slug}
-                onClick={() => setActiveCategory(cat.label)}
+                onClick={() => {
+                  setActiveCategory(cat.label);
+                  setExpandedCat(null);
+                }}
                 className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${
                   activeCategory === cat.label
                     ? "bg-ocean text-white shadow-sm"
@@ -65,7 +86,7 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
       <section className="min-h-[60vh] py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-4 lg:gap-10">
-            {/* Sidebar — categories (desktop only) */}
+            {/* Sidebar — categories with accordion (desktop only) */}
             <aside className="hidden lg:col-span-1 lg:block">
               <nav className="sticky top-24">
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-slate">
@@ -74,9 +95,12 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
                 <ul className="mt-3 space-y-1">
                   <li>
                     <button
-                      onClick={() => setActiveCategory("all")}
+                      onClick={() => {
+                        setActiveCategory("all");
+                        setExpandedCat(null);
+                      }}
                       className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                        activeCategory === "all"
+                        activeCategory === "all" && expandedCat === null
                           ? "bg-ocean text-white"
                           : "text-charcoal/70 hover:bg-background hover:text-charcoal"
                       }`}
@@ -84,7 +108,7 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
                       <span>All Tutorials</span>
                       <span
                         className={`text-xs ${
-                          activeCategory === "all"
+                          activeCategory === "all" && expandedCat === null
                             ? "text-white/60"
                             : "text-slate-light"
                         }`}
@@ -94,27 +118,14 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
                     </button>
                   </li>
                   {categories.map((cat) => (
-                    <li key={cat.slug}>
-                      <button
-                        onClick={() => setActiveCategory(cat.label)}
-                        className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                          activeCategory === cat.label
-                            ? "bg-ocean text-white"
-                            : "text-charcoal/70 hover:bg-background hover:text-charcoal"
-                        }`}
-                      >
-                        <span>{cat.label}</span>
-                        <span
-                          className={`text-xs ${
-                            activeCategory === cat.label
-                              ? "text-white/60"
-                              : "text-slate-light"
-                          }`}
-                        >
-                          {categoryCount(cat.label)}
-                        </span>
-                      </button>
-                    </li>
+                    <CategoryAccordion
+                      key={cat.slug}
+                      label={cat.label}
+                      count={categoryCount(cat.label)}
+                      isActive={expandedCat === cat.label}
+                      onToggle={() => handleCategoryClick(cat.label)}
+                      tutorials={tutorialsForCategory(cat.label)}
+                    />
                   ))}
                 </ul>
 
@@ -152,8 +163,8 @@ export function TutorialsContent({ tutorials, categories }: TutorialsContentProp
               </p>
 
               {/* Featured (first item when showing all) */}
-              {activeCategory === "all" && (
-                <div className="mb-4 sm:mb-6" data-sr="50">
+              {activeCategory === "all" && filtered[0] && (
+                <div className="mb-4 sm:mb-6">
                   <TutorialCard tutorial={filtered[0]} size="lg" />
                 </div>
               )}

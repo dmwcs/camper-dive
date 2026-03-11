@@ -1,5 +1,5 @@
 import { PageHeader } from "@/components/ui/PageHeader";
-import { ProductsContent } from "./ProductsContent";
+import { ProductsContent } from "@/components/products/ProductsContent";
 import { getProducts } from "@/lib/queries";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
