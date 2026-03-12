@@ -1,9 +1,71 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { getProducts, getProductBySlug } from "@/lib/queries";
 import { ProductCard } from "@/app/(site)/products/_components/ProductCard";
 import { ProductActions } from "@/app/(site)/products/_components/ProductActions";
 import { ProductGallery } from "@/app/(site)/products/_components/ProductGallery";
+
+const descriptionComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <p className="mt-3 text-sm leading-[1.8] text-slate first:mt-0 sm:text-[15px]">
+        {children}
+      </p>
+    ),
+    h2: ({ children }) => (
+      <h3 className="mt-6 mb-2 font-heading text-base font-bold text-charcoal first:mt-0 sm:text-lg">
+        {children}
+      </h3>
+    ),
+    h3: ({ children }) => (
+      <h4 className="mt-5 mb-2 font-heading text-sm font-bold text-charcoal first:mt-0 sm:text-base">
+        {children}
+      </h4>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="my-4 border-l-3 border-ocean/30 pl-4 text-sm italic leading-[1.8] text-slate">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="my-3 space-y-1.5 pl-5">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="my-3 space-y-1.5 pl-5">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => (
+      <li className="list-disc text-sm leading-[1.8] text-slate marker:text-ocean/40 sm:text-[15px]">
+        {children}
+      </li>
+    ),
+    number: ({ children }) => (
+      <li className="list-decimal text-sm leading-[1.8] text-slate marker:text-ocean/40 sm:text-[15px]">
+        {children}
+      </li>
+    ),
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="font-semibold text-charcoal">{children}</strong>
+    ),
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ children, value }) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-medium text-ocean underline decoration-ocean/30 underline-offset-2 transition-colors hover:text-ocean-light"
+      >
+        {children}
+      </a>
+    ),
+  },
+};
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
 export const revalidate = 0;
@@ -46,7 +108,7 @@ export default async function ProductDetailPage({
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.description || product.shortDesc,
+    description: product.shortDesc,
     image: `https://camperdive.com${product.image}`,
     offers:
       product.variants && product.variants.length > 0
@@ -68,8 +130,10 @@ export default async function ProductDetailPage({
           },
   };
 
+  const hasDescription = product.description && product.description.length > 0;
   const hasSpecs = product.specs && product.specs.length > 0;
   const hasFeatures = product.features && product.features.length > 0;
+  const hasDetailSection = hasDescription || hasSpecs || hasFeatures;
 
   return (
     <div className="bg-surface">
@@ -106,7 +170,7 @@ export default async function ProductDetailPage({
 
           {/* Purchase Panel — sticky on scroll, 5 of 12 columns */}
           <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-24">
+            <div>
               {/* Category badge */}
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-block rounded-full bg-ocean/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ocean">
@@ -129,7 +193,7 @@ export default async function ProductDetailPage({
 
               {/* Short description */}
               <p className="mt-2 text-sm leading-relaxed text-slate sm:text-[15px]">
-                {product.description || product.shortDesc}
+                {product.shortDesc}
               </p>
 
               {/* Divider */}
@@ -172,65 +236,61 @@ export default async function ProductDetailPage({
         </div>
       </div>
 
-      {/* ── Specs & Features — full width below fold ── */}
-      {(hasSpecs || hasFeatures) && (
-        <section className="border-t border-border bg-background">
+      {/* ── Description / Specs / Features — stacked ── */}
+      {hasDetailSection && (
+        <section className="border-t border-border">
           <div className="mx-auto max-w-7xl px-6 py-10 sm:py-14 lg:px-8">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              {/* Specs */}
-              {hasSpecs && (
-                <div>
-                  <h2 className="font-heading text-lg font-bold text-charcoal sm:text-xl">
-                    Specifications
-                  </h2>
-                  <dl className="mt-5 divide-y divide-border">
-                    {product.specs!.map((spec) => (
-                      <div
-                        key={spec.label}
-                        className="flex items-center justify-between py-3 text-sm"
-                      >
-                        <dt className="text-slate">{spec.label}</dt>
-                        <dd className="font-medium text-charcoal">{spec.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
+            {/* Description — full width */}
+            {hasDescription && (
+              <div>
+                <h2 className="font-heading text-lg font-bold text-charcoal sm:text-xl">
+                  Description
+                </h2>
+                <div className="mt-4">
+                  <PortableText value={product.description!} components={descriptionComponents} />
                 </div>
-              )}
+              </div>
+            )}
 
-              {/* Features */}
-              {hasFeatures && (
-                <div>
-                  <h2 className="font-heading text-lg font-bold text-charcoal sm:text-xl">
-                    Key Features
-                  </h2>
-                  <ul className="mt-5 space-y-3">
-                    {product.features!.map((f) => (
-                      <li
-                        key={f}
-                        className="flex items-start gap-3 text-sm leading-relaxed text-slate"
-                      >
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean/10">
-                          <svg
-                            className="h-3 w-3 text-ocean"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={3}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+            {/* Specs & Features — side by side on desktop */}
+            {(hasSpecs || hasFeatures) && (
+              <div className={`grid gap-8 lg:gap-12 ${hasDescription ? "mt-10 border-t border-border pt-10 sm:mt-12 sm:pt-12" : ""} ${hasSpecs && hasFeatures ? "lg:grid-cols-2" : ""}`}>
+                {hasSpecs && (
+                  <div>
+                    <h2 className="font-heading text-lg font-bold text-charcoal sm:text-xl">
+                      Specifications
+                    </h2>
+                    <dl className="mt-4 divide-y divide-border">
+                      {product.specs!.map((spec) => (
+                        <div key={spec.label} className="flex items-center justify-between py-3 text-sm">
+                          <dt className="text-slate">{spec.label}</dt>
+                          <dd className="font-medium text-charcoal">{spec.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
+                {hasFeatures && (
+                  <div>
+                    <h2 className="font-heading text-lg font-bold text-charcoal sm:text-xl">
+                      Features
+                    </h2>
+                    <ul className="mt-4 space-y-3">
+                      {product.features!.map((f) => (
+                        <li key={f} className="flex items-start gap-3 text-sm leading-relaxed text-slate">
+                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean/10">
+                            <svg className="h-3 w-3 text-ocean" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </section>
       )}

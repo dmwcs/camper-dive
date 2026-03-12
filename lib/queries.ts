@@ -113,7 +113,7 @@ export async function getProductBySlug(
     features: raw.features || [],
     options: raw.options || [],
     variants: raw.variants || [],
-    description: raw.description || "",
+    description: Array.isArray(raw.description) ? raw.description : undefined,
   };
 }
 
@@ -165,7 +165,7 @@ function mapProduct(p: Record<string, unknown>): Product {
     features: (p.features as string[]) || [],
     options: (p.options as Product["options"]) || [],
     variants: (p.variants as Product["variants"]) || [],
-    description: (p.description as string) || "",
+    description: Array.isArray(p.description) ? p.description : undefined,
   };
 }
 

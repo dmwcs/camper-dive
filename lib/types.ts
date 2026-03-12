@@ -27,7 +27,7 @@ export interface Product {
   image: string;
   mostPopular?: boolean;
   media?: MediaItem[];
-  description?: string;
+  description?: PortableTextBlock[];
   specs?: { label: string; value: string }[];
   features?: string[];
   stripeProductId?: string;
