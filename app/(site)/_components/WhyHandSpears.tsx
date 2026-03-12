@@ -34,7 +34,7 @@ const advantages = [
   },
   {
     title: "Quick to Master",
-    desc: "One session and you're hunting. Free tutorials from zero to confident.",
+    desc: "One session and you&apos;re hunting. Free tutorials from zero to confident.",
     icon: (
       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
@@ -71,9 +71,9 @@ export function WhyHandSpears() {
               {advantages.map((a) => (
                 <div
                   key={a.title}
-                  className="group rounded-xl border border-border bg-background p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-4"
+                  className="group rounded-xl border border-border bg-background p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-ocean/30 hover:shadow-md sm:p-4"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-ocean/10 text-ocean transition-colors duration-200 group-hover:bg-ocean group-hover:text-white">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-ocean text-white">
                     {a.icon}
                   </div>
                   <h3 className="mt-3 text-[13px] font-bold text-charcoal sm:text-sm">
@@ -88,7 +88,7 @@ export function WhyHandSpears() {
           </div>
 
           {/* Image — right column on desktop, shown first on mobile */}
-          <div className="order-1 md:order-2 relative aspect-[16/10] overflow-hidden rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:aspect-[4/3] sm:rounded-2xl">
+          <div className="order-1 relative aspect-[16/10] overflow-hidden rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:aspect-[4/3] sm:rounded-2xl md:order-2">
             <Image
               src="/images/spearfishing-reef.jpg"
               alt="Hand spearfishing on the reef"
