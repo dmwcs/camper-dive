@@ -40,7 +40,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
                         alt={product.name}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                       <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
                         <span className="rounded-lg bg-coral px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">

@@ -31,7 +31,7 @@ export function ProductCard({ product, size = "md" }: ProductCardProps) {
               ? "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               : "(max-width: 640px) 50vw, 25vw"
           }
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-contain transition-transform duration-500 group-hover:scale-105"
         />
         {product.mostPopular && (
           <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-md bg-coral/90 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm backdrop-blur-sm sm:left-3 sm:top-3 sm:text-[11px]">
