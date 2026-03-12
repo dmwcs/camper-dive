@@ -29,19 +29,28 @@ export function HeroSection() {
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
           {/* Headline */}
           <h1
-            className="hero-fade hero-fade-d2 mt-3 font-logo leading-[0.9] tracking-wide text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] sm:mt-4 md:mt-5"
-            style={{ fontSize: "clamp(2.75rem, 10vw, 9rem)" }}
+            className="hero-fade hero-fade-d2 mt-3 max-w-4xl font-logo leading-[0.9] tracking-wide text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] sm:mt-4 md:mt-5"
+            style={{ fontSize: "clamp(2.25rem, 8vw, 6.5rem)" }}
           >
-            SIMPLE GEAR,
+            PREMIUM{" "}
+            <span className="bg-gradient-to-r from-sand via-sand-light to-sand bg-clip-text text-transparent drop-shadow-md">HAND SPEARS</span>
             <br />
-            <span className="bg-gradient-to-r from-sand via-sand-light to-sand bg-clip-text text-transparent drop-shadow-md">REAL HUNT.</span>
+            & ACCESSORIES
           </h1>
 
+          {/* Subtitle */}
+          <p
+            className="hero-fade hero-fade-d3 mt-2 font-heading tracking-wide text-white/70 sm:mt-3 md:mt-4"
+            style={{ fontSize: "clamp(0.85rem, 2.5vw, 1.5rem)" }}
+          >
+            For Every Underwater Adventure
+          </p>
+
           {/* Sub-copy */}
-          <p className="hero-fade hero-fade-d3 mt-3 max-w-[280px] text-[13px] leading-relaxed text-white/55 sm:mt-5 sm:max-w-sm sm:text-sm md:mt-6 md:max-w-md md:text-base">
-            Hand spears crafted for freedivers and reef hunters.
-            Every sling, every shaft, every detail — purpose-built
-            for those who spearfish the simple way.
+          <p className="hero-fade hero-fade-d3 mt-3 max-w-xs text-[13px] leading-relaxed text-white/50 sm:mt-4 sm:max-w-md sm:text-sm md:mt-5 md:max-w-lg md:text-base">
+            Explore high-performance gear trusted by spearfishers — we
+            understand what matters: accuracy, durability, safety, and
+            reliability in every shot.
           </p>
 
           {/* CTAs */}
