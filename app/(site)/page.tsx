@@ -193,9 +193,9 @@ export default async function Home() {
             className="hero-fade hero-fade-d2 mt-4 font-logo leading-[0.9] tracking-wide text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] sm:mt-5"
             style={{ fontSize: "clamp(3.5rem, 12vw, 9rem)" }}
           >
-            THE HUNT,
+            SIMPLE GEAR,
             <br />
-            <span className="text-sand">STRIPPED BACK.</span>
+            <span className="text-sand">REAL HUNT.</span>
           </h1>
 
           {/* Sub-copy */}
