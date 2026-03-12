@@ -34,11 +34,18 @@ export function ProductCarousel({
       setCanPrev(emblaApi.canScrollPrev());
       setCanNext(emblaApi.canScrollNext());
     };
+
+    // Initialize state immediately
+    onSelect();
+
     emblaApi.on("select", onSelect);
     emblaApi.on("init", onSelect);
+    emblaApi.on("reInit", onSelect);
+    
     return () => {
       emblaApi.off("select", onSelect);
       emblaApi.off("init", onSelect);
+      emblaApi.off("reInit", onSelect);
     };
   }, [emblaApi]);
 
@@ -48,8 +55,10 @@ export function ProductCarousel({
       <button
         onClick={scrollPrev}
         aria-label="Previous"
-        className={`absolute -left-5 top-1/2 z-10 hidden -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 hover:bg-background lg:flex ${
-          canPrev ? "opacity-100" : "pointer-events-none opacity-0"
+        className={`absolute -left-2 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 sm:-left-5 ${
+          canPrev
+            ? "cursor-pointer opacity-100 hover:bg-background"
+            : "pointer-events-none opacity-0 shadow-none"
         }`}
       >
         <svg
@@ -71,8 +80,10 @@ export function ProductCarousel({
       <button
         onClick={scrollNext}
         aria-label="Next"
-        className={`absolute -right-5 top-1/2 z-10 hidden -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 hover:bg-background lg:flex ${
-          canNext ? "opacity-100" : "pointer-events-none opacity-0"
+        className={`absolute -right-2 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 sm:-right-5 ${
+          canNext
+            ? "cursor-pointer opacity-100 hover:bg-background"
+            : "pointer-events-none opacity-0 shadow-none"
         }`}
       >
         <svg
