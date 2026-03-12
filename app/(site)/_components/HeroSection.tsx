@@ -22,8 +22,8 @@ export function HeroSection() {
 
       {/* Content — vertical layout: [spacer] [copy] [trust bar] */}
       <div className="relative flex min-h-[60dvh] flex-col pt-16 sm:min-h-[70dvh] sm:pt-20 md:min-h-[80dvh] md:pt-24">
-        {/* Top spacer — controlled ratio so copy lands ~40% down */}
-        <div className="min-h-8 flex-[2] sm:flex-[3]" />
+        {/* Top spacer */}
+        <div className="min-h-12 flex-[1] sm:min-h-16" />
 
         {/* Hero copy */}
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
