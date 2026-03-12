@@ -48,9 +48,8 @@ export function HeroSection() {
 
           {/* Sub-copy */}
           <p className="hero-fade hero-fade-d3 mt-3 max-w-xs text-[13px] leading-relaxed text-white/50 sm:mt-4 sm:max-w-md sm:text-sm md:mt-5 md:max-w-lg md:text-base">
-            Explore high-performance gear trusted by spearfishers — we
-            understand what matters: accuracy, durability, safety, and
-            reliability in every shot.
+            Premium hand spears trusted by spearfishers — built for
+            accuracy, durability, and reliability in every shot.
           </p>
 
           {/* CTAs */}

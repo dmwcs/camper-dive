@@ -13,11 +13,11 @@ export function TutorialShowcase({ tutorials }: { tutorials: Tutorial[] }) {
         <div data-sr>
           <div className="mb-3 h-[3px] w-12 rounded-full bg-ocean" />
           <h2 className="font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl md:text-4xl">
-            Free tutorials to get you started
+            Learn to master your hand spear
           </h2>
           <p className="mt-2 max-w-md text-[13px] text-slate sm:max-w-lg sm:text-sm">
-            From your first dive to advanced techniques — learn hand spear
-            skills, abalone hunting, lobster catching and more.
+            Free tutorials from your first dive to advanced hand spear
+            techniques — abalone hunting, lobster catching and more.
           </p>
         </div>
 

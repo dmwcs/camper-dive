@@ -28,7 +28,7 @@ export function WhyHandSpears() {
         <div className="mb-8 sm:mb-10 md:mb-12 md:text-right" data-sr>
           <div className="mb-3 h-[3px] w-12 rounded-full bg-ocean md:ml-auto" />
           <h2 className="font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl md:text-4xl">
-            The purest form of underwater hunting
+            Why hand spears?
           </h2>
         </div>
 
@@ -40,9 +40,9 @@ export function WhyHandSpears() {
           <div className="md:order-1 order-2">
             <p className="text-sm leading-relaxed text-slate sm:text-base">
               One rubber sling. One shaft. One sharp tip. Pull back,
-              aim, let go. Hand spears are the most stripped-back way
-              to hunt — no triggers, no mechanics, just elastic power
-              and your instinct.
+              aim, let go. Hand spears are the purest form of
+              underwater hunting — no triggers, no mechanics, just
+              elastic power and your instinct.
             </p>
 
             <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 sm:mt-6 md:mt-8 md:grid-cols-1 md:gap-y-3">

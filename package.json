@@ -16,6 +16,7 @@
     "@sanity/image-url": "^2.0.3",
     "@sanity/vision": "^5.13.0",
     "@stripe/stripe-js": "^8.9.0",
+    "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "next": "16.1.6",
     "next-sanity": "^12.1.0",

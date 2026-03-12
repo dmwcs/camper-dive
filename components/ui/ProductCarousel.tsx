@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 
 interface ProductCarouselProps {
   children: React.ReactNode;
@@ -9,18 +10,36 @@ interface ProductCarouselProps {
   slideClass?: string;
   /** Allow free-scroll momentum (default false — snaps to slides) */
   dragFree?: boolean;
+  /** Enable slow auto-scroll (default false) */
+  autoplay?: boolean;
+  /** Bottom offset (px) for arrow centering — use to exclude card text area */
+  arrowOffset?: number;
 }
 
 export function ProductCarousel({
   children,
   slideClass = "basis-1/2 lg:basis-1/4",
   dragFree = false,
+  autoplay = false,
+  arrowOffset = 8,
 }: ProductCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    containScroll: "trimSnaps",
-    dragFree,
-  });
+  const plugins = useMemo(
+    () =>
+      autoplay
+        ? [Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })]
+        : [],
+    [autoplay]
+  );
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: "start",
+      containScroll: "trimSnaps",
+      dragFree,
+      loop: autoplay,
+    },
+    plugins
+  );
 
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
@@ -55,7 +74,8 @@ export function ProductCarousel({
       <button
         onClick={scrollPrev}
         aria-label="Previous"
-        className={`absolute -left-2 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 sm:-left-5 ${
+        style={{ bottom: arrowOffset }}
+        className={`absolute -left-2 top-0 z-10 my-auto flex h-fit items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 sm:-left-5 ${
           canPrev
             ? "cursor-pointer opacity-100 hover:bg-background"
             : "pointer-events-none opacity-0 shadow-none"
@@ -80,7 +100,8 @@ export function ProductCarousel({
       <button
         onClick={scrollNext}
         aria-label="Next"
-        className={`absolute -right-2 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 sm:-right-5 ${
+        style={{ bottom: arrowOffset }}
+        className={`absolute -right-2 top-0 z-10 my-auto flex h-fit items-center justify-center rounded-full border border-border bg-surface p-3 shadow-lg transition-all duration-200 sm:-right-5 ${
           canNext
             ? "cursor-pointer opacity-100 hover:bg-background"
             : "pointer-events-none opacity-0 shadow-none"

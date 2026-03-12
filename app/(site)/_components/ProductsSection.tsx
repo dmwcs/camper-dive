@@ -8,7 +8,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
   const marked = products.filter((p) => p.mostPopular);
   const popularProducts = marked.length > 0 ? marked : products.slice(0, 2);
   const popularSlugs = new Set(popularProducts.map((p) => p.slug));
-  const featuredProducts = products.filter((p) => !popularSlugs.has(p.slug)).slice(0, 4);
+  const featuredProducts = products.filter((p) => !popularSlugs.has(p.slug)).slice(0, 10);
 
   return (
     <section className="py-14 sm:py-16 md:py-20">
@@ -17,17 +17,17 @@ export function ProductsSection({ products }: { products: Product[] }) {
         <div data-sr>
           <div className="mb-3 h-[3px] w-12 rounded-full bg-ocean" />
           <h2 className="font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl md:text-4xl">
-            Most Popular
+            Top Picks
           </h2>
           <p className="mt-2 max-w-md text-[13px] text-slate sm:text-sm">
-            Compact spearguns designed for Australian reef conditions.
+            Compact hand spears designed for Australian reef conditions.
           </p>
         </div>
 
         {/* Most Popular — carousel */}
         {popularProducts.length > 0 && (
           <div className="mt-6 sm:mt-8" data-sr>
-            <ProductCarousel slideClass="basis-full">
+            <ProductCarousel slideClass="basis-full" autoplay>
               {popularProducts.map((product) => (
                 <div
                   key={product.slug}
@@ -116,7 +116,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
             <h3 className="mb-4 font-heading text-lg font-bold tracking-tight text-charcoal sm:text-xl">
               Explore More
             </h3>
-            <ProductCarousel slideClass="basis-1/2 md:basis-1/3 lg:basis-1/4">
+            <ProductCarousel slideClass="basis-1/2 md:basis-1/3 lg:basis-1/4" arrowOffset={60}>
               {featuredProducts.map((product) => (
                 <ProductCard key={product.slug} product={product} size="sm" />
               ))}
