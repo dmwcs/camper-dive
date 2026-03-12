@@ -7,7 +7,7 @@ import { WhyHandSpears } from "./_components/WhyHandSpears";
 import { TutorialShowcase } from "./_components/TutorialShowcase";
 import { TutorialShowcaseSkeleton } from "./_components/TutorialShowcaseSkeleton";
 import { LifestyleSection } from "./_components/LifestyleSection";
-import { FinalCTA } from "./_components/FinalCTA";
+import { FinalCTA } from "@/components/FinalCTA";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
 export const revalidate = 0;

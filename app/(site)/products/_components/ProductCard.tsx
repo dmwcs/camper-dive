@@ -33,6 +33,11 @@ export function ProductCard({ product, size = "md" }: ProductCardProps) {
           }
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        {product.mostPopular && (
+          <span className="absolute left-2 top-2 rounded-full bg-ocean px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm sm:left-3 sm:top-3 sm:text-[11px]">
+            Most Popular
+          </span>
+        )}
       </div>
       <div className={isMd ? "p-3 sm:p-4" : "p-2.5 sm:p-3"}>
         {isMd && (

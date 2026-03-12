@@ -22,7 +22,7 @@ export function ProductsContent({ products, total, categories }: ProductsContent
   // Read current filter state from URL
   const activeCategory = searchParams.get("category") || "";
   const searchQuery = searchParams.get("q") || "";
-  const sortBy = searchParams.get("sort") || "featured";
+  const sortBy = searchParams.get("sort") || "popular";
   const currentLimit = parseInt(searchParams.get("limit") || String(PAGE_SIZE), 10);
 
   // Local state for search input (debounced)
@@ -129,10 +129,10 @@ export function ProductsContent({ products, total, categories }: ProductsContent
             <div className="relative w-[140px] shrink-0 sm:w-48">
               <select
                 value={sortBy}
-                onChange={(e) => updateParams({ sort: e.target.value === "featured" ? "" : e.target.value })}
+                onChange={(e) => updateParams({ sort: e.target.value === "popular" ? "" : e.target.value })}
                 className="block w-full appearance-none rounded-full border border-border bg-background py-2 pl-3 pr-8 text-xs transition-shadow sm:pl-4 sm:pr-10 sm:text-sm focus:border-ocean focus:outline-none focus:ring-1 focus:ring-ocean"
               >
-                <option value="featured">Featured</option>
+                <option value="popular">Most Popular</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
                 <option value="name-asc">Name: A to Z</option>

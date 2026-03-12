@@ -44,6 +44,13 @@ export const productType = defineType({
       hidden: true,
     }),
     defineField({
+      name: 'mostPopular',
+      title: 'Most Popular',
+      type: 'boolean',
+      description: 'Mark this product as most popular — it will show a badge on the listing.',
+      initialValue: false,
+    }),
+    defineField({
       name: 'category',
       type: 'reference',
       to: {type: 'category'},

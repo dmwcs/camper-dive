@@ -47,7 +47,7 @@ export default async function ProductsPage({
   const params = await searchParams;
   const category = (params.category as string) || "";
   const search = (params.q as string) || "";
-  const sort = (params.sort as string) || "featured";
+  const sort = (params.sort as string) || "popular";
   const limit = Math.min(
     parseInt((params.limit as string) || String(PAGE_SIZE), 10) || PAGE_SIZE,
     200

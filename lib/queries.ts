@@ -44,6 +44,7 @@ export async function getProducts(): Promise<Product[]> {
       "category": category->title,
       shortDesc,
       image,
+      mostPopular,
       specs[]{ "label": label, "value": value },
       features,
       options[]{ "name": name, "values": values },
@@ -68,6 +69,7 @@ export async function getProductBySlug(
       "category": category->title,
       shortDesc,
       image,
+      mostPopular,
       media[]{
         _type,
         "asset": asset->url,
@@ -105,6 +107,7 @@ export async function getProductBySlug(
     category: raw.category || "",
     shortDesc: raw.shortDesc || "",
     image: resolveImage(raw.image),
+    mostPopular: raw.mostPopular || false,
     media,
     specs: raw.specs || [],
     features: raw.features || [],
@@ -132,6 +135,7 @@ const PRODUCT_FIELDS = `
   "category": category->title,
   shortDesc,
   image,
+  mostPopular,
   specs[]{ "label": label, "value": value },
   features,
   options[]{ "name": name, "values": values },
@@ -156,6 +160,7 @@ function mapProduct(p: Record<string, unknown>): Product {
     category: (p.category as string) || "",
     shortDesc: (p.shortDesc as string) || "",
     image: resolveImage(p.image),
+    mostPopular: (p.mostPopular as boolean) || false,
     specs: (p.specs as Product["specs"]) || [],
     features: (p.features as string[]) || [],
     options: (p.options as Product["options"]) || [],
@@ -167,8 +172,8 @@ function mapProduct(p: Record<string, unknown>): Product {
 export async function getFilteredProducts(
   params: FilterParams
 ): Promise<{ items: Product[]; total: number }> {
-  const { category = "", search = "", sort = "featured", limit = 8 } = params;
-  const orderClause = PRODUCT_SORT_MAP[sort] || "_createdAt asc";
+  const { category = "", search = "", sort = "popular", limit = 8 } = params;
+  const orderClause = PRODUCT_SORT_MAP[sort] || "mostPopular desc, _createdAt asc";
 
   const filter = `_type == "product"
     && ($category == "" || category->title == $category)

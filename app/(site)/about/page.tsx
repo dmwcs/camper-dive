@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { FinalCTA } from "../_components/FinalCTA";
+import { FinalCTA } from "@/components/FinalCTA";
 
 export const metadata = {
   title: "About",

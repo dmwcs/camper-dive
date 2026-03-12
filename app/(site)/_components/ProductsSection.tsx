@@ -5,8 +5,10 @@ import { ProductCarousel } from "@/components/ui/ProductCarousel";
 import type { Product } from "@/lib/types";
 
 export function ProductsSection({ products }: { products: Product[] }) {
-  const popularProducts = products.slice(0, 3);
-  const featuredProducts = products.slice(3, 7);
+  const marked = products.filter((p) => p.mostPopular);
+  const popularProducts = marked.length > 0 ? marked : products.slice(0, 2);
+  const popularSlugs = new Set(popularProducts.map((p) => p.slug));
+  const featuredProducts = products.filter((p) => !popularSlugs.has(p.slug)).slice(0, 4);
 
   return (
     <section className="py-14 sm:py-16 md:py-20">

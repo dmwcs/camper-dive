@@ -25,6 +25,7 @@ export interface Product {
   slug: string;
   shortDesc: string;
   image: string;
+  mostPopular?: boolean;
   media?: MediaItem[];
   description?: string;
   specs?: { label: string; value: string }[];

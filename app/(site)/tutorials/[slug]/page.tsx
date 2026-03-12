@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTutorials, getTutorialBySlug } from "@/lib/queries";
 import { TutorialCard } from "@/components/TutorialCard";
 import { TutorialBody } from "@/app/(site)/tutorials/_components/TutorialBody";
+import { FinalCTA } from "@/components/FinalCTA";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
 export const revalidate = 0;
@@ -111,24 +112,15 @@ export default async function TutorialDetailPage({
             <TutorialBody content={tutorial.content} />
           )}
 
-          {/* CTA */}
-          <div className="mt-10 rounded-xl bg-ocean px-5 py-6 text-center sm:mt-14 sm:rounded-2xl sm:px-8 sm:py-8" data-sr>
-            <h2 className="font-heading text-base font-bold text-white sm:text-lg">
-              Ready to get started?
-            </h2>
-            <p className="mx-auto mt-1.5 max-w-sm text-xs leading-relaxed text-white/60 sm:mt-2 sm:text-sm">
-              Check out the Reef Hunter range — compact spearguns built for
-              Australian waters.
-            </p>
-            <Link
-              href="/products"
-              className="mt-4 inline-block rounded-lg bg-sand px-5 py-2 text-sm font-semibold text-ocean transition-colors hover:bg-sand-light sm:mt-5 sm:px-6 sm:py-2.5"
-            >
-              Shop Spearguns
-            </Link>
-          </div>
         </div>
       </article>
+
+      {/* CTA */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="overflow-hidden rounded-2xl sm:rounded-3xl">
+          <FinalCTA />
+        </div>
+      </div>
 
       {/* ── Related ── */}
       <section className="border-t border-border bg-background py-10 sm:py-14">
