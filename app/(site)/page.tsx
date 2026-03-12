@@ -201,12 +201,31 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── 3. Most Popular — Hero Product ─────────────────────────── */}
-      {heroProduct && (
-        <section className="py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      {/* ── 3. Products — Most Popular + The Range ────────────────── */}
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          {/* Section header */}
+          <div className="flex items-end justify-between" data-sr>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
+                The Range
+              </p>
+              <h2 className="mt-1 font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl">
+                Hand Spears & Gear
+              </h2>
+            </div>
+            <Link
+              href="/products"
+              className="hidden cursor-pointer text-sm font-medium text-ocean transition-colors duration-200 hover:text-ocean-light sm:block"
+            >
+              View all &rarr;
+            </Link>
+          </div>
+
+          {/* Most Popular — hero product */}
+          {heroProduct && (
             <div
-              className="overflow-hidden rounded-2xl border border-border bg-surface"
+              className="mt-8 overflow-hidden rounded-2xl border border-border bg-surface"
               data-sr
             >
               <div className="grid lg:grid-cols-2">
@@ -285,30 +304,9 @@ export default async function Home() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          )}
 
-      {/* ── 4. Featured Products ───────────────────────────────────── */}
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex items-end justify-between" data-sr>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
-                The Range
-              </p>
-              <h2 className="mt-1 font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl">
-                Hand Spears & Gear
-              </h2>
-            </div>
-            <Link
-              href="/products"
-              className="hidden cursor-pointer text-sm font-medium text-ocean transition-colors duration-200 hover:text-ocean-light sm:block"
-            >
-              View all &rarr;
-            </Link>
-          </div>
-
+          {/* More products grid */}
           {featuredProducts.length > 0 ? (
             <div
               className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5"
