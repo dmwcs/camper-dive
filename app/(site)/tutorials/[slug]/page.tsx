@@ -72,11 +72,15 @@ export default async function TutorialDetailPage({
           <div className="relative px-5 pb-8 pt-6 sm:px-8 sm:pb-12 sm:pt-10 lg:px-12 lg:pb-14 lg:pt-12" data-sr>
             {/* Breadcrumb */}
             <nav className="flex items-center gap-1.5 text-[13px] text-white/70">
+              <Link href="/" className="transition-colors hover:text-white/90">
+                Home
+              </Link>
+              <span className="text-white/50">/</span>
               <Link href="/tutorials" className="transition-colors hover:text-white/90">
                 Tutorials
               </Link>
               <span className="text-white/50">/</span>
-              <span className="text-white/80">{tutorial.category}</span>
+              <span className="text-white/80">{tutorial.title}</span>
             </nav>
 
             {/* Category + meta row */}

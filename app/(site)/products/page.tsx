@@ -60,6 +60,10 @@ export default async function ProductsPage({
         title="Products"
         description="Handheld spearguns and accessories designed for Australian reef conditions. Compact, powerful, and built to travel."
         backgroundImage="/images/spearfishing-reef.jpg"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Products" },
+        ]}
       />
       <Suspense fallback={<ProductsListSkeleton />}>
         <ProductsList

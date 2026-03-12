@@ -44,6 +44,10 @@ export default function AboutPage() {
         title="Born from a love of the ocean and the hunt"
         description="CamperDive started with a simple idea: what if you could pack a speargun in your backpack, camp by the coast, and dive for dinner wherever you roam?"
         backgroundImage="/images/hero-ocean.jpg"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "About" },
+        ]}
       />
 
       {/* Founder Story */}

@@ -60,6 +60,10 @@ export default async function TutorialsPage({
         title="Tutorials & Guides"
         description="From speargun basics to abalone hunting — free tutorials by a certified freediving instructor. Watch, read, and get in the water."
         backgroundImage="/images/spearfishing-action.jpg"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Tutorials" },
+        ]}
       />
       <Suspense fallback={<TutorialsListSkeleton />}>
         <TutorialsList

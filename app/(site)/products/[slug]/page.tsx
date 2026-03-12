@@ -81,11 +81,15 @@ export default async function ProductDetailPage({
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <nav className="flex items-center gap-1.5 pt-6 text-[13px] text-slate-light sm:pt-8">
+          <Link href="/" className="transition-colors hover:text-ocean">
+            Home
+          </Link>
+          <span>/</span>
           <Link href="/products" className="transition-colors hover:text-ocean">
             Products
           </Link>
           <span>/</span>
-          <span className="text-slate">{product.category}</span>
+          <span className="text-slate">{product.name}</span>
         </nav>
       </div>
 
