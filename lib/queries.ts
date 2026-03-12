@@ -173,7 +173,7 @@ export async function getFilteredProducts(
   params: FilterParams
 ): Promise<{ items: Product[]; total: number }> {
   const { category = "", search = "", sort = "popular", limit = 8 } = params;
-  const orderClause = PRODUCT_SORT_MAP[sort] || "mostPopular desc, _createdAt asc";
+  const orderClause = PRODUCT_SORT_MAP[sort] || "coalesce(mostPopular, false) desc, _createdAt asc";
 
   const filter = `_type == "product"
     && ($category == "" || category->title == $category)
@@ -205,7 +205,7 @@ export async function getProductCategories(): Promise<string[]> {
 
 export async function getTutorials(): Promise<Tutorial[]> {
   const raw = await client.fetch(
-    `*[_type == "tutorial"] | order(featured desc, _updatedAt desc) {
+    `*[_type == "tutorial"] | order(coalesce(featured, false) desc, _updatedAt desc) {
       title,
       "slug": slug.current,
       "category": category->title,
@@ -267,10 +267,10 @@ const TUTORIAL_FIELDS = `
 `;
 
 const TUTORIAL_SORT_MAP: Record<string, string> = {
-  newest: "_updatedAt desc, featured desc",
-  oldest: "_updatedAt asc, featured desc",
-  "title-asc": "title asc, featured desc",
-  "title-desc": "title desc, featured desc",
+  newest: "_updatedAt desc, coalesce(featured, false) desc",
+  oldest: "_updatedAt asc, coalesce(featured, false) desc",
+  "title-asc": "title asc, coalesce(featured, false) desc",
+  "title-desc": "title desc, coalesce(featured, false) desc",
 };
 
 function mapTutorial(t: Record<string, unknown>): Tutorial {
@@ -290,7 +290,7 @@ export async function getFilteredTutorials(
   params: FilterParams
 ): Promise<{ items: Tutorial[]; total: number }> {
   const { category = "", search = "", sort = "featured", limit = 8 } = params;
-  const orderClause = TUTORIAL_SORT_MAP[sort] || "featured desc, _updatedAt desc";
+  const orderClause = TUTORIAL_SORT_MAP[sort] || "coalesce(featured, false) desc, _updatedAt desc";
 
   const filter = `_type == "tutorial"
     && ($category == "" || category->title == $category)

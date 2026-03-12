@@ -223,12 +223,16 @@ export function TutorialsContent({ tutorials, total, categories }: TutorialsCont
                   ))}
                 </ul>
 
-                {/* Format legend */}
+                {/* Tags legend */}
                 <div className="mt-6 border-t border-border pt-4">
                   <h3 className="text-xs font-semibold uppercase tracking-widest text-slate">
-                    Format
+                    Tags
                   </h3>
                   <div className="mt-2 space-y-1.5 text-xs text-slate">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-block h-2 w-2 rounded-full bg-amber-500" />
+                      Featured
+                    </div>
                     <div className="flex items-center gap-2">
                       <span className="inline-block h-2 w-2 rounded-full bg-ocean" />
                       Article

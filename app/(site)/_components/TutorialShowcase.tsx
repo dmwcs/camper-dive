@@ -4,7 +4,8 @@ import type { Tutorial } from "@/lib/types";
 
 export function TutorialShowcase({ tutorials }: { tutorials: Tutorial[] }) {
   const marked = tutorials.filter((t) => t.featured);
-  const featuredTutorials = marked.length > 0 ? marked.slice(0, 3) : tutorials.slice(0, 3);
+  const rest = tutorials.filter((t) => !t.featured);
+  const featuredTutorials = [...marked, ...rest].slice(0, 3);
 
   return (
     <section className="py-10 sm:py-14 md:py-20">
