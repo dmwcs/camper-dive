@@ -312,15 +312,17 @@ export default async function Home() {
             </div>
           )}
 
-          {/* More products grid */}
+          {/* More products carousel */}
           {featuredProducts.length > 0 ? (
-            <div
-              className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5"
-              data-sr="50"
-            >
-              {featuredProducts.map((product) => (
-                <ProductCard key={product.slug} product={product} />
-              ))}
+            <div className="mt-10" data-sr="50">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate">
+                More to Explore
+              </p>
+              <ProductCarousel slideClass="basis-1/2 lg:basis-1/4">
+                {featuredProducts.map((product) => (
+                  <ProductCard key={product.slug} product={product} />
+                ))}
+              </ProductCarousel>
             </div>
           ) : (
             <div

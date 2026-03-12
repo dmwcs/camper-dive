@@ -7,8 +7,6 @@ interface ProductCarouselProps {
   children: React.ReactNode;
   /** Tailwind class for each slide's width, e.g. "basis-1/2 lg:basis-1/4" */
   slideClass?: string;
-  /** Gap class applied as negative margin + padding */
-  gap?: "sm" | "md";
   /** Allow free-scroll momentum (default false — snaps to slides) */
   dragFree?: boolean;
 }
@@ -16,7 +14,6 @@ interface ProductCarouselProps {
 export function ProductCarousel({
   children,
   slideClass = "basis-1/2 lg:basis-1/4",
-  gap = "md",
   dragFree = false,
 }: ProductCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -44,9 +41,6 @@ export function ProductCarousel({
       emblaApi.off("init", onSelect);
     };
   }, [emblaApi]);
-
-  const gapClass =
-    gap === "sm" ? "gap-3 sm:gap-4" : "gap-3 sm:gap-4 lg:gap-5";
 
   return (
     <div className="relative">
@@ -98,13 +92,13 @@ export function ProductCarousel({
       </button>
 
       {/* Viewport */}
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className={`flex ${gapClass}`}>
+      <div className="-mx-2 overflow-hidden px-2 pb-2" ref={emblaRef}>
+        <div className="-ml-4 flex">
           {Array.isArray(children)
             ? children.map((child, i) => (
                 <div
                   key={i}
-                  className={`min-w-0 shrink-0 grow-0 pb-1 ${slideClass}`}
+                  className={`flex min-w-0 shrink-0 grow-0 pl-4 [&>*]:w-full ${slideClass}`}
                 >
                   {child}
                 </div>
