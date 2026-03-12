@@ -31,16 +31,16 @@ export function ProductsSection({ products }: { products: Product[] }) {
               {popularProducts.map((product) => (
                 <div
                   key={product.slug}
-                  className="overflow-hidden rounded-2xl bg-surface shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgb(0,0,0,0.06)]"
+                  className="flex flex-col overflow-hidden rounded-2xl bg-surface shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgb(0,0,0,0.06)]"
                 >
-                  <div className="grid md:grid-cols-2">
+                  <div className="grid flex-1 md:grid-cols-2">
                     <div className="relative aspect-[16/9] bg-background sm:aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]">
                       <Image
                         src={product.image}
                         alt={product.name}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                       <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
                         <span className="rounded-lg bg-coral px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">

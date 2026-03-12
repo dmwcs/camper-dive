@@ -21,7 +21,7 @@ export function ProductCarousel({
   slideClass = "basis-1/2 lg:basis-1/4",
   dragFree = false,
   autoplay = false,
-  arrowOffset = 8,
+  arrowOffset = 0,
 }: ProductCarouselProps) {
   const plugins = useMemo(
     () =>
@@ -124,7 +124,7 @@ export function ProductCarousel({
       </button>
 
       {/* Viewport */}
-      <div className="-mx-2 overflow-hidden px-2 pb-2" ref={emblaRef}>
+      <div className="-mx-2 overflow-hidden px-2" ref={emblaRef}>
         <div className="-ml-4 flex">
           {Array.isArray(children)
             ? children.map((child, i) => (
