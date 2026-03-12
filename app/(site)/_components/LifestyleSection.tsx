@@ -41,14 +41,14 @@ const testimonials = [
 
 export function LifestyleSection() {
   return (
-    <section className="bg-surface py-16 sm:py-20">
+    <section className="bg-surface py-14 sm:py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Lifestyle gallery */}
         <div className="text-center" data-sr>
           <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
             The Lifestyle
           </p>
-          <h2 className="mt-1 font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl">
+          <h2 className="mt-1 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl">
             Dive. Catch. Cook. Repeat.
           </h2>
           <p className="mx-auto mt-2 max-w-lg text-sm text-slate">
@@ -57,39 +57,40 @@ export function LifestyleSection() {
           </p>
         </div>
 
+        {/* Gallery — 3-col grid, mobile uses shorter aspect ratio */}
         <div
-          className="mt-10 grid gap-3 sm:grid-cols-3 sm:gap-4"
+          className="mt-8 grid grid-cols-3 gap-2 sm:gap-4 md:mt-10"
           data-sr="50"
         >
           {lifestyleImages.map((img) => (
             <div
               key={img.label}
-              className="group relative aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[3/4]"
+              className="group relative aspect-[3/4] overflow-hidden rounded-lg sm:rounded-2xl"
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
-                sizes="(max-width: 640px) 100vw, 33vw"
+                sizes="33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              <p className="absolute bottom-3 left-3 text-xs font-semibold text-white sm:bottom-4 sm:left-4 sm:text-sm">
+              <p className="absolute bottom-2 left-2 text-[11px] font-semibold text-white sm:bottom-4 sm:left-4 sm:text-sm">
                 {img.label}
               </p>
             </div>
           ))}
         </div>
 
-        {/* Testimonials */}
+        {/* Testimonials — 3-col grid on all sizes */}
         <div
-          className="mt-10 grid gap-4 sm:grid-cols-3 sm:gap-6"
+          className="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-6 md:mt-10"
           data-sr="100"
         >
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="rounded-xl border border-border bg-background p-5 sm:p-6"
+              className="rounded-xl border border-border bg-background p-4 sm:p-6"
             >
               <div className="flex gap-0.5 text-sand">
                 {Array.from({ length: 5 }).map((_, i) => (

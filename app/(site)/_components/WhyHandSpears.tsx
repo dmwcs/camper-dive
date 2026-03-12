@@ -22,19 +22,19 @@ const advantages = [
 
 export function WhyHandSpears() {
   return (
-    <section className="bg-surface py-16 sm:py-20">
+    <section className="bg-surface py-14 sm:py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
-          className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+          className="grid items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16"
           data-sr
         >
           {/* Image with embedded video CTA */}
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-xl sm:aspect-[4/3] sm:rounded-2xl">
             <Image
               src="/images/spearfishing-reef.jpg"
               alt="Hand spearfishing on the reef"
               fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ocean/60 to-transparent" />
@@ -61,17 +61,17 @@ export function WhyHandSpears() {
             <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
               Why Hand Spears?
             </p>
-            <h2 className="mt-2 font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl">
+            <h2 className="mt-2 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl">
               The purest form of underwater hunting
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-slate sm:text-base">
+            <p className="mt-3 text-sm leading-relaxed text-slate sm:mt-4 sm:text-base">
               One rubber sling. One shaft. One sharp tip. Pull back,
               aim, let go. Hand spears are the most stripped-back way
               to hunt — no triggers, no mechanics, just elastic power
               and your instinct.
             </p>
 
-            <div className="mt-6 space-y-3 sm:mt-8">
+            <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 sm:mt-6 md:mt-8 md:grid-cols-1 md:gap-y-3">
               {advantages.map((a) => (
                 <div key={a.title} className="flex gap-3">
                   <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean text-white">

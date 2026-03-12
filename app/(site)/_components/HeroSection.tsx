@@ -33,7 +33,7 @@ const trustBadges = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[75dvh] overflow-hidden bg-ocean sm:min-h-[80dvh]">
+    <section className="relative min-h-[60dvh] overflow-hidden bg-ocean sm:min-h-[70dvh] md:min-h-[80dvh]">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
@@ -48,7 +48,7 @@ export function HeroSection() {
       </div>
 
       {/* Content — vertical layout: [spacer] [copy] [trust bar] */}
-      <div className="relative flex min-h-[75dvh] flex-col pt-20 sm:min-h-[80dvh] sm:pt-24">
+      <div className="relative flex min-h-[60dvh] flex-col pt-16 sm:min-h-[70dvh] sm:pt-20 md:min-h-[80dvh] md:pt-24">
         {/* Top spacer — controlled ratio so copy lands ~40% down */}
         <div className="min-h-8 flex-[2] sm:flex-[3]" />
 
@@ -62,8 +62,8 @@ export function HeroSection() {
 
           {/* Headline */}
           <h1
-            className="hero-fade hero-fade-d2 mt-3 font-logo leading-[0.9] tracking-wide text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] sm:mt-5"
-            style={{ fontSize: "clamp(3.5rem, 12vw, 9rem)" }}
+            className="hero-fade hero-fade-d2 mt-3 font-logo leading-[0.9] tracking-wide text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] sm:mt-4 md:mt-5"
+            style={{ fontSize: "clamp(2.75rem, 10vw, 9rem)" }}
           >
             SIMPLE GEAR,
             <br />
@@ -71,23 +71,23 @@ export function HeroSection() {
           </h1>
 
           {/* Sub-copy */}
-          <p className="hero-fade hero-fade-d3 mt-4 max-w-sm text-sm leading-relaxed text-white/55 sm:mt-6 sm:max-w-md sm:text-base">
+          <p className="hero-fade hero-fade-d3 mt-3 max-w-[280px] text-[13px] leading-relaxed text-white/55 sm:mt-5 sm:max-w-sm sm:text-sm md:mt-6 md:max-w-md md:text-base">
             Hand spears crafted for freedivers and reef hunters.
             Every sling, every shaft, every detail — purpose-built
             for those who spearfish the simple way.
           </p>
 
           {/* CTAs */}
-          <div className="hero-fade hero-fade-d4 mt-6 flex flex-wrap gap-3 sm:mt-10">
+          <div className="hero-fade hero-fade-d4 mt-5 flex flex-wrap gap-3 sm:mt-8 md:mt-10">
             <Link
               href="/products"
-              className="cursor-pointer rounded-lg bg-sand px-7 py-3.5 text-sm font-semibold text-ocean transition-colors duration-200 hover:bg-sand-light sm:text-base"
+              className="cursor-pointer rounded-lg bg-sand px-5 py-3 text-[13px] font-semibold text-ocean transition-colors duration-200 hover:bg-sand-light sm:px-7 sm:py-3.5 sm:text-sm md:text-base"
             >
               Shop Hand Spears
             </Link>
             <Link
               href="/tutorials"
-              className="cursor-pointer rounded-lg border border-white/25 px-7 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10 sm:text-base"
+              className="cursor-pointer rounded-lg border border-white/25 px-5 py-3 text-[13px] font-semibold text-white transition-colors duration-200 hover:bg-white/10 sm:px-7 sm:py-3.5 sm:text-sm md:text-base"
             >
               How It Works
             </Link>
@@ -99,18 +99,18 @@ export function HeroSection() {
 
         {/* Trust Bar — flat info strip */}
         <div className="hero-fade hero-fade-d4 border-t border-white/10">
-          <div className="mx-auto flex w-full max-w-7xl items-stretch divide-x divide-white/10 px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex w-full max-w-7xl items-stretch divide-x divide-white/10 px-2 sm:px-6 lg:px-8">
             {trustBadges.map((b) => (
               <div
                 key={b.label}
-                className="flex flex-1 flex-col items-center justify-center gap-1.5 py-5 sm:flex-row sm:gap-3 sm:py-6"
+                className="flex flex-1 flex-col items-center justify-center gap-1 py-3.5 sm:flex-row sm:gap-3 sm:py-5 md:py-6"
               >
-                <span className="text-sand">{b.icon}</span>
+                <span className="text-sand [&_svg]:h-4 [&_svg]:w-4 sm:[&_svg]:h-6 sm:[&_svg]:w-6">{b.icon}</span>
                 <div className="text-center sm:text-left">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-white/90 sm:text-sm">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/90 sm:text-xs md:text-sm">
                     {b.label}
                   </p>
-                  <p className="mt-0.5 hidden text-xs text-white/40 sm:block">
+                  <p className="mt-0.5 hidden text-xs text-white/40 md:block">
                     {b.desc}
                   </p>
                 </div>

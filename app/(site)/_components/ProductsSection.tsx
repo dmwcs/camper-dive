@@ -9,7 +9,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
   const featuredProducts = products.slice(3, 7);
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="py-10 sm:py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
         <div className="flex items-end justify-between" data-sr>
@@ -17,7 +17,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
             <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
               The Range
             </p>
-            <h2 className="mt-1 font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl">
+            <h2 className="mt-1 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl">
               Hand Spears & Gear
             </h2>
           </div>
@@ -31,20 +31,20 @@ export function ProductsSection({ products }: { products: Product[] }) {
 
         {/* Most Popular — carousel */}
         {popularProducts.length > 0 && (
-          <div className="mt-8" data-sr>
+          <div className="mt-6 sm:mt-8" data-sr>
             <ProductCarousel slideClass="basis-full">
               {popularProducts.map((product) => (
                 <div
                   key={product.slug}
                   className="overflow-hidden rounded-2xl border border-border bg-surface"
                 >
-                  <div className="grid lg:grid-cols-2">
-                    <div className="relative aspect-square bg-background lg:aspect-auto lg:min-h-[420px]">
+                  <div className="grid md:grid-cols-2">
+                    <div className="relative aspect-[16/9] bg-background sm:aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]">
                       <Image
                         src={product.image}
                         alt={product.name}
                         fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover"
                       />
                       <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
@@ -54,19 +54,19 @@ export function ProductsSection({ products }: { products: Product[] }) {
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-12">
+                    <div className="flex flex-col justify-center p-5 sm:p-6 md:p-8 lg:p-12">
                       <p className="text-[10px] font-semibold uppercase tracking-widest text-sand-dark sm:text-xs">
                         {product.category}
                       </p>
-                      <h3 className="mt-2 font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl lg:text-4xl">
+                      <h3 className="mt-1.5 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl lg:text-4xl">
                         {product.name}
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-slate sm:text-base">
+                      <p className="mt-2 text-[13px] leading-relaxed text-slate sm:mt-3 sm:text-sm md:text-base">
                         {product.shortDesc}
                       </p>
 
                       {product.features && product.features.length > 0 && (
-                        <div className="mt-5 space-y-2 sm:mt-6">
+                        <div className="mt-4 hidden space-y-1.5 sm:mt-5 sm:block sm:space-y-2 md:mt-6">
                           {product.features.slice(0, 4).map((f) => (
                             <div
                               key={f}
@@ -96,8 +96,8 @@ export function ProductsSection({ products }: { products: Product[] }) {
                         </div>
                       )}
 
-                      <div className="mt-6 flex flex-wrap items-center gap-4 sm:mt-8">
-                        <span className="text-2xl font-bold text-charcoal sm:text-3xl">
+                      <div className="mt-4 flex flex-wrap items-center gap-3 sm:mt-6 sm:gap-4 md:mt-8">
+                        <span className="text-xl font-bold text-charcoal sm:text-2xl md:text-3xl">
                           {product.variants && product.variants.length > 0
                             ? "From "
                             : ""}
@@ -105,7 +105,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
                         </span>
                         <Link
                           href={`/products/${product.slug}`}
-                          className="cursor-pointer rounded-lg bg-ocean px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ocean-light sm:text-base"
+                          className="cursor-pointer rounded-lg bg-ocean px-5 py-2.5 text-[13px] font-semibold text-white transition-colors duration-200 hover:bg-ocean-light sm:px-6 sm:py-3 sm:text-sm md:text-base"
                         >
                           View Details
                         </Link>
@@ -118,15 +118,15 @@ export function ProductsSection({ products }: { products: Product[] }) {
           </div>
         )}
 
-        {/* More products carousel */}
+        {/* More products — compact grid, clearly subordinate */}
         {featuredProducts.length > 0 ? (
-          <div className="mt-10" data-sr="50">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate">
+          <div className="mt-6 sm:mt-8 md:mt-10" data-sr="50">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-slate sm:mb-4">
               More to Explore
             </p>
-            <ProductCarousel slideClass="basis-1/2 lg:basis-1/4">
+            <ProductCarousel slideClass="basis-1/2 md:basis-1/3 lg:basis-1/4">
               {featuredProducts.map((product) => (
-                <ProductCard key={product.slug} product={product} />
+                <ProductCard key={product.slug} product={product} size="sm" />
               ))}
             </ProductCarousel>
           </div>
