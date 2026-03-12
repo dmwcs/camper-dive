@@ -31,25 +31,29 @@ export function ProductsSection({ products }: { products: Product[] }) {
               {popularProducts.map((product) => (
                 <div
                   key={product.slug}
-                  className="flex flex-col overflow-hidden rounded-2xl bg-surface shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgb(0,0,0,0.06)]"
+                  className="flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgb(10,61,98,0.18)]"
                 >
                   <div className="grid flex-1 md:grid-cols-2">
-                    <div className="relative aspect-[16/9] bg-charcoal/[0.04] sm:aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]">
+                    {/* Image — dark ocean background ensures any product image pops */}
+                    <div className="relative aspect-[16/9] sm:aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]">
                       <Image
                         src={product.image}
                         alt={product.name}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-contain"
+                        className="object-cover"
                       />
+                      {/* Subtle vignette for depth */}
+                      <div className="pointer-events-none absolute inset-0 rounded-b-none shadow-[inset_0_-40px_60px_-20px_rgba(7,45,73,0.25)] md:rounded-r-none md:shadow-[inset_-40px_0_60px_-20px_rgba(7,45,73,0.25)]" />
                       <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
-                        <span className="rounded-lg bg-coral px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+                        <span className="rounded-lg bg-coral px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg shadow-coral/25 sm:text-xs">
                           Most Popular
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex flex-col justify-center p-5 sm:p-6 md:p-8 lg:p-12">
+                    {/* Content — white panel with clean typography */}
+                    <div className="flex flex-col justify-center bg-surface p-5 sm:p-6 md:p-8 lg:p-12">
                       <h3 className="font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl lg:text-4xl">
                         {product.name}
                       </h3>
@@ -58,16 +62,16 @@ export function ProductsSection({ products }: { products: Product[] }) {
                       </p>
 
                       {product.features && product.features.length > 0 && (
-                        <div className="mt-4 hidden space-y-1.5 sm:mt-5 sm:block sm:space-y-2 md:mt-6">
+                        <div className="mt-4 hidden space-y-2 sm:mt-5 sm:block md:mt-6">
                           {product.features.slice(0, 4).map((f) => (
                             <div
                               key={f}
                               className="flex items-center gap-2.5"
                             >
-                              <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-ocean/10 text-ocean">
+                              <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean/10 text-ocean">
                                 <svg
-                                  width="8"
-                                  height="8"
+                                  width="10"
+                                  height="10"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   stroke="currentColor"
@@ -88,7 +92,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
                         </div>
                       )}
 
-                      <div className="mt-4 flex flex-wrap items-center gap-3 sm:mt-6 sm:gap-4 md:mt-8">
+                      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-5 sm:mt-6 sm:pt-6 md:mt-8 md:pt-8">
                         <span className="text-xl font-bold text-charcoal sm:text-2xl md:text-3xl">
                           {product.variants && product.variants.length > 0
                             ? "From "
@@ -97,7 +101,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
                         </span>
                         <Link
                           href={`/products/${product.slug}`}
-                          className="cursor-pointer rounded-lg bg-ocean px-5 py-2.5 text-[13px] font-semibold text-white transition-colors duration-200 hover:bg-ocean-light sm:px-6 sm:py-3 sm:text-sm md:text-base"
+                          className="cursor-pointer rounded-lg bg-ocean px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-ocean/20 transition-all duration-200 hover:bg-ocean-light hover:shadow-lg hover:shadow-ocean/25 sm:px-6 sm:py-3 sm:text-sm md:text-base"
                         >
                           View Details
                         </Link>

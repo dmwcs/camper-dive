@@ -58,13 +58,13 @@ export function HeroSection() {
               href="/products"
               className="group cursor-pointer rounded-lg bg-sand px-5 py-3 text-[13px] font-semibold text-ocean transition-all duration-300 hover:scale-105 hover:bg-sand-light hover:shadow-lg hover:shadow-sand/20 sm:px-7 sm:py-3.5 sm:text-sm md:text-base"
             >
-              Shop Hand Spears
+              Shop Now
             </Link>
             <Link
               href="/tutorials"
               className="group cursor-pointer rounded-lg border border-white/25 px-5 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-white/10 sm:px-7 sm:py-3.5 sm:text-sm md:text-base"
             >
-              How It Works
+              Watch Tutorial
             </Link>
           </div>
         </div>
