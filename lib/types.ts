@@ -8,6 +8,7 @@ export interface ProductOption {
 export interface ProductVariant {
   label: string;
   price: number;
+  stock: number;
   stripePriceId: string;
 }
 

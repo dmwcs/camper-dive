@@ -47,7 +47,7 @@ export async function getProducts(): Promise<Product[]> {
       specs[]{ "label": label, "value": value },
       features,
       options[]{ "name": name, "values": values },
-      variants[]{ "label": label, "price": price, "stripePriceId": stripePriceId },
+      variants[]{ "label": label, "price": price, "stock": coalesce(stock, 0), "stripePriceId": stripePriceId },
       description
     }`
   );
@@ -76,7 +76,7 @@ export async function getProductBySlug(
       specs[]{ "label": label, "value": value },
       features,
       options[]{ "name": name, "values": values },
-      variants[]{ "label": label, "price": price, "stripePriceId": stripePriceId },
+      variants[]{ "label": label, "price": price, "stock": coalesce(stock, 0), "stripePriceId": stripePriceId },
       description
     }`,
     { slug }
@@ -135,7 +135,7 @@ const PRODUCT_FIELDS = `
   specs[]{ "label": label, "value": value },
   features,
   options[]{ "name": name, "values": values },
-  variants[]{ "label": label, "price": price, "stripePriceId": stripePriceId },
+  variants[]{ "label": label, "price": price, "stock": coalesce(stock, 0), "stripePriceId": stripePriceId },
   description
 `;
 

@@ -50,6 +50,9 @@ export function ProductActions({
     ? variants.find((v) => v.label === comboKey) ?? variants[0]
     : null;
   const activePrice = activeVariant ? activeVariant.price : price;
+  const activeStock = activeVariant?.stock ?? 0;
+  const isOutOfStock = activeStock <= 0;
+  const maxQuantity = Math.min(10, activeStock);
   const activeStripePriceId = activeVariant?.stripePriceId ?? "";
 
   // Build selectedOptions for cart context
@@ -88,6 +91,15 @@ export function ProductActions({
         </span>
         <span className="text-sm text-slate">AUD</span>
       </div>
+
+      {/* Stock status */}
+      {isOutOfStock ? (
+        <p className="text-sm font-medium text-red-600">Out of Stock</p>
+      ) : activeStock <= 5 ? (
+        <p className="text-sm font-medium text-amber-600">
+          Only {activeStock} left in stock
+        </p>
+      ) : null}
 
       {/* Option Selectors — one row per dimension */}
       {hasOptions &&
@@ -155,7 +167,7 @@ export function ProductActions({
         <div className="inline-flex items-center rounded-lg border border-border">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            disabled={quantity <= 1}
+            disabled={quantity <= 1 || isOutOfStock}
             className="flex h-11 w-10 cursor-pointer items-center justify-center text-lg text-slate transition-colors hover:text-charcoal disabled:cursor-not-allowed disabled:opacity-30"
           >
             -
@@ -164,8 +176,8 @@ export function ProductActions({
             {quantity}
           </span>
           <button
-            onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-            disabled={quantity >= 10}
+            onClick={() => setQuantity((q) => Math.min(maxQuantity, q + 1))}
+            disabled={quantity >= maxQuantity || isOutOfStock}
             className="flex h-11 w-10 cursor-pointer items-center justify-center text-lg text-slate transition-colors hover:text-charcoal disabled:cursor-not-allowed disabled:opacity-30"
           >
             +
@@ -175,14 +187,18 @@ export function ProductActions({
         {/* Add to Cart */}
         <button
           onClick={handleAdd}
-          disabled={added}
+          disabled={added || isOutOfStock}
           className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg py-3 text-sm font-semibold text-white transition-all ${
-            added
-              ? "bg-green-600"
-              : "bg-ocean hover:bg-ocean-light active:scale-[0.98]"
+            isOutOfStock
+              ? "cursor-not-allowed bg-gray-300"
+              : added
+                ? "bg-green-600"
+                : "bg-ocean hover:bg-ocean-light active:scale-[0.98]"
           }`}
         >
-          {added ? (
+          {isOutOfStock ? (
+            "Out of Stock"
+          ) : added ? (
             <>
               <svg
                 width="16"

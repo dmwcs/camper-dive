@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 
 import { stripe } from "@/lib/stripe";
+import { SanityInventoryRepository } from "@/lib/inventory-repo";
 
 interface CheckoutItem {
   stripePriceId: string;
@@ -29,6 +30,18 @@ export async function POST(req: NextRequest) {
         { error: "Cart is empty" },
         { status: 400 },
       );
+    }
+
+    /* ── Validate stock before creating Stripe session ─────────────── */
+    const inventory = new SanityInventoryRepository();
+    for (const item of items) {
+      const stock = await inventory.getStockByPriceId(item.stripePriceId);
+      if (stock < item.quantity) {
+        return NextResponse.json(
+          { error: `Insufficient stock for one or more items in your cart.` },
+          { status: 409 },
+        );
+      }
     }
 
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] =

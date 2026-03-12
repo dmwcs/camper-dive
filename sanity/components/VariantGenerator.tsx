@@ -16,6 +16,7 @@ interface Variant {
   _type: string
   label: string
   price?: number
+  stock?: number
   stripePriceId?: string
 }
 
@@ -43,6 +44,7 @@ export function VariantGenerator(props: ArrayOfObjectsInputProps) {
             _type: 'object',
             label: 'Default',
             price: found?.price ?? 0,
+            stock: found?.stock ?? 0,
             stripePriceId: found?.stripePriceId ?? undefined,
           },
         ]),
@@ -63,6 +65,7 @@ export function VariantGenerator(props: ArrayOfObjectsInputProps) {
         _type: 'object',
         label,
         price: found?.price ?? 0,
+        stock: found?.stock ?? 0,
         stripePriceId: found?.stripePriceId ?? undefined,
       }
     })
