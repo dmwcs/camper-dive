@@ -13,8 +13,8 @@ export function ProductCard({ product, size = "md" }: ProductCardProps) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className={`group overflow-hidden border border-border bg-surface transition-all duration-300 hover:border-ocean/20 hover:shadow-lg ${
-        isMd ? "rounded-2xl" : "rounded-xl"
+      className={`group overflow-hidden bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] ${
+        isMd ? "rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)]" : "rounded-xl shadow-[0_2px_10px_rgb(0,0,0,0.02)]"
       }`}
     >
       <div

@@ -36,7 +36,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
               {popularProducts.map((product) => (
                 <div
                   key={product.slug}
-                  className="overflow-hidden rounded-2xl border border-border bg-surface"
+                  className="overflow-hidden rounded-2xl bg-surface shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)]"
                 >
                   <div className="grid md:grid-cols-2">
                     <div className="relative aspect-[16/9] bg-background sm:aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]">
@@ -132,7 +132,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
           </div>
         ) : (
           <div
-            className="mt-8 rounded-2xl border border-border bg-surface p-12 text-center"
+            className="mt-8 rounded-2xl bg-surface p-12 text-center shadow-[0_4px_20px_rgb(0,0,0,0.03)]"
             data-sr="50"
           >
             <p className="text-sm text-slate">

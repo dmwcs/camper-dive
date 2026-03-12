@@ -28,7 +28,7 @@ export function TutorialCard({ tutorial, size = "md" }: TutorialCardProps) {
     return (
       <Link
         href={`/tutorials/${tutorial.slug}`}
-        className="group grid overflow-hidden rounded-xl border border-border bg-surface transition-shadow hover:shadow-lg sm:rounded-2xl md:grid-cols-2"
+        className="group grid overflow-hidden rounded-xl bg-surface shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] sm:rounded-2xl md:grid-cols-2"
       >
         <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[220px]">
           <Image
@@ -65,7 +65,7 @@ export function TutorialCard({ tutorial, size = "md" }: TutorialCardProps) {
   return (
     <Link
       href={`/tutorials/${tutorial.slug}`}
-      className="group overflow-hidden rounded-xl border border-border bg-surface transition-all duration-300 hover:border-ocean/20 hover:shadow-lg"
+      className="group overflow-hidden rounded-xl bg-surface shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image

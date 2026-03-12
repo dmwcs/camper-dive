@@ -24,12 +24,22 @@ export function WhyHandSpears() {
   return (
     <section className="bg-surface py-14 sm:py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Section header */}
+        <div className="mb-8 sm:mb-10 md:mb-12" data-sr>
+          <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
+            Why Hand Spears?
+          </p>
+          <h2 className="mt-1 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl">
+            The purest form of underwater hunting
+          </h2>
+        </div>
+
         <div
-          className="grid items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16"
-          data-sr
+          className="grid items-start gap-8 md:grid-cols-2 md:gap-12 lg:gap-16"
+          data-sr="50"
         >
           {/* Image with embedded video CTA */}
-          <div className="relative aspect-[16/10] overflow-hidden rounded-xl sm:aspect-[4/3] sm:rounded-2xl">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:aspect-[4/3] sm:rounded-2xl">
             <Image
               src="/images/spearfishing-reef.jpg"
               alt="Hand spearfishing on the reef"
@@ -58,13 +68,7 @@ export function WhyHandSpears() {
 
           {/* Copy + benefits */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
-              Why Hand Spears?
-            </p>
-            <h2 className="mt-2 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl">
-              The purest form of underwater hunting
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate sm:mt-4 sm:text-base">
+            <p className="text-sm leading-relaxed text-slate sm:text-base">
               One rubber sling. One shaft. One sharp tip. Pull back,
               aim, let go. Hand spears are the most stripped-back way
               to hunt — no triggers, no mechanics, just elastic power
