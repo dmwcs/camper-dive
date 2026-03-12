@@ -34,7 +34,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
                   className="flex flex-col overflow-hidden rounded-2xl bg-surface shadow-[0_4px_20px_rgb(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgb(0,0,0,0.06)]"
                 >
                   <div className="grid flex-1 md:grid-cols-2">
-                    <div className="relative aspect-[16/9] bg-background sm:aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]">
+                    <div className="relative aspect-[16/9] bg-charcoal/[0.04] sm:aspect-[4/3] md:aspect-auto md:min-h-[360px] lg:min-h-[420px]">
                       <Image
                         src={product.image}
                         alt={product.name}

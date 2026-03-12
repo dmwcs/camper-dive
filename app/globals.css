@@ -9,11 +9,11 @@
   --color-sand-dark: #B8903A;
   --color-coral: #E55039;
   --color-surface: #FFFFFF;
-  --color-background: #F7F7F2;
+  --color-background: #EEEEE8;
   --color-charcoal: #1A1A2E;
-  --color-slate: #6B7280;
-  --color-slate-light: #6B7585;
-  --color-border: #E5E5E0;
+  --color-slate: #525B66;
+  --color-slate-light: #626B75;
+  --color-border: #D5D5CE;
   --font-heading: var(--font-dm-sans);
   --font-body: var(--font-dm-sans);
   --font-logo: var(--font-bebas-neue);
