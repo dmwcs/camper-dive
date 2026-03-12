@@ -287,9 +287,11 @@ export function CartDrawer() {
 
 function CheckoutButton({ items }: { items: CartItem[] }) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleCheckout() {
     setLoading(true);
+    setError("");
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -305,45 +307,54 @@ function CheckoutButton({ items }: { items: CartItem[] }) {
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
+      } else {
+        setError(data.error || "Something went wrong. Please try again.");
+        setLoading(false);
       }
     } catch {
+      setError("Unable to connect. Please try again.");
       setLoading(false);
     }
   }
 
   return (
-    <button
-      onClick={handleCheckout}
-      disabled={loading}
-      className="mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-ocean py-3 text-sm font-semibold text-white transition-all hover:bg-ocean-light active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
-    >
-      {loading ? (
-        <>
-          <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-          </svg>
-          Redirecting...
-        </>
-      ) : (
-        <>
-          <svg
-            width="16"
-            height="16"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-          Checkout
-        </>
+    <>
+      <button
+        onClick={handleCheckout}
+        disabled={loading}
+        className="mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-ocean py-3 text-sm font-semibold text-white transition-all hover:bg-ocean-light active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {loading ? (
+          <>
+            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            Redirecting...
+          </>
+        ) : (
+          <>
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+              />
+            </svg>
+            Checkout
+          </>
+        )}
+      </button>
+      {error && (
+        <p className="mt-2 text-center text-sm text-red-600">{error}</p>
       )}
-    </button>
+    </>
   );
 }

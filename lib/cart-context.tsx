@@ -40,6 +40,7 @@ interface CartDataValue {
     selectedOptions: Record<string, string>,
     quantity: number,
   ) => void;
+  getItemQuantity: (slug: string, selectedOptions: Record<string, string>) => number;
   clearCart: () => void;
 }
 
@@ -210,6 +211,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [],
   );
 
+  const getItemQuantity = useCallback(
+    (slug: string, selectedOptions: Record<string, string>) => {
+      const key = cartItemKey(slug, selectedOptions);
+      const found = items.find(
+        (i) => cartItemKey(i.slug, i.selectedOptions) === key,
+      );
+      return found?.quantity ?? 0;
+    },
+    [items],
+  );
+
   const clearCart = useCallback(() => {
     dispatch({ type: "CLEAR" });
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
@@ -225,9 +237,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       addItem,
       removeItem,
       updateQuantity,
+      getItemQuantity,
       clearCart,
     }),
-    [items, totalItems, totalPrice, addItem, removeItem, updateQuantity, clearCart],
+    [items, totalItems, totalPrice, addItem, removeItem, updateQuantity, getItemQuantity, clearCart],
   );
 
   const uiValue = useMemo<CartUIValue>(
