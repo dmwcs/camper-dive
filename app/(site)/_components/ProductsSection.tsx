@@ -9,7 +9,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
   const featuredProducts = products.slice(3, 7);
 
   return (
-    <section className="py-10 sm:py-14 md:py-20">
+    <section className="py-14 sm:py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
         <div className="flex items-end justify-between" data-sr>
@@ -23,7 +23,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
           </div>
           <Link
             href="/products"
-            className="hidden cursor-pointer text-sm font-medium text-ocean transition-colors duration-200 hover:text-ocean-light sm:block"
+            className="cursor-pointer text-xs font-medium text-ocean transition-colors duration-200 hover:text-ocean-light sm:text-sm"
           >
             View all &rarr;
           </Link>
@@ -31,7 +31,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
 
         {/* Most Popular — carousel */}
         {popularProducts.length > 0 && (
-          <div className="mt-6 sm:mt-8" data-sr>
+          <div className="mt-8 sm:mt-10" data-sr>
             <ProductCarousel slideClass="basis-full">
               {popularProducts.map((product) => (
                 <div
@@ -120,8 +120,8 @@ export function ProductsSection({ products }: { products: Product[] }) {
 
         {/* More products — compact grid, clearly subordinate */}
         {featuredProducts.length > 0 ? (
-          <div className="mt-6 sm:mt-8 md:mt-10" data-sr="50">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-slate sm:mb-4">
+          <div className="mt-10 sm:mt-12 md:mt-14" data-sr="50">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate sm:mb-5">
               More to Explore
             </p>
             <ProductCarousel slideClass="basis-1/2 md:basis-1/3 lg:basis-1/4">
@@ -141,14 +141,6 @@ export function ProductsSection({ products }: { products: Product[] }) {
           </div>
         )}
 
-        <div className="mt-6 text-center sm:hidden">
-          <Link
-            href="/products"
-            className="cursor-pointer text-sm font-medium text-ocean transition-colors duration-200 hover:text-ocean-light"
-          >
-            View all products &rarr;
-          </Link>
-        </div>
       </div>
     </section>
   );
