@@ -23,7 +23,7 @@ export function ProductActions({
   options,
   variants,
 }: ProductActionsProps) {
-  const { addItem, openCart } = useCart();
+  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -80,7 +80,6 @@ export function ProductActions({
     setAdded(true);
     setTimeout(() => {
       setAdded(false);
-      openCart();
     }, 600);
   }
 
