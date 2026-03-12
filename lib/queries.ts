@@ -52,21 +52,7 @@ export async function getProducts(): Promise<Product[]> {
     }`
   );
 
-  return raw.map((p: Record<string, unknown>) => ({
-    name: p.name as string,
-    slug: p.slug as string,
-    price: p.price as number,
-    stripePriceId: (p.stripePriceId as string) || "",
-    stripeProductId: (p.stripeProductId as string) || undefined,
-    category: (p.category as string) || "",
-    shortDesc: (p.shortDesc as string) || "",
-    image: resolveImage(p.image),
-    specs: (p.specs as Product["specs"]) || [],
-    features: (p.features as string[]) || [],
-    options: (p.options as Product["options"]) || [],
-    variants: (p.variants as Product["variants"]) || [],
-    description: (p.description as string) || "",
-  }));
+  return raw.map(mapProduct);
 }
 
 export async function getProductBySlug(
@@ -128,6 +114,88 @@ export async function getProductBySlug(
   };
 }
 
+/* ─── products (filtered) ─────────────────────────────────────────── */
+
+export interface FilterParams {
+  category?: string;
+  search?: string;
+  sort?: string;
+  limit?: number;
+}
+
+const PRODUCT_FIELDS = `
+  name,
+  "slug": slug.current,
+  price,
+  stripePriceId,
+  stripeProductId,
+  "category": category->title,
+  shortDesc,
+  image,
+  specs[]{ "label": label, "value": value },
+  features,
+  options[]{ "name": name, "values": values },
+  variants[]{ "label": label, "price": price, "stripePriceId": stripePriceId },
+  description
+`;
+
+const PRODUCT_SORT_MAP: Record<string, string> = {
+  "price-asc": "price asc",
+  "price-desc": "price desc",
+  "name-asc": "name asc",
+  "name-desc": "name desc",
+};
+
+function mapProduct(p: Record<string, unknown>): Product {
+  return {
+    name: p.name as string,
+    slug: p.slug as string,
+    price: p.price as number,
+    stripePriceId: (p.stripePriceId as string) || "",
+    stripeProductId: (p.stripeProductId as string) || undefined,
+    category: (p.category as string) || "",
+    shortDesc: (p.shortDesc as string) || "",
+    image: resolveImage(p.image),
+    specs: (p.specs as Product["specs"]) || [],
+    features: (p.features as string[]) || [],
+    options: (p.options as Product["options"]) || [],
+    variants: (p.variants as Product["variants"]) || [],
+    description: (p.description as string) || "",
+  };
+}
+
+export async function getFilteredProducts(
+  params: FilterParams
+): Promise<{ items: Product[]; total: number }> {
+  const { category = "", search = "", sort = "featured", limit = 8 } = params;
+  const orderClause = PRODUCT_SORT_MAP[sort] || "_createdAt asc";
+
+  const filter = `_type == "product"
+    && ($category == "" || category->title == $category)
+    && ($search == "" || name match $search + "*" || shortDesc match $search + "*")`;
+
+  const query = `{
+    "items": *[${filter}] | order(${orderClause}) [0...$limit] { ${PRODUCT_FIELDS} },
+    "total": count(*[${filter}])
+  }`;
+
+  const result = await client.fetch(query, { category, search, limit });
+
+  return {
+    items: result.items.map(mapProduct),
+    total: result.total as number,
+  };
+}
+
+/* ─── product categories ──────────────────────────────────────────── */
+
+export async function getProductCategories(): Promise<string[]> {
+  const raw: { title: string }[] = await client.fetch(
+    `*[_type == "category" && type == "product"] | order(title asc) { title }`
+  );
+  return raw.map((c) => c.title);
+}
+
 /* ─── tutorials ───────────────────────────────────────────────────── */
 
 export async function getTutorials(): Promise<Tutorial[]> {
@@ -143,15 +211,7 @@ export async function getTutorials(): Promise<Tutorial[]> {
     }`
   );
 
-  return raw.map((t: Record<string, unknown>) => ({
-    title: t.title as string,
-    slug: t.slug as string,
-    category: (t.category as string) || "",
-    format: FORMAT_MAP[(t.format as string) || "article"] || "Article",
-    lastEdited: formatDate(t._updatedAt as string),
-    description: (t.description as string) || "",
-    image: resolveImage(t.image),
-  }));
+  return raw.map(mapTutorial);
 }
 
 export async function getTutorialBySlug(
@@ -182,6 +242,60 @@ export async function getTutorialBySlug(
     description: raw.description || "",
     image: resolveImage(raw.image),
     content: Array.isArray(raw.content) ? raw.content : undefined,
+  };
+}
+
+/* ─── tutorials (filtered) ────────────────────────────────────────── */
+
+const TUTORIAL_FIELDS = `
+  title,
+  "slug": slug.current,
+  "category": category->title,
+  format,
+  description,
+  image,
+  _updatedAt
+`;
+
+const TUTORIAL_SORT_MAP: Record<string, string> = {
+  newest: "_updatedAt desc",
+  oldest: "_updatedAt asc",
+  "title-asc": "title asc",
+  "title-desc": "title desc",
+};
+
+function mapTutorial(t: Record<string, unknown>): Tutorial {
+  return {
+    title: t.title as string,
+    slug: t.slug as string,
+    category: (t.category as string) || "",
+    format: FORMAT_MAP[(t.format as string) || "article"] || "Article",
+    lastEdited: formatDate(t._updatedAt as string),
+    description: (t.description as string) || "",
+    image: resolveImage(t.image),
+  };
+}
+
+export async function getFilteredTutorials(
+  params: FilterParams
+): Promise<{ items: Tutorial[]; total: number }> {
+  const { category = "", search = "", sort = "newest", limit = 8 } = params;
+  const orderClause = TUTORIAL_SORT_MAP[sort] || "_updatedAt desc";
+
+  const filter = `_type == "tutorial"
+    && ($category == "" || category->title == $category)
+    && ($search == "" || title match $search + "*" || description match $search + "*")`;
+
+  const query = `{
+    "items": *[${filter}] | order(${orderClause}) [0...$limit] { ${TUTORIAL_FIELDS} },
+    "total": count(*[${filter}])
+  }`;
+
+  const result = await client.fetch(query, { category, search, limit });
+
+  return {
+    items: result.items.map(mapTutorial),
+    total: result.total as number,
   };
 }
 

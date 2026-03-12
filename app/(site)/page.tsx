@@ -1,26 +1,38 @@
+import { Suspense } from "react";
 import { getProducts, getTutorials } from "@/lib/queries";
 import { HeroSection } from "./_components/HeroSection";
 import { ProductsSection } from "./_components/ProductsSection";
+import { ProductsSectionSkeleton } from "./_components/ProductsSectionSkeleton";
 import { WhyHandSpears } from "./_components/WhyHandSpears";
 import { TutorialShowcase } from "./_components/TutorialShowcase";
+import { TutorialShowcaseSkeleton } from "./_components/TutorialShowcaseSkeleton";
 import { LifestyleSection } from "./_components/LifestyleSection";
 import { FinalCTA } from "./_components/FinalCTA";
 
 // TODO: 上线前改成 3600（1小时），配合 Sanity webhook 做按需刷新
 export const revalidate = 0;
 
-export default async function Home() {
-  const [products, tutorials] = await Promise.all([
-    getProducts(),
-    getTutorials(),
-  ]);
+async function ProductsSectionAsync() {
+  const products = await getProducts();
+  return <ProductsSection products={products} />;
+}
 
+async function TutorialShowcaseAsync() {
+  const tutorials = await getTutorials();
+  return <TutorialShowcase tutorials={tutorials} />;
+}
+
+export default function Home() {
   return (
     <div className="bg-background">
       <HeroSection />
-      <ProductsSection products={products} />
+      <Suspense fallback={<ProductsSectionSkeleton />}>
+        <ProductsSectionAsync />
+      </Suspense>
       <WhyHandSpears />
-      <TutorialShowcase tutorials={tutorials} />
+      <Suspense fallback={<TutorialShowcaseSkeleton />}>
+        <TutorialShowcaseAsync />
+      </Suspense>
       <LifestyleSection />
       <FinalCTA />
     </div>

@@ -1,31 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useTransition, useCallback } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import type { Product } from "@/lib/types";
 import { ProductCard } from "@/app/(site)/products/_components/ProductCard";
 
-const categories = ["All", "Spearguns", "Accessories", "Diving Gear"];
+const PAGE_SIZE = 8;
 
-export function ProductsContent({ products }: { products: Product[] }) {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("featured");
+interface ProductsContentProps {
+  products: Product[];
+  total: number;
+  categories: string[];
+}
 
-  const filtered = products.filter((p) => {
-    const matchesCat = activeCategory === "All" || p.category === activeCategory;
-    const matchesSearch =
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (p.shortDesc || "").toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCat && matchesSearch;
-  });
+export function ProductsContent({ products, total, categories }: ProductsContentProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
 
-  const sortedAndFiltered = [...filtered].sort((a, b) => {
-    if (sortBy === "price-asc") return a.price - b.price;
-    if (sortBy === "price-desc") return b.price - a.price;
-    if (sortBy === "name-asc") return a.name.localeCompare(b.name);
-    if (sortBy === "name-desc") return b.name.localeCompare(a.name);
-    return 0; // "featured" usually means original order
-  });
+  // Read current filter state from URL
+  const activeCategory = searchParams.get("category") || "";
+  const searchQuery = searchParams.get("q") || "";
+  const sortBy = searchParams.get("sort") || "featured";
+  const currentLimit = parseInt(searchParams.get("limit") || String(PAGE_SIZE), 10);
+
+  // Local state for search input (debounced)
+  const [localSearch, setLocalSearch] = useState(searchQuery);
+
+  // Sync local search when URL changes externally
+  useEffect(() => {
+    setLocalSearch(searchQuery);
+  }, [searchQuery]);
+
+  // Update URL params
+  const updateParams = useCallback(
+    (updates: Record<string, string>, resetLimit = true) => {
+      const params = new URLSearchParams(searchParams.toString());
+      for (const [key, value] of Object.entries(updates)) {
+        if (value) {
+          params.set(key, value);
+        } else {
+          params.delete(key);
+        }
+      }
+      if (resetLimit) params.delete("limit");
+      const qs = params.toString();
+      startTransition(() => {
+        router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false });
+      });
+    },
+    [searchParams, pathname, router]
+  );
+
+  // Debounce search input
+  useEffect(() => {
+    if (localSearch === searchQuery) return;
+    const timer = setTimeout(() => {
+      updateParams({ q: localSearch });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [localSearch, searchQuery, updateParams]);
+
+  const hasMore = currentLimit < total;
 
   return (
     <>
@@ -34,10 +71,20 @@ export function ProductsContent({ products }: { products: Product[] }) {
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 sm:gap-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           {/* Category pills */}
           <div className="scrollbar-hide flex gap-1.5 overflow-x-auto sm:gap-2">
+            <button
+              onClick={() => updateParams({ category: "" })}
+              className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:px-4 sm:py-2 sm:text-sm ${
+                !activeCategory
+                  ? "bg-ocean text-white shadow-sm"
+                  : "text-charcoal/60 hover:bg-background hover:text-charcoal"
+              }`}
+            >
+              All
+            </button>
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => updateParams({ category: cat })}
                 className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:px-4 sm:py-2 sm:text-sm ${
                   cat === activeCategory
                     ? "bg-ocean text-white shadow-sm"
@@ -60,13 +107,16 @@ export function ProductsContent({ products }: { products: Product[] }) {
               <input
                 type="text"
                 placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={localSearch}
+                onChange={(e) => setLocalSearch(e.target.value)}
                 className="block w-full rounded-full border border-border bg-background py-2 pl-9 pr-4 text-sm transition-shadow focus:border-ocean focus:outline-none focus:ring-1 focus:ring-ocean"
               />
-              {searchQuery && (
+              {localSearch && (
                 <button
-                  onClick={() => setSearchQuery("")}
+                  onClick={() => {
+                    setLocalSearch("");
+                    updateParams({ q: "" });
+                  }}
                   className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate hover:text-charcoal"
                 >
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,7 +129,7 @@ export function ProductsContent({ products }: { products: Product[] }) {
             <div className="relative w-[140px] shrink-0 sm:w-48">
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
+                onChange={(e) => updateParams({ sort: e.target.value === "featured" ? "" : e.target.value })}
                 className="block w-full appearance-none rounded-full border border-border bg-background py-2 pl-3 pr-8 text-xs transition-shadow sm:pl-4 sm:pr-10 sm:text-sm focus:border-ocean focus:outline-none focus:ring-1 focus:ring-ocean"
               >
                 <option value="featured">Featured</option>
@@ -102,17 +152,33 @@ export function ProductsContent({ products }: { products: Product[] }) {
       <section className="min-h-[60vh] py-8 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Result count */}
-          <p className="mb-5 text-sm text-slate sm:mb-6" data-sr>
-            {sortedAndFiltered.length} {sortedAndFiltered.length === 1 ? "product" : "products"}
-            {activeCategory !== "All" && (
+          <p className="mb-5 text-sm text-slate sm:mb-6">
+            {total} {total === 1 ? "product" : "products"}
+            {activeCategory && (
               <> in <span className="font-medium text-charcoal">{activeCategory}</span></>
             )}
           </p>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4" data-sr="50">
-            {sortedAndFiltered.map((product) => (
+          <div
+            className={`grid grid-cols-2 gap-3 transition-opacity duration-200 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4 ${
+              isPending ? "pointer-events-none opacity-60" : ""
+            }`}
+          >
+            {products.map((product) => (
               <ProductCard key={product.slug} product={product} size="md" />
             ))}
           </div>
+
+          {hasMore && (
+            <div className="mt-8 flex justify-center sm:mt-10">
+              <button
+                onClick={() => updateParams({ limit: String(currentLimit + PAGE_SIZE) }, false)}
+                disabled={isPending}
+                className="cursor-pointer rounded-lg border border-border bg-surface px-6 py-2.5 text-sm font-medium text-charcoal/70 transition-colors hover:border-ocean hover:text-ocean disabled:opacity-50"
+              >
+                {isPending ? "Loading..." : `Load More (${total - currentLimit} remaining)`}
+              </button>
+            </div>
+          )}
         </div>
       </section>
     </>
