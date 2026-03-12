@@ -205,13 +205,14 @@ export async function getProductCategories(): Promise<string[]> {
 
 export async function getTutorials(): Promise<Tutorial[]> {
   const raw = await client.fetch(
-    `*[_type == "tutorial"] | order(_createdAt asc) {
+    `*[_type == "tutorial"] | order(featured desc, _updatedAt desc) {
       title,
       "slug": slug.current,
       "category": category->title,
       format,
       description,
       image,
+      featured,
       _updatedAt
     }`
   );
@@ -230,6 +231,7 @@ export async function getTutorialBySlug(
       format,
       description,
       image,
+      featured,
       _updatedAt,
       content
     }`,
@@ -246,6 +248,7 @@ export async function getTutorialBySlug(
     lastEdited: formatDate(raw._updatedAt),
     description: raw.description || "",
     image: resolveImage(raw.image),
+    featured: raw.featured || false,
     content: Array.isArray(raw.content) ? raw.content : undefined,
   };
 }
@@ -259,14 +262,15 @@ const TUTORIAL_FIELDS = `
   format,
   description,
   image,
+  featured,
   _updatedAt
 `;
 
 const TUTORIAL_SORT_MAP: Record<string, string> = {
-  newest: "_updatedAt desc",
-  oldest: "_updatedAt asc",
-  "title-asc": "title asc",
-  "title-desc": "title desc",
+  newest: "_updatedAt desc, featured desc",
+  oldest: "_updatedAt asc, featured desc",
+  "title-asc": "title asc, featured desc",
+  "title-desc": "title desc, featured desc",
 };
 
 function mapTutorial(t: Record<string, unknown>): Tutorial {
@@ -278,14 +282,15 @@ function mapTutorial(t: Record<string, unknown>): Tutorial {
     lastEdited: formatDate(t._updatedAt as string),
     description: (t.description as string) || "",
     image: resolveImage(t.image),
+    featured: (t.featured as boolean) || false,
   };
 }
 
 export async function getFilteredTutorials(
   params: FilterParams
 ): Promise<{ items: Tutorial[]; total: number }> {
-  const { category = "", search = "", sort = "newest", limit = 8 } = params;
-  const orderClause = TUTORIAL_SORT_MAP[sort] || "_updatedAt desc";
+  const { category = "", search = "", sort = "featured", limit = 8 } = params;
+  const orderClause = TUTORIAL_SORT_MAP[sort] || "featured desc, _updatedAt desc";
 
   const filter = `_type == "tutorial"
     && ($category == "" || category->title == $category)

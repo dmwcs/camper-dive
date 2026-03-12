@@ -21,6 +21,13 @@ export const tutorialType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'featured',
+      title: 'Featured',
+      type: 'boolean',
+      description: 'Featured tutorials appear first in listings and on the homepage.',
+      initialValue: false,
+    }),
+    defineField({
       name: 'category',
       type: 'reference',
       to: {type: 'category'},

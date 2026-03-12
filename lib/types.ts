@@ -48,6 +48,7 @@ export interface Tutorial {
   lastEdited: string;
   description: string;
   image: string;
+  featured?: boolean;
   content?: PortableTextBlock[];
 }
 

@@ -23,7 +23,7 @@ export function TutorialsContent({ tutorials, total, categories }: TutorialsCont
   // Read current filter state from URL
   const activeCategory = searchParams.get("category") || "";
   const searchQuery = searchParams.get("q") || "";
-  const sortBy = searchParams.get("sort") || "newest";
+  const sortBy = searchParams.get("sort") || "featured";
   const currentLimit = parseInt(searchParams.get("limit") || String(PAGE_SIZE), 10);
 
   // Accordion state (UI-only, not in URL)
@@ -81,8 +81,8 @@ export function TutorialsContent({ tutorials, total, categories }: TutorialsCont
     setExpandedCat((prev) => (prev === catLabel ? null : catLabel));
   };
 
-  // Featured card: show when no filters and newest sort
-  const showFeatured = !activeCategory && !searchQuery && sortBy === "newest" && tutorials.length > 0;
+  // Featured card: show when no filters and featured sort
+  const showFeatured = !activeCategory && !searchQuery && sortBy === "featured" && tutorials.length > 0;
   const gridItems = showFeatured ? tutorials.slice(1) : tutorials;
   const hasMore = currentLimit < total;
 
@@ -124,9 +124,10 @@ export function TutorialsContent({ tutorials, total, categories }: TutorialsCont
             <div className="relative w-[130px] shrink-0 sm:w-48">
               <select
                 value={sortBy}
-                onChange={(e) => updateParams({ sort: e.target.value === "newest" ? "" : e.target.value })}
+                onChange={(e) => updateParams({ sort: e.target.value === "featured" ? "" : e.target.value })}
                 className="block w-full appearance-none rounded-full border border-border bg-background py-2 pl-3 pr-8 text-xs transition-shadow sm:pl-4 sm:pr-10 sm:text-sm focus:border-ocean focus:outline-none focus:ring-1 focus:ring-ocean"
               >
+                <option value="featured">Featured</option>
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
                 <option value="title-asc">Title: A to Z</option>
@@ -286,9 +287,10 @@ export function TutorialsContent({ tutorials, total, categories }: TutorialsCont
                   <div className="relative w-48">
                     <select
                       value={sortBy}
-                      onChange={(e) => updateParams({ sort: e.target.value === "newest" ? "" : e.target.value })}
+                      onChange={(e) => updateParams({ sort: e.target.value === "featured" ? "" : e.target.value })}
                       className="block w-full appearance-none rounded-full border border-border bg-surface py-2.5 pl-4 pr-10 text-sm transition-shadow focus:border-ocean focus:outline-none focus:ring-1 focus:ring-ocean"
                     >
+                      <option value="featured">Featured</option>
                       <option value="newest">Newest First</option>
                       <option value="oldest">Oldest First</option>
                       <option value="title-asc">Title: A to Z</option>

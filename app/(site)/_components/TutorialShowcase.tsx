@@ -3,7 +3,8 @@ import { TutorialCard } from "@/components/TutorialCard";
 import type { Tutorial } from "@/lib/types";
 
 export function TutorialShowcase({ tutorials }: { tutorials: Tutorial[] }) {
-  const featuredTutorials = tutorials.slice(0, 3);
+  const marked = tutorials.filter((t) => t.featured);
+  const featuredTutorials = marked.length > 0 ? marked.slice(0, 3) : tutorials.slice(0, 3);
 
   return (
     <section className="py-10 sm:py-14 md:py-20">

@@ -47,7 +47,7 @@ export default async function TutorialsPage({
   const params = await searchParams;
   const category = (params.category as string) || "";
   const search = (params.q as string) || "";
-  const sort = (params.sort as string) || "newest";
+  const sort = (params.sort as string) || "featured";
   const limit = Math.min(
     parseInt((params.limit as string) || String(PAGE_SIZE), 10) || PAGE_SIZE,
     200
