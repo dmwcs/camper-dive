@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useCart } from "@/lib/cart-context";
+import { TrustBar } from "./TrustBar";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -76,6 +77,8 @@ export function Navbar() {
         scrolled ? "shadow-sm" : ""
       }`}
     >
+      <TrustBar />
+
       <nav className="mx-auto flex h-16 max-w-7xl items-center px-6 lg:px-8">
         {/* Logo — fixed width so nav links can center */}
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
