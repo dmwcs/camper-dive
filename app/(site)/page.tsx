@@ -113,7 +113,7 @@ export default async function Home() {
   return (
     <div className="bg-background">
       {/* ── 1. Hero ────────────────────────────────────────────────── */}
-      <section className="relative min-h-dvh overflow-hidden bg-ocean">
+      <section className="relative min-h-[75dvh] overflow-hidden bg-ocean sm:min-h-[80dvh]">
         {/* Background */}
         <div className="absolute inset-0">
           <Image
@@ -128,7 +128,7 @@ export default async function Home() {
         </div>
 
         {/* Content — vertical layout: [spacer] [copy] [trust bar] */}
-        <div className="relative flex min-h-dvh flex-col pt-20 sm:pt-24">
+        <div className="relative flex min-h-[75dvh] flex-col pt-20 sm:min-h-[80dvh] sm:pt-24">
           {/* Top spacer — controlled ratio so copy lands ~40% down */}
           <div className="min-h-8 flex-[2] sm:flex-[3]" />
 
@@ -177,26 +177,26 @@ export default async function Home() {
           {/* Bottom spacer — smaller ratio to keep trust bar near bottom */}
           <div className="min-h-6 flex-[3] sm:flex-[4]" />
 
-          {/* Trust Bar — glass cards pinned near bottom */}
-          <div className="hero-fade hero-fade-d4 mx-auto grid w-full max-w-7xl grid-cols-3 gap-2 px-4 pb-4 sm:gap-3 sm:px-6 sm:pb-6 lg:px-8">
-            {trustBadges.map((b) => (
-              <div
-                key={b.label}
-                className="flex flex-col items-center rounded-xl border border-white/10 bg-white/[0.07] px-2 py-3 text-center backdrop-blur-sm sm:flex-row sm:gap-3 sm:px-5 sm:py-4 sm:text-left"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sand/15 text-sand sm:h-11 sm:w-11">
-                  {b.icon}
-                </span>
-                <div className="mt-1.5 sm:mt-0">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-white sm:text-sm">
-                    {b.label}
-                  </p>
-                  <p className="mt-0.5 hidden text-xs text-white/50 sm:block">
-                    {b.desc}
-                  </p>
+          {/* Trust Bar — flat info strip */}
+          <div className="hero-fade hero-fade-d4 border-t border-white/10">
+            <div className="mx-auto flex w-full max-w-7xl items-stretch divide-x divide-white/10 px-4 sm:px-6 lg:px-8">
+              {trustBadges.map((b) => (
+                <div
+                  key={b.label}
+                  className="flex flex-1 flex-col items-center justify-center gap-1.5 py-5 sm:flex-row sm:gap-3 sm:py-6"
+                >
+                  <span className="text-sand">{b.icon}</span>
+                  <div className="text-center sm:text-left">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-white/90 sm:text-sm">
+                      {b.label}
+                    </p>
+                    <p className="mt-0.5 hidden text-xs text-white/40 sm:block">
+                      {b.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
