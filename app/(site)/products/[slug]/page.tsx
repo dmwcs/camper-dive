@@ -204,7 +204,6 @@ export default async function ProductDetailPage({
                 slug={product.slug}
                 name={product.name}
                 price={product.price}
-                stripePriceId={product.stripePriceId}
                 image={product.image}
                 options={product.options}
                 variants={product.variants}

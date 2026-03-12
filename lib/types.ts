@@ -20,7 +20,6 @@ export interface MediaItem {
 export interface Product {
   name: string;
   price: number;
-  stripePriceId: string;
   category: string;
   slug: string;
   shortDesc: string;

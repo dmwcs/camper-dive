@@ -1,5 +1,6 @@
 import {BasketIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {VariantGenerator} from '../components/VariantGenerator'
 
 export const productType = defineType({
   name: 'product',
@@ -27,13 +28,6 @@ export const productType = defineType({
       description: 'For products with variants, set this to the lowest variant price.',
       type: 'number',
       validation: (rule) => rule.required().positive(),
-    }),
-    defineField({
-      name: 'stripePriceId',
-      title: 'Stripe Price ID',
-      type: 'string',
-      description: 'The Price ID from Stripe (e.g. price_1ABC...)',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'stripeProductId',
@@ -166,6 +160,7 @@ export const productType = defineType({
       title: 'Product Variants',
       description: 'Price lookup table. Label must match option combo key (e.g. "Latex / Single Barb"). Products with no options should have one "Default" variant.',
       type: 'array',
+      components: {input: VariantGenerator},
       validation: (rule) =>
         rule.custom((variants, context) => {
           if (!variants || variants.length === 0) return true

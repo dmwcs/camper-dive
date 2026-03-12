@@ -8,7 +8,6 @@ interface ProductActionsProps {
   slug: string;
   name: string;
   price: number;
-  stripePriceId: string;
   image: string;
   options?: ProductOption[];
   variants?: ProductVariant[];
@@ -18,7 +17,6 @@ export function ProductActions({
   slug,
   name,
   price,
-  stripePriceId,
   image,
   options,
   variants,
@@ -52,9 +50,7 @@ export function ProductActions({
     ? variants.find((v) => v.label === comboKey) ?? variants[0]
     : null;
   const activePrice = activeVariant ? activeVariant.price : price;
-  const activeStripePriceId = activeVariant
-    ? activeVariant.stripePriceId
-    : stripePriceId;
+  const activeStripePriceId = activeVariant?.stripePriceId ?? "";
 
   // Build selectedOptions for cart context
   const cartOptions: Record<string, string> = hasOptions
