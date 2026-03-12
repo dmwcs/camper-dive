@@ -76,9 +76,9 @@ export function Navbar() {
         scrolled ? "shadow-sm" : ""
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center px-6 lg:px-8">
+        {/* Logo — fixed width so nav links can center */}
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <Image
             src="/images/logo.svg"
             alt=""
@@ -92,8 +92,8 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <ul className="hidden items-center gap-1 lg:flex">
+        {/* Desktop Nav — centered with flex-1 */}
+        <ul className="hidden flex-1 items-center justify-center gap-1 lg:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -110,23 +110,12 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop: Cart + CTA */}
-        <div className="hidden items-center gap-2 lg:flex">
-          <CartButton />
-          <Link
-            href="/products"
-            className="rounded-lg bg-ocean px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-ocean-light"
-          >
-            Shop Now
-          </Link>
-        </div>
-
-        {/* Mobile: Cart + Toggle */}
-        <div className="flex items-center gap-1 lg:hidden">
+        {/* Right side — cart (desktop) | cart + hamburger (mobile) */}
+        <div className="ml-auto flex items-center gap-1 lg:ml-0">
           <CartButton />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-charcoal transition-colors hover:bg-background"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-charcoal transition-colors hover:bg-background lg:hidden"
             aria-label="Toggle menu"
           >
             {mobileOpen ? (
@@ -164,15 +153,6 @@ export function Navbar() {
               </Link>
             </li>
           ))}
-          <li className="mt-2">
-            <Link
-              href="/products"
-              onClick={() => setMobileOpen(false)}
-              className="block rounded-lg bg-ocean px-5 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-ocean-light"
-            >
-              Shop Now
-            </Link>
-          </li>
         </ul>
       </div>
     </header>
