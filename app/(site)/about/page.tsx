@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { FinalCTA } from "../_components/FinalCTA";
 
 export const metadata = {
   title: "About",
@@ -138,31 +138,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-ocean py-16">
-        <div className="mx-auto max-w-7xl px-6 text-center lg:px-8" data-sr>
-          <h2 className="font-heading text-3xl font-bold text-white">
-            Ready to dive in?
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-base text-white/60">
-            Check out the Reef Hunter range or learn the basics with our free
-            tutorials.
-          </p>
-          <div className="mt-8 flex justify-center gap-4">
-            <Link
-              href="/products"
-              className="rounded-lg bg-sand px-6 py-3 text-sm font-semibold text-ocean transition-colors hover:bg-sand-light"
-            >
-              Shop Spearguns
-            </Link>
-            <Link
-              href="/tutorials"
-              className="rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-            >
-              Watch Tutorials
-            </Link>
-          </div>
-        </div>
-      </section>
+      <FinalCTA />
     </div>
   );
 }

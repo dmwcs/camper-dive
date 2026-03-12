@@ -58,7 +58,7 @@ export function TrustBar() {
   }, [paused]);
 
   return (
-    <div className="bg-ocean text-white">
+    <div className="bg-ocean-dark text-white shadow-[inset_0_-1px_0_rgba(212,168,75,0.25)]">
       {/* ── Desktop (lg+): static row ── */}
       <div className="mx-auto hidden max-w-7xl items-center justify-center gap-x-16 px-6 py-3.5 text-sm font-bold uppercase tracking-widest lg:flex lg:gap-x-20">
         {trustBadges.map((badge) => (
