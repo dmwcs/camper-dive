@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const trustBadges = [
   {
@@ -29,31 +29,38 @@ const trustBadges = [
   },
 ];
 
-export function TrustBar() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+const AUTO_PLAY_MS = 4000;
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!scrollRef.current) return;
-      const el = scrollRef.current;
-      const width = el.clientWidth;
-      const maxScroll = el.scrollWidth - width;
-      let nextScroll = el.scrollLeft + width;
-      
-      // If we've reached the end, loop back to the start
-      if (nextScroll > maxScroll + 10) {
-        nextScroll = 0;
-      }
-      
-      el.scrollTo({ left: nextScroll, behavior: "smooth" });
-    }, 4000);
-    return () => clearInterval(timer);
+export function TrustBar() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const go = useCallback((direction: "prev" | "next") => {
+    setActiveIndex((prev) =>
+      direction === "prev"
+        ? (prev - 1 + trustBadges.length) % trustBadges.length
+        : (prev + 1) % trustBadges.length,
+    );
+    // Pause auto-play briefly after manual interaction
+    setPaused(true);
   }, []);
 
+  // Auto-play
+  useEffect(() => {
+    if (paused) {
+      const resume = setTimeout(() => setPaused(false), AUTO_PLAY_MS * 2);
+      return () => clearTimeout(resume);
+    }
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % trustBadges.length);
+    }, AUTO_PLAY_MS);
+    return () => clearInterval(timer);
+  }, [paused]);
+
   return (
-    <div className="bg-ocean py-2.5 text-white sm:py-3.5">
-      {/* Desktop View: all items side by side */}
-      <div className="hidden mx-auto max-w-7xl items-center justify-center gap-x-12 px-6 text-xs md:text-sm md:gap-x-16 font-bold uppercase tracking-widest sm:flex">
+    <div className="bg-ocean text-white">
+      {/* ── Desktop (lg+): static row ── */}
+      <div className="mx-auto hidden max-w-7xl items-center justify-center gap-x-16 px-6 py-3.5 text-sm font-bold uppercase tracking-widest lg:flex lg:gap-x-20">
         {trustBadges.map((badge) => (
           <div key={badge.label} className="flex items-center gap-2">
             <span className="text-sand">{badge.icon}</span>
@@ -62,20 +69,48 @@ export function TrustBar() {
         ))}
       </div>
 
-      {/* Mobile View: horizontally scrollable, auto-snapping, 1 item at a time */}
-      <div 
-        ref={scrollRef}
-        className="flex w-full overflow-x-auto snap-x snap-mandatory sm:hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      >
-        {trustBadges.map((badge) => (
-          <div 
-            key={badge.label} 
-            className="w-full shrink-0 snap-center flex items-center justify-center gap-2 px-4 text-[11px] font-bold uppercase tracking-widest"
+      {/* ── Mobile + Tablet (<lg): carousel ── */}
+      <div className="relative flex items-center py-2.5 lg:hidden">
+        {/* Left arrow */}
+        <button
+          onClick={() => go("prev")}
+          className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center text-white/50 transition-colors hover:text-white active:text-white"
+          aria-label="Previous"
+        >
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+
+        {/* Sliding content */}
+        <div className="min-w-0 flex-1 overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${activeIndex * 100}%)` }}
           >
-            <span className="text-sand shrink-0">{badge.icon}</span>
-            <span className="truncate">{badge.label}</span>
+            {trustBadges.map((badge) => (
+              <div
+                key={badge.label}
+                className="flex w-full shrink-0 items-center justify-center gap-2 px-2 text-xs font-bold uppercase tracking-widest sm:text-sm"
+              >
+                <span className="shrink-0 text-sand">{badge.icon}</span>
+                <span className="whitespace-nowrap">{badge.label}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Right arrow */}
+        <button
+          onClick={() => go("next")}
+          className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center text-white/50 transition-colors hover:text-white active:text-white"
+          aria-label="Next"
+        >
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+
       </div>
     </div>
   );

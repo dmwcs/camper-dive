@@ -77,7 +77,10 @@ export function Navbar() {
         scrolled ? "shadow-sm" : ""
       }`}
     >
-      <TrustBar />
+      {/* Desktop only — stays inside sticky header */}
+      <div className="hidden lg:block">
+        <TrustBar />
+      </div>
 
       <nav className="mx-auto flex h-16 max-w-7xl items-center px-6 lg:px-8">
         {/* Logo — fixed width so nav links can center */}
