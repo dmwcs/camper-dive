@@ -43,15 +43,13 @@ export function LifestyleSection() {
   return (
     <section className="bg-surface py-14 sm:py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Lifestyle gallery */}
-        <div className="text-center" data-sr>
-          <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
-            The Lifestyle
-          </p>
-          <h2 className="mt-1 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl">
+        {/* Lifestyle gallery — right-aligned header for zigzag rhythm */}
+        <div className="md:text-right" data-sr>
+          <div className="mb-3 h-[3px] w-12 rounded-full bg-ocean md:ml-auto" />
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl md:text-4xl">
             Dive. Catch. Cook. Repeat.
           </h2>
-          <p className="mx-auto mt-2 max-w-lg text-sm text-slate">
+          <p className="mt-2 max-w-lg text-sm text-slate md:ml-auto">
             CamperDive isn&apos;t just gear — it&apos;s a way of life. Camp by
             the coast, dive for dinner, and share the experience.
           </p>

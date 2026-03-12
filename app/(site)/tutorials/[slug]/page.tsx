@@ -137,10 +137,7 @@ export default async function TutorialDetailPage({
       {/* ── Related ── */}
       <section className="border-t border-border bg-background py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-light" data-sr>
-            Keep reading
-          </p>
-          <h2 className="mt-1 font-heading text-xl font-bold text-charcoal">
+          <h2 className="font-heading text-xl font-bold text-charcoal" data-sr>
             More tutorials
           </h2>
           <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4" data-sr="100">

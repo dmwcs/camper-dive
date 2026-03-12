@@ -56,7 +56,6 @@ export default async function TutorialsPage({
   return (
     <div className="bg-background">
       <PageHeader
-        tagline="Learn"
         title="Tutorials & Guides"
         description="From speargun basics to abalone hunting — free tutorials by a certified freediving instructor. Watch, read, and get in the water."
         backgroundImage="/images/spearfishing-action.jpg"

@@ -7,7 +7,6 @@ interface BreadcrumbItem {
 }
 
 interface PageHeaderProps {
-  tagline: string;
   title: string;
   description: string;
   backgroundImage?: string;
@@ -15,7 +14,6 @@ interface PageHeaderProps {
 }
 
 export function PageHeader({
-  tagline,
   title,
   description,
   backgroundImage,
@@ -52,10 +50,7 @@ export function PageHeader({
             ))}
           </nav>
         )}
-        <p className="text-sm font-semibold uppercase tracking-widest text-sand">
-          {tagline}
-        </p>
-        <h1 className="mt-2 font-heading text-4xl font-bold tracking-tight text-white lg:text-5xl">
+        <h1 className="font-heading text-4xl font-bold tracking-tight text-white lg:text-5xl">
           {title}
         </h1>
         <p className="mt-4 max-w-xl text-base text-white/60">{description}</p>

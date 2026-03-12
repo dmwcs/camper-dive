@@ -56,7 +56,6 @@ export default async function ProductsPage({
   return (
     <div className="bg-background">
       <PageHeader
-        tagline="Our Gear"
         title="Products"
         description="Handheld spearguns and accessories designed for Australian reef conditions. Compact, powerful, and built to travel."
         backgroundImage="/images/spearfishing-reef.jpg"

@@ -14,26 +14,19 @@ export function ProductsSection({ products }: { products: Product[] }) {
     <section className="py-14 sm:py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section header */}
-        <div className="flex items-end justify-between" data-sr>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-sand-dark">
-              The Range
-            </p>
-            <h2 className="mt-1 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl">
-              Hand Spears & Gear
-            </h2>
-          </div>
-          <Link
-            href="/products"
-            className="cursor-pointer text-xs font-medium text-ocean transition-colors duration-200 hover:text-ocean-light sm:text-sm"
-          >
-            View all &rarr;
-          </Link>
+        <div data-sr>
+          <div className="mb-3 h-[3px] w-12 rounded-full bg-ocean" />
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-charcoal sm:text-3xl md:text-4xl">
+            Most Popular
+          </h2>
+          <p className="mt-2 max-w-md text-[13px] text-slate sm:text-sm">
+            Compact spearguns designed for Australian reef conditions.
+          </p>
         </div>
 
         {/* Most Popular — carousel */}
         {popularProducts.length > 0 && (
-          <div className="mt-8 sm:mt-10" data-sr>
+          <div className="mt-6 sm:mt-8" data-sr>
             <ProductCarousel slideClass="basis-full">
               {popularProducts.map((product) => (
                 <div
@@ -57,10 +50,7 @@ export function ProductsSection({ products }: { products: Product[] }) {
                     </div>
 
                     <div className="flex flex-col justify-center p-5 sm:p-6 md:p-8 lg:p-12">
-                      <p className="text-[10px] font-semibold uppercase tracking-widest text-sand-dark sm:text-xs">
-                        {product.category}
-                      </p>
-                      <h3 className="mt-1.5 font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl lg:text-4xl">
+                      <h3 className="font-heading text-xl font-bold tracking-tight text-charcoal sm:text-2xl md:text-3xl lg:text-4xl">
                         {product.name}
                       </h3>
                       <p className="mt-2 text-[13px] leading-relaxed text-slate sm:mt-3 sm:text-sm md:text-base">
@@ -120,12 +110,12 @@ export function ProductsSection({ products }: { products: Product[] }) {
           </div>
         )}
 
-        {/* More products — compact grid, clearly subordinate */}
+        {/* More products */}
         {featuredProducts.length > 0 ? (
-          <div className="mt-10 sm:mt-12 md:mt-14" data-sr="50">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate sm:mb-5">
-              More to Explore
-            </p>
+          <div className="mt-6 sm:mt-8" data-sr="50">
+            <h3 className="mb-4 font-heading text-lg font-bold tracking-tight text-charcoal sm:text-xl">
+              Explore More
+            </h3>
             <ProductCarousel slideClass="basis-1/2 md:basis-1/3 lg:basis-1/4">
               {featuredProducts.map((product) => (
                 <ProductCard key={product.slug} product={product} size="sm" />
@@ -143,6 +133,14 @@ export function ProductsSection({ products }: { products: Product[] }) {
           </div>
         )}
 
+        <div className="mt-6 text-center sm:mt-8">
+          <Link
+            href="/products"
+            className="cursor-pointer text-sm font-medium text-ocean transition-colors duration-200 hover:text-ocean-light"
+          >
+            View all products &rarr;
+          </Link>
+        </div>
       </div>
     </section>
   );

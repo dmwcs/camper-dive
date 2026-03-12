@@ -28,7 +28,6 @@ export default function ContactPage() {
   return (
     <div className="bg-background">
       <PageHeader
-        tagline="Get in touch"
         title="Contact Us"
         description="Got a question about our spearguns, need help choosing the right size, or just want to chat? We'd love to hear from you."
         backgroundImage="/images/coral-reef.jpg"
