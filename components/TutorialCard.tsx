@@ -49,7 +49,7 @@ export function TutorialCard({ tutorial, size = "md" }: TutorialCardProps) {
           <h3 className="mt-1.5 font-heading text-base font-bold text-charcoal group-hover:text-ocean sm:mt-2 sm:text-xl">
             {tutorial.title}
           </h3>
-          <p className="mt-1.5 text-xs leading-relaxed text-slate sm:mt-2 sm:text-sm">
+          <p className="mt-1.5 text-xs leading-relaxed text-slate line-clamp-3 sm:mt-2 sm:text-sm">
             {tutorial.description}
           </p>
           <div className="mt-3 sm:mt-4">
@@ -96,9 +96,16 @@ export function TutorialCard({ tutorial, size = "md" }: TutorialCardProps) {
           {tutorial.title}
         </h3>
         {size === "md" && (
-          <p className="mt-1 hidden text-xs leading-relaxed text-slate line-clamp-2 sm:block">
-            {tutorial.description}
-          </p>
+          <div className="mt-1 hidden sm:block">
+            <p className="text-xs leading-relaxed text-slate line-clamp-2">
+              {tutorial.description}
+            </p>
+            <div className="mt-2">
+              <span className="text-[11px] font-medium text-ocean transition-colors duration-200 group-hover:text-ocean-light">
+                Read more &rarr;
+              </span>
+            </div>
+          </div>
         )}
       </div>
     </Link>
