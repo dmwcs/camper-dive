@@ -69,7 +69,12 @@ export async function syncProductToStripe(
     const existing = await stripe.prices.retrieve(variant.stripePriceId);
 
     if (existing.unit_amount === variant.priceInCents) {
-      // No change needed
+      // Price unchanged → still sync nickname
+      if (existing.nickname !== variant.key) {
+        await stripe.prices.update(variant.stripePriceId, {
+          nickname: variant.key,
+        });
+      }
       variantResults.push({
         key: variant.key,
         stripePriceId: variant.stripePriceId,

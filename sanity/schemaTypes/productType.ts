@@ -1,6 +1,6 @@
 import {BasketIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
-import {VariantGenerator} from '../components/VariantGenerator'
+import {LockedVariantItem, VariantGenerator} from '../components/VariantGenerator'
 
 export const productType = defineType({
   name: 'product',
@@ -214,12 +214,14 @@ export const productType = defineType({
       of: [
         defineArrayMember({
           type: 'object',
+          components: {item: LockedVariantItem},
           fields: [
             defineField({
               name: 'label',
               type: 'string',
               title: 'Variant Label',
-              description: 'e.g. "75cm", "90cm", "110cm"',
+              description: 'Auto-generated from product options.',
+              readOnly: true,
               validation: (rule) => rule.required(),
             }),
             defineField({
@@ -240,7 +242,8 @@ export const productType = defineType({
               name: 'stripePriceId',
               type: 'string',
               title: 'Stripe Price ID',
-              description: 'Auto-populated by sync. Leave blank for new variants.',
+              description: 'Auto-populated by sync. Do not edit manually.',
+              readOnly: true,
             }),
           ],
           preview: {

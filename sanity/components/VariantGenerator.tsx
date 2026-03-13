@@ -3,8 +3,17 @@
 import {Button, Stack} from '@sanity/ui'
 import {AddIcon} from '@sanity/icons'
 import {randomKey} from '@sanity/util/content'
-import {type ArrayOfObjectsInputProps, set, useFormValue} from 'sanity'
+import {type ArrayOfObjectsInputProps, type ObjectItemProps, set, useFormValue} from 'sanity'
 import {useCallback} from 'react'
+
+export function LockedVariantItem(props: ObjectItemProps) {
+  return (
+    <div className="locked-variant-item" style={{position: 'relative'}}>
+      <style>{`.locked-variant-item [data-ui="MenuButton"] { display: none !important; }`}</style>
+      {props.renderDefault(props)}
+    </div>
+  )
+}
 
 interface Option {
   name: string
@@ -82,7 +91,7 @@ export function VariantGenerator(props: ArrayOfObjectsInputProps) {
         tone="primary"
         onClick={handleGenerate}
       />
-      {props.renderDefault(props)}
+      {props.renderDefault({...props, arrayFunctions: () => null})}
     </Stack>
   )
 }
