@@ -10,6 +10,22 @@ import type { SyncableProduct, SyncResult } from "./types";
  * This module has ZERO database imports — it works with plain
  * TypeScript interfaces so the database layer can be swapped.
  */
+export async function archiveStripeProduct(
+  sanityDocumentId: string,
+): Promise<{ archived: boolean; stripeProductId?: string }> {
+  const products = await stripe.products.search({
+    query: `metadata["sourceId"]:"${sanityDocumentId}"`,
+  });
+
+  const product = products.data[0];
+  if (!product || !product.active) {
+    return { archived: false };
+  }
+
+  await stripe.products.update(product.id, { active: false });
+  return { archived: true, stripeProductId: product.id };
+}
+
 export async function syncProductToStripe(
   product: SyncableProduct,
 ): Promise<SyncResult> {
@@ -36,6 +52,7 @@ export async function syncProductToStripe(
     if (!variant.stripePriceId) {
       const price = await stripe.prices.create({
         product: stripeProductId,
+        nickname: variant.key,
         unit_amount: variant.priceInCents,
         currency: "aud",
         metadata: { variantKey: variant.key },
@@ -64,6 +81,7 @@ export async function syncProductToStripe(
     // Price changed → create new, archive old
     const newPrice = await stripe.prices.create({
       product: stripeProductId,
+      nickname: variant.key,
       unit_amount: variant.priceInCents,
       currency: "aud",
       metadata: { variantKey: variant.key },

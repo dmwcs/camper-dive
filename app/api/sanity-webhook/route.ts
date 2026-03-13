@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 
 import { SanityProductRepository } from "@/lib/sanity-product-repo";
-import { syncProductToStripe } from "@/lib/stripe-sync";
+import { archiveStripeProduct, syncProductToStripe } from "@/lib/stripe-sync";
 
 const secret = process.env.SANITY_WEBHOOK_SECRET;
 
@@ -23,7 +23,15 @@ export async function POST(req: NextRequest) {
   try {
     console.log(`[sanity-webhook] Syncing product: ${body._id}`);
     const repo = new SanityProductRepository();
-    const product = await repo.getProductForSync(body._id);
+    const product = await repo.tryGetProductForSync(body._id);
+
+    // Product deleted in Sanity → archive in Stripe
+    if (!product) {
+      console.log(`[sanity-webhook] Product deleted, archiving in Stripe: ${body._id}`);
+      const archiveResult = await archiveStripeProduct(body._id);
+      return NextResponse.json({ ok: true, archived: archiveResult });
+    }
+
     const result = await syncProductToStripe(product);
 
     // Only write back if something actually changed to prevent infinite webhook loop

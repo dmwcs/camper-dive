@@ -5,6 +5,14 @@ import type { ProductRepository, SyncableProduct, SyncResult } from "./types";
 
 export class SanityProductRepository implements ProductRepository {
   async getProductForSync(documentId: string): Promise<SyncableProduct> {
+    const product = await this.tryGetProductForSync(documentId);
+    if (!product) throw new Error(`Product not found: ${documentId}`);
+    return product;
+  }
+
+  async tryGetProductForSync(
+    documentId: string,
+  ): Promise<SyncableProduct | null> {
     const doc = await writeClient.fetch(
       `*[_type == "product" && _id == $id][0]{
         _id,
@@ -15,7 +23,7 @@ export class SanityProductRepository implements ProductRepository {
       { id: documentId },
     );
 
-    if (!doc) throw new Error(`Product not found: ${documentId}`);
+    if (!doc) return null;
 
     return {
       id: doc._id,
