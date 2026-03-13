@@ -21,14 +21,16 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    console.log(`[sanity-webhook] Syncing product: ${body._id}`);
     const repo = new SanityProductRepository();
     const product = await repo.getProductForSync(body._id);
     const result = await syncProductToStripe(product);
     await repo.writeBackStripeIds(result);
+    console.log(`[sanity-webhook] Sync complete:`, JSON.stringify(result, null, 2));
 
     return NextResponse.json({ ok: true, result });
   } catch (err) {
-    console.error("Sanity webhook sync error:", err);
+    console.error("[sanity-webhook] Sync error:", err);
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Unknown error" },
       { status: 500 },
