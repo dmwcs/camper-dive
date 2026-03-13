@@ -25,8 +25,18 @@ export async function POST(req: NextRequest) {
     const repo = new SanityProductRepository();
     const product = await repo.getProductForSync(body._id);
     const result = await syncProductToStripe(product);
-    await repo.writeBackStripeIds(result);
-    console.log(`[sanity-webhook] Sync complete:`, JSON.stringify(result, null, 2));
+
+    // Only write back if something actually changed to prevent infinite webhook loop
+    const hasChanges =
+      result.stripeProductId !== product.stripeProductId ||
+      result.variants.some((v) => v.created);
+
+    if (hasChanges) {
+      await repo.writeBackStripeIds(result);
+      console.log(`[sanity-webhook] Sync complete (wrote back IDs):`, JSON.stringify(result, null, 2));
+    } else {
+      console.log(`[sanity-webhook] Sync complete (no changes, skipped writeBack)`);
+    }
 
     return NextResponse.json({ ok: true, result });
   } catch (err) {
